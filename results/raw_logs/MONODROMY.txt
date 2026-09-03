@@ -1,0 +1,24 @@
+### p=8191 hexagon B=17 A=91
+# monodromy certificate  p=8191 A=91 B=17 hexagon
+# r   n'     d    gcd(Q,G)  Q sqfree  del  deg Delta Delta sqfr monodromy
+  6   154    2    0         yes       2    305       yes       S_n
+  6   154    7    0         yes       2    305       yes       S_n
+  6   154    14   0         yes       2    305       yes       S_n
+  3   306    2    0         yes       1    610       yes       S_n
+  3   308    7    0         yes       3    612       yes       fails
+  3   308    14   0         yes       3    612       yes       fails
+  2   460    2    17        yes       2    917       no        reducible (obstructed)
+  2   462    7    17        yes       4    919       no        reducible (obstructed)
+  2   462    14   17        yes       4    919       no        reducible (obstructed)
+### p=131071 hexagon B=17 A=21906
+# monodromy certificate  p=131071 A=21906 B=17 hexagon
+# r   n'     d    gcd(Q,G)  Q sqfree  del  deg Delta Delta sqfr monodromy
+  6   154    2    0         yes       2    305       yes       S_n
+  6   154    14   0         yes       2    305       yes       S_n
+  2   460    2    17        yes       2    917       no        reducible (obstructed)
+  2   462    14   17        yes       4    919       no        reducible (obstructed)
+### p=65537 box B=17 A=256
+# monodromy certificate  p=65537 A=256 B=17 box
+# r   n'     d    gcd(Q,G)  Q sqfree  del  deg Delta Delta sqfr monodromy
+  4   306    18   0         yes       1    610       yes       S_n
+  2   612    18   17        yes       1    1222      no        reducible (obstructed)

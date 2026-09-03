@@ -1,0 +1,5 @@
+# census2 p=8191 A=91 B=17 hexagon
+# r   n'     d    scanned  IRR      NORM     gcd(Q,G)
+  2   460    2    8190     0        0        17
+  2   462    7    8190     0        0        17
+  2   462    14   8190     0        0        17

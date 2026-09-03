@@ -1,0 +1,659 @@
+########## Zhao artifact, p=8191 (fatboot i=3 h=24) ##########
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN8191.patch:19106: trailing whitespace.
+  
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN8191.patch:19110: trailing whitespace.
+  
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN8191.patch:19582: trailing whitespace.
+  { 
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN8191.patch:19631: trailing whitespace.
+    tab.restoreContext();    
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN8191.patch:19634: trailing whitespace.
+    convert(array1, array);//将array由T转化为了vector<RX>    
+Applied patch to 'CMakeLists.txt' cleanly.
+Falling back to direct application...
+Falling back to direct application...
+Falling back to direct application...
+Falling back to direct application...
+Falling back to direct application...
+Falling back to direct application...
+Applied patch to 'examples/BGV_packed_arithmetic/BGV_packed_arithmetic.cpp' cleanly.
+Applied patch to 'include/helib/Context.h' cleanly.
+Applied patch to 'include/helib/Ctxt.h' cleanly.
+Applied patch to 'include/helib/DoubleCRT.h' cleanly.
+Applied patch to 'include/helib/EncodedPtxt.h' cleanly.
+Applied patch to 'include/helib/EncryptedArray.h' cleanly.
+Applied patch to 'include/helib/PAlgebra.h' cleanly.
+Applied patch to 'include/helib/PolyModRing.h' cleanly.
+Applied patch to 'include/helib/keys.h' cleanly.
+Applied patch to 'include/helib/matmul.h' cleanly.
+Applied patch to 'include/helib/polyEval.h' cleanly.
+Applied patch to 'include/helib/recryption.h' cleanly.
+Applied patch to 'misc/params1a.cpp' cleanly.
+Applied patch to 'src/Context.cpp' cleanly.
+Applied patch to 'src/Ctxt.cpp' cleanly.
+Applied patch to 'src/DoubleCRT.cpp' cleanly.
+Applied patch to 'src/EncryptedArray.cpp' cleanly.
+Applied patch to 'src/PAlgebra.cpp' cleanly.
+Applied patch to 'src/Ptxt.cpp' cleanly.
+Applied patch to 'src/extractDigits.cpp' cleanly.
+Applied patch to 'src/fhe_stats.cpp' cleanly.
+Applied patch to 'src/keys.cpp' cleanly.
+Applied patch to 'src/matmul.cpp' cleanly.
+Applied patch to 'src/polyEval.cpp' cleanly.
+Applied patch to 'src/recryption.cpp' cleanly.
+Applied patch to 'tests/GTestBootstrapping.cpp' cleanly.
+Applied patch to 'tests/GTestThinboot.cpp' cleanly.
+Falling back to direct application...
+warning: squelched 128 whitespace errors
+warning: 133 lines add whitespace errors.
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found GMP: /usr/local/lib/libgmp.so (found suitable version "6.2.1", minimum required is "6.2.0") 
+-- Found NTL: /usr/local/lib/libntl.so (found suitable version "11.5.1", minimum required is "11.4.3") 
+-- Looking for NTL_THREADS
+-- Looking for NTL_THREADS - found
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/luck/xzy/0724project/zhao_repro/HElib-clean/build
+[  1%] Building CXX object src/CMakeFiles/helib.dir/binaryArith.cpp.o
+[  3%] Building CXX object src/CMakeFiles/helib.dir/io.cpp.o
+[  5%] Building CXX object src/CMakeFiles/helib.dir/EncryptedArray.cpp.o
+[  7%] Building CXX object src/CMakeFiles/helib.dir/EvalMap.cpp.o
+[  9%] Building CXX object src/CMakeFiles/helib.dir/BenesNetwork.cpp.o
+[ 11%] Building CXX object src/CMakeFiles/helib.dir/binio.cpp.o
+[ 13%] Building CXX object src/CMakeFiles/helib.dir/keySwitching.cpp.o
+[ 15%] Building CXX object src/CMakeFiles/helib.dir/CModulus.cpp.o
+[ 19%] Building CXX object src/CMakeFiles/helib.dir/log.cpp.o
+[ 23%] Building CXX object src/CMakeFiles/helib.dir/binaryCompare.cpp.o
+[ 23%] Building CXX object src/CMakeFiles/helib.dir/bluestein.cpp.o
+[ 23%] Building CXX object src/CMakeFiles/helib.dir/Context.cpp.o
+[ 25%] Building CXX object src/CMakeFiles/helib.dir/matching.cpp.o
+[ 27%] Building CXX object src/CMakeFiles/helib.dir/Ctxt.cpp.o
+[ 29%] Building CXX object src/CMakeFiles/helib.dir/matmul.cpp.o
+[ 31%] Building CXX object src/CMakeFiles/helib.dir/debugging.cpp.o
+[ 33%] Building CXX object src/CMakeFiles/helib.dir/DoubleCRT.cpp.o
+[ 37%] Building CXX object src/CMakeFiles/helib.dir/NumbTh.cpp.o
+[ 37%] Building CXX object src/CMakeFiles/helib.dir/EaCx.cpp.o
+[ 41%] Building CXX object src/CMakeFiles/helib.dir/OptimizePermutations.cpp.o
+[ 39%] Building CXX object src/CMakeFiles/helib.dir/eqtesting.cpp.o
+[ 43%] Building CXX object src/CMakeFiles/helib.dir/fhe_stats.cpp.o
+[ 47%] Building CXX object src/CMakeFiles/helib.dir/hypercube.cpp.o
+[ 47%] Building CXX object src/CMakeFiles/helib.dir/extractDigits.cpp.o
+[ 50%] Building CXX object src/CMakeFiles/helib.dir/PAlgebra.cpp.o
+[ 50%] Building CXX object src/CMakeFiles/helib.dir/IndexSet.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/helib.dir/intraSlot.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/helib.dir/JsonWrapper.cpp.o
+[ 58%] Building CXX object src/CMakeFiles/helib.dir/keys.cpp.o
+[ 58%] Building CXX object src/CMakeFiles/helib.dir/intelExt.cpp.o
+[ 60%] Building CXX object src/CMakeFiles/helib.dir/norms.cpp.o
+[ 62%] Building CXX object src/CMakeFiles/helib.dir/PermNetwork.cpp.o
+[ 64%] Building CXX object src/CMakeFiles/helib.dir/permutations.cpp.o
+[ 66%] Building CXX object src/CMakeFiles/helib.dir/PGFFT.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/helib.dir/polyEval.cpp.o
+[ 70%] Building CXX object src/CMakeFiles/helib.dir/PolyMod.cpp.o
+/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/extractDigits.cpp:22:43: note: ‘#pragma message: 编译了 extractDigits.cpp’
+   22 | #pragma message("编译了 extractDigits.cpp")
+      |                                           ^
+/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/polyEval.cpp:25:38: note: ‘#pragma message: 编译了 polyEval.cpp’
+   25 | #pragma message("编译了 polyEval.cpp")
+      |                                      ^
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/PolyModRing.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/primeChain.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/powerful.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/recryption.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/Ptxt.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/zzX.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/timing.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/replicate.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/version.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/helib.dir/tableLookup.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/helib.dir/sample.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/helib.dir/randomMatrices.cpp.o
+[ 96%] Linking CXX static library ../lib/libhelib.a
+[ 96%] Built target helib
+[ 98%] Building CXX object CMakeFiles/fatboot.dir/tools/fatboot.cpp.o
+[100%] Linking CXX executable fatboot
+Copying data/params8191 next to fatboot
+[100%] Built target fatboot
+binary: ./fatboot
+---- run ----
+chosen idx = 3
+encapHwt = 24
+t for new bts is 1
+new bts ? 1
+new ks ? 1
+thick bts ?1
+repeat times = 1
+*** GTestFatboot: p=8191, r=1, bits=1320, t=0, c=3, m=45193 mvec=[43 1051], gens=[26276 32595], ords=[42 75]
+Computing key-independent tables...
+t = 1
+bound on I = 22.852118
+log2(aux) = 12.999824
+log2(beta) = 27.446094
+log2(qks) >= 43.142850, final log2(qks) = 43.142850
+log2(R) >= 29.614598, final log2(R) = 29.617522
+INFO: total bits = 1802.68, security level = 78.0208enew = 2
+zz_p modulus = 67092481
+degs of poly for the first row and its null poly are 8191 / 94
+security=78.0208
+# small primes = 6
+# ctxt primes = 23
+# bits in ctxt primes = 1332
+# special primes = 8
+# bits in special primes = 471
+scale=10
+ done in 768.742 seconds
+  e=0, e'=0, t=24
+  m = 45193, p = 8191, phi(m) = 44100
+  ord(p) = 14
+  normBnd = 1.62042
+  polyNormBnd = 4.65228
+  factors = [43 1051]
+  generator 26276 has order (== Z_m^*) of 42
+  generator 32595 has order (== Z_m^*) of 75
+r = 1
+nslots = 3150
+hwt = 120
+ctxtPrimes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+specialPrimes = [33,34,35,36,37,38,39,40]
+number of bits = 1803
+
+security level = 78.0208
+Generating keys, computing key-dependent tables...Sparse boot key hwt = 24
+ done in 50.1041 seconds
+recrypting
+[Linear1 stats] automorph=13 keySwitch=13 mult=0 add=1106 time=73405ms
+extractDigitsThin 
+0
+正在执行nBts,call_index =0
+extractDigitsThin 
+1
+正在执行nBts,call_index =1
+extractDigitsThin 
+2
+正在执行nBts,call_index =2
+extractDigitsThin 
+3
+正在执行nBts,call_index =3
+extractDigitsThin 
+4
+正在执行nBts,call_index =4
+extractDigitsThin 
+5
+正在执行nBts,call_index =5
+extractDigitsThin 
+6
+正在执行nBts,call_index =6
+extractDigitsThin 
+7
+正在执行nBts,call_index =7
+extractDigitsThin 
+8
+正在执行nBts,call_index =8
+extractDigitsThin 
+9
+正在执行nBts,call_index =9
+extractDigitsThin 
+10
+正在执行nBts,call_index =10
+extractDigitsThin 
+11
+正在执行nBts,call_index =11
+extractDigitsThin 
+12
+正在执行nBts,call_index =12
+extractDigitsThin 
+13
+正在执行nBts,call_index =13
+time for linear1 = 96.251331, linear2 = 65.749976, extract = 373.769294, total = 538.256545
+bits for linear1 = 114.029880, linear2 = 113.741055, extract = 374.174120, min cap = 15.696756, after cap = 677.140700, after prod = 1266.085931
+cap / time = 1.228864
+
+### summary over 1 test
+time for linear1 = 96.251331, linear2 = 65.749976, extract = 373.769294, total = 538.256545
+bits for linear1 = 114.029880, linear2 = 113.741055, extract = 374.174120, min cap = 15.696756, after cap = 677.140700, after prod = 1266.085931
+cap / time = 1.228864
+
+
+### bts finished, everything ok ###
+
+  AAA_LinearTransform1: 73.4023 / 1 = 73.4023   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1325]
+  AAA_LinearTransform2: 62.5631 / 1 = 62.5631   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1376]
+  AAA_embeddingLargest: 4.08465 / 1199 = 0.00340671   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/norms.cpp:250]
+  AAA_embeddingLargest_x2: 1.83072 / 551 = 0.00332254   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/norms.cpp:423]
+  AAA_extractDigitsPacked: 399.797 / 1 = 399.797   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1354]
+  AAA_modDownEnbeddings: 2.22927 / 551 = 0.00404586   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:514]
+  AAA_preProcess: 2.45635 / 1 = 2.45635   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:983]
+  BasicAutomorphPrecon: 50.1502 / 50 = 1.003   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/matmul.cpp:70]
+  BluesteinFFT: 228.606 / 56183 = 0.00406896   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/bluestein.cpp:141]
+  CRT_reconstruct: 1.2438 / 13 = 0.0956772   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/PAlgebra.cpp:1018]
+  CompMod: 0.016488 / 13 = 0.00126831   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/PAlgebra.cpp:981]
+  Decrypt: 0.782754 / 1 = 0.782754   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/keys.cpp:1350]
+  DoubleCRT: 141.552 / 1540 = 0.091917   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:718]
+  FFT: 178.914 / 41743 = 0.00428608   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:479]
+  FFT: 226.957 / 41743 = 0.005437   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:448]
+  FFT: 227.047 / 2119 = 0.107148   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:70]
+  FFT_aux: 178.803 / 41743 = 0.00428342   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:360]
+  FFT_remainder: 47.9681 / 41743 = 0.00114913   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:455]
+  KS_loop: 43.7345 / 1471 = 0.0297311   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:227]
+  KS_loop_1: 4.79213 / 1471 = 0.00325774   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:235]
+  KS_loop_2: 7.55732 / 1471 = 0.00513754   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:239]
+  KS_loop_3: 4.97781 / 1471 = 0.00338396   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:244]
+  KS_loop_4: 3.51095 / 1471 = 0.00238678   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:248]
+  NORM_VAL: 5.43359 / 760 = 0.00714946   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:541]
+  addCtxt: 22.2096 / 2604 = 0.00852902   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1468]
+  addPart: 15.8149 / 3679 = 0.0042987   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:914]
+  addPrimes: 141.257 / 761 = 0.185621   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:625]
+  addPrimes_5: 148.898 / 760 = 0.195918   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:518]
+  automorph: 0.411845 / 53 = 0.00777066   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:2502]
+  automorph: 39.6868 / 308 = 0.128853   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/matmul.cpp:118]
+  breakIntoDigits: 150.097 / 272 = 0.551827   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:481]
+  do_mul: 32.5942 / 8795 = 0.00370599   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:280]
+  embedInSlots: 1.2613 / 13 = 0.0970234   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/PAlgebra.cpp:951]
+  extractDigitsPacked: 399.797 / 1 = 399.797   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1509]
+  extractDigitsThin: 373.765 / 14 = 26.6975   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1856]
+  frobeniusAutomorph: 11.1411 / 14 = 0.795791   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:2591]
+  iFFT: 101.645 / 14440 = 0.00703915   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:488]
+  iFFT_division: 38.5489 / 14440 = 0.00266959   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:570]
+  keySwitchPart: 136.134 / 223 = 0.610466   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:845]
+  modDownToSet: 240.254 / 594 = 0.404468   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:417]
+  mul_BlockMatMul1DExec: 120.874 / 2 = 60.4371   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/matmul.cpp:1749]
+  mul_MatMul1DExec: 15.091 / 2 = 7.5455   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/matmul.cpp:1025]
+  multByConstant: 10.3804 / 196 = 0.0529614   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1922]
+  multByConstant: 21.3686 / 2576 = 0.00829526   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1896]
+  multLowLvl: 153.126 / 168 = 0.911466   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1743]
+  multiplyBy: 262.844 / 140 = 1.87746   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1820]
+  multiplyBy2: 42.174 / 14 = 3.01243   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1840]
+  privateAssign: 6.59508 / 1088 = 0.00606165   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:337]
+  randomize: 18.5007 / 1471 = 0.012577   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:1318]
+  randomize_stream: 10.3658 / 8472092 = 1.22352e-06   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:1348]
+  reCrypt: 538.251 / 1 = 538.251   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:919]
+  reLinearize: 208.272 / 292 = 0.71326   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:744]
+  repack: 3.18543 / 1 = 3.18543   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1609]
+  smartAutomorph: 56.1685 / 53 = 1.05978   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:2527]
+  toPoly: 144.025 / 2006 = 0.071797   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:985]
+  toPoly_CRT: 26.6126 / 2006 = 0.0132665   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:1052]
+  toPoly_FFT: 115.561 / 2006 = 0.0576075   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:1030]
+  unpack: 22.8443 / 1 = 22.8443   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1514]
+  unpack1: 1.68089 / 1 = 1.68089   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1527]
+  unpack2: 17.6092 / 1 = 17.6092   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1538]
+  unpack3: 3.02744 / 1 = 3.02744   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1553]
+  rusage.ru_maxrss=32050460
+||||| stats |||||
+KS-noise-ratio ave=0.0059382 max=0.948191
+KS-noise-ratio-hoist ave=6.41435e-06 max=2.55998e-05
+break-into-digits-ratio ave=0.32276 max=0.427562
+excess-ctxtPrimes ave=11.6528 max=11.6528
+excess-specialPrimes ave=3.57505 max=3.57505
+mod-switch-added-noise ave=0.324256 max=0.396429
+ptxt_rat_sk ave=0.168 max=0.329356
+raw-mod-switch-noise ave=0.32704 max=0.32704
+window1-nchoices ave=7 max=7
+window1-out ave=0 max=0
+window2-nchoices ave=4.73377 max=9
+window2-out ave=0 max=0
+||||| stats |||||
+KS-noise-ratio ave=0.0059382 max=0.948191
+KS-noise-ratio-hoist ave=6.41435e-06 max=2.55998e-05
+break-into-digits-ratio ave=0.32276 max=0.427562
+excess-ctxtPrimes ave=11.6528 max=11.6528
+excess-specialPrimes ave=3.57505 max=3.57505
+mod-switch-added-noise ave=0.324256 max=0.396429
+ptxt_rat_sk ave=0.168 max=0.329356
+raw-mod-switch-noise ave=0.32704 max=0.32704
+window1-nchoices ave=7 max=7
+window1-out ave=0 max=0
+window2-nchoices ave=4.73377 max=9
+window2-out ave=0 max=0
+exit=0 for p=8191
+########## Zhao artifact, p=65537 (fatboot i=4 h=24) ##########
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN65537.patch:14120: trailing whitespace.
+  
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN65537.patch:14124: trailing whitespace.
+  
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN65537.patch:14596: trailing whitespace.
+  { 
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN65537.patch:14645: trailing whitespace.
+    tab.restoreContext();    
+/home/luck/xzy/0724project/zhao_repro/artifact-helib/patches/GN65537.patch:14648: trailing whitespace.
+    convert(array1, array);//将array由T转化为了vector<RX>    
+Applied patch to 'CMakeLists.txt' cleanly.
+Falling back to direct application...
+Falling back to direct application...
+Falling back to direct application...
+Falling back to direct application...
+Falling back to direct application...
+Applied patch to 'examples/BGV_packed_arithmetic/BGV_packed_arithmetic.cpp' cleanly.
+Applied patch to 'include/helib/Context.h' cleanly.
+Applied patch to 'include/helib/Ctxt.h' cleanly.
+Applied patch to 'include/helib/DoubleCRT.h' cleanly.
+Applied patch to 'include/helib/EncodedPtxt.h' cleanly.
+Applied patch to 'include/helib/EncryptedArray.h' cleanly.
+Applied patch to 'include/helib/PAlgebra.h' cleanly.
+Applied patch to 'include/helib/PolyModRing.h' cleanly.
+Applied patch to 'include/helib/keys.h' cleanly.
+Applied patch to 'include/helib/matmul.h' cleanly.
+Applied patch to 'include/helib/polyEval.h' cleanly.
+Applied patch to 'include/helib/recryption.h' cleanly.
+Applied patch to 'misc/params1a.cpp' cleanly.
+Applied patch to 'src/Context.cpp' cleanly.
+Applied patch to 'src/Ctxt.cpp' cleanly.
+Applied patch to 'src/DoubleCRT.cpp' cleanly.
+Applied patch to 'src/EncryptedArray.cpp' cleanly.
+Applied patch to 'src/PAlgebra.cpp' cleanly.
+Applied patch to 'src/Ptxt.cpp' cleanly.
+Applied patch to 'src/extractDigits.cpp' cleanly.
+Applied patch to 'src/fhe_stats.cpp' cleanly.
+Applied patch to 'src/keys.cpp' cleanly.
+Applied patch to 'src/matmul.cpp' cleanly.
+Applied patch to 'src/polyEval.cpp' cleanly.
+Applied patch to 'src/recryption.cpp' cleanly.
+Applied patch to 'tests/GTestBootstrapping.cpp' cleanly.
+Applied patch to 'tests/GTestThinboot.cpp' cleanly.
+Falling back to direct application...
+warning: squelched 123 whitespace errors
+warning: 128 lines add whitespace errors.
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found GMP: /usr/local/lib/libgmp.so (found suitable version "6.2.1", minimum required is "6.2.0") 
+-- Found NTL: /usr/local/lib/libntl.so (found suitable version "11.5.1", minimum required is "11.4.3") 
+-- Looking for NTL_THREADS
+-- Looking for NTL_THREADS - found
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/luck/xzy/0724project/zhao_repro/HElib-clean/build
+[  1%] Building CXX object src/CMakeFiles/helib.dir/CModulus.cpp.o
+[  3%] Building CXX object src/CMakeFiles/helib.dir/Context.cpp.o
+[  5%] Building CXX object src/CMakeFiles/helib.dir/Ctxt.cpp.o
+[  7%] Building CXX object src/CMakeFiles/helib.dir/binio.cpp.o
+[  9%] Building CXX object src/CMakeFiles/helib.dir/io.cpp.o
+[ 11%] Building CXX object src/CMakeFiles/helib.dir/binaryArith.cpp.o
+[ 17%] Building CXX object src/CMakeFiles/helib.dir/EvalMap.cpp.o
+[ 17%] Building CXX object src/CMakeFiles/helib.dir/bluestein.cpp.o
+[ 17%] Building CXX object src/CMakeFiles/helib.dir/BenesNetwork.cpp.o
+[ 21%] Building CXX object src/CMakeFiles/helib.dir/DoubleCRT.cpp.o
+[ 21%] Building CXX object src/CMakeFiles/helib.dir/extractDigits.cpp.o
+[ 23%] Building CXX object src/CMakeFiles/helib.dir/EaCx.cpp.o
+[ 25%] Building CXX object src/CMakeFiles/helib.dir/debugging.cpp.o
+[ 27%] Building CXX object src/CMakeFiles/helib.dir/binaryCompare.cpp.o
+[ 29%] Building CXX object src/CMakeFiles/helib.dir/eqtesting.cpp.o
+[ 31%] Building CXX object src/CMakeFiles/helib.dir/NumbTh.cpp.o
+[ 33%] Building CXX object src/CMakeFiles/helib.dir/hypercube.cpp.o
+[ 35%] Building CXX object src/CMakeFiles/helib.dir/fhe_stats.cpp.o
+[ 37%] Building CXX object src/CMakeFiles/helib.dir/log.cpp.o
+[ 41%] Building CXX object src/CMakeFiles/helib.dir/EncryptedArray.cpp.o
+[ 41%] Building CXX object src/CMakeFiles/helib.dir/intraSlot.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/helib.dir/matching.cpp.o
+[ 45%] Building CXX object src/CMakeFiles/helib.dir/IndexSet.cpp.o
+[ 49%] Building CXX object src/CMakeFiles/helib.dir/keys.cpp.o
+[ 49%] Building CXX object src/CMakeFiles/helib.dir/keySwitching.cpp.o
+[ 50%] Building CXX object src/CMakeFiles/helib.dir/JsonWrapper.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/helib.dir/OptimizePermutations.cpp.o
+[ 54%] Building CXX object src/CMakeFiles/helib.dir/PermNetwork.cpp.o
+[ 56%] Building CXX object src/CMakeFiles/helib.dir/intelExt.cpp.o
+[ 58%] Building CXX object src/CMakeFiles/helib.dir/norms.cpp.o
+[ 60%] Building CXX object src/CMakeFiles/helib.dir/matmul.cpp.o
+[ 62%] Building CXX object src/CMakeFiles/helib.dir/PAlgebra.cpp.o
+[ 64%] Building CXX object src/CMakeFiles/helib.dir/permutations.cpp.o
+[ 66%] Building CXX object src/CMakeFiles/helib.dir/PGFFT.cpp.o
+[ 68%] Building CXX object src/CMakeFiles/helib.dir/polyEval.cpp.o
+[ 70%] Building CXX object src/CMakeFiles/helib.dir/PolyMod.cpp.o
+/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/extractDigits.cpp:22:43: note: ‘#pragma message: 编译了 extractDigits.cpp’
+   22 | #pragma message("编译了 extractDigits.cpp")
+      |                                           ^
+[ 74%] Building CXX object src/CMakeFiles/helib.dir/powerful.cpp.o
+[ 74%] Building CXX object src/CMakeFiles/helib.dir/PolyModRing.cpp.o
+[ 76%] Building CXX object src/CMakeFiles/helib.dir/primeChain.cpp.o
+[ 78%] Building CXX object src/CMakeFiles/helib.dir/Ptxt.cpp.o
+[ 80%] Building CXX object src/CMakeFiles/helib.dir/randomMatrices.cpp.o
+/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/polyEval.cpp:25:38: note: ‘#pragma message: 编译了 polyEval.cpp’
+   25 | #pragma message("编译了 polyEval.cpp")
+      |                                      ^
+[ 82%] Building CXX object src/CMakeFiles/helib.dir/recryption.cpp.o
+[ 84%] Building CXX object src/CMakeFiles/helib.dir/sample.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/timing.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/helib.dir/version.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/helib.dir/zzX.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/helib.dir/tableLookup.cpp.o
+[ 94%] Building CXX object src/CMakeFiles/helib.dir/replicate.cpp.o
+[ 96%] Linking CXX static library ../lib/libhelib.a
+[ 96%] Built target helib
+[ 98%] Building CXX object CMakeFiles/fatboot.dir/tools/fatboot.cpp.o
+[100%] Linking CXX executable fatboot
+Copying data/params65537 next to fatboot
+[100%] Built target fatboot
+binary: ./fatboot
+---- run ----
+chosen idx = 4
+encapHwt = 24
+t for new bts is 1
+new bts ? 1
+new ks ? 1
+thick bts ?1
+repeat times = 1
+*** GTestFatboot: p=65537, r=1, bits=1500, t=0, c=3, m=50731 mvec=[97 523], gens=[48117 5239], ords=[96 29]
+Computing key-independent tables...
+t = 1
+bound on I = 22.988948
+log2(aux) = 16.000022
+log2(beta) = 30.546816
+log2(qks) >= 49.244247, final log2(qks) = 49.244247
+log2(R) >= 31.815399, final log2(R) = 31.815649
+INFO: total bits = 2035.46, security level = 78.3637enew = 2
+zz_p modulus = 4295098369
+degs of poly for the first row and its null poly are 65537 / 94
+security=78.3637
+# small primes = 6
+# ctxt primes = 26
+# bits in ctxt primes = 1505
+# special primes = 9
+# bits in special primes = 530
+scale=10
+ done in 1092.13 seconds
+  e=0, e'=0, t=24
+  m = 50731, p = 65537, phi(m) = 50112
+  ord(p) = 18
+  normBnd = 1.62099
+  polyNormBnd = 5.6346
+  factors = [97 523]
+  generator 48117 has order (== Z_m^*) of 96
+  generator 5239 has order (== Z_m^*) of 29
+r = 1
+nslots = 2784
+hwt = 120
+ctxtPrimes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+specialPrimes = [36,37,38,39,40,41,42,43,44]
+number of bits = 2036
+
+security level = 78.3637
+Generating keys, computing key-dependent tables...Sparse boot key hwt = 24
+ done in 43.0967 seconds
+recrypting
+WARNING: KS-noise-ratio = 1.06153 > 1
+[Linear1 stats] automorph=26 keySwitch=26 mult=0 add=646 time=55203ms
+extractDigitsThin 
+0
+正在执行nBts,call_index =0
+extractDigitsThin 
+1
+正在执行nBts,call_index =1
+extractDigitsThin 
+2
+正在执行nBts,call_index =2
+extractDigitsThin 
+3
+正在执行nBts,call_index =3
+extractDigitsThin 
+4
+正在执行nBts,call_index =4
+extractDigitsThin 
+5
+正在执行nBts,call_index =5
+extractDigitsThin 
+6
+正在执行nBts,call_index =6
+extractDigitsThin 
+7
+正在执行nBts,call_index =7
+extractDigitsThin 
+8
+正在执行nBts,call_index =8
+extractDigitsThin 
+9
+正在执行nBts,call_index =9
+extractDigitsThin 
+10
+正在执行nBts,call_index =10
+extractDigitsThin 
+11
+正在执行nBts,call_index =11
+extractDigitsThin 
+12
+正在执行nBts,call_index =12
+extractDigitsThin 
+13
+正在执行nBts,call_index =13
+extractDigitsThin 
+14
+正在执行nBts,call_index =14
+extractDigitsThin 
+15
+正在执行nBts,call_index =15
+extractDigitsThin 
+16
+正在执行nBts,call_index =16
+extractDigitsThin 
+17
+正在执行nBts,call_index =17
+time for linear1 = 85.241013, linear2 = 89.382694, extract = 422.655651, total = 599.893744
+bits for linear1 = 131.308069, linear2 = 144.087066, extract = 439.357581, min cap = 18.697431, after cap = 731.866091, after prod = 1430.618785
+cap / time = 1.188825
+
+### summary over 1 test
+time for linear1 = 85.241013, linear2 = 89.382694, extract = 422.655651, total = 599.893744
+bits for linear1 = 131.308069, linear2 = 144.087066, extract = 439.357581, min cap = 18.697431, after cap = 731.866091, after prod = 1430.618785
+cap / time = 1.188825
+
+
+### bts finished, everything ok ###
+
+  AAA_LinearTransform1: 55.2015 / 1 = 55.2015   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1283]
+  AAA_LinearTransform2: 80.0696 / 1 = 80.0696   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1334]
+  AAA_embeddingLargest: 3.93758 / 1217 = 0.00323548   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/norms.cpp:250]
+  AAA_embeddingLargest_x2: 1.99755 / 633 = 0.00315569   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/norms.cpp:423]
+  AAA_extractDigitsPacked: 462.01 / 1 = 462.01   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1312]
+  AAA_modDownEnbeddings: 2.37881 / 597 = 0.00398461   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:514]
+  AAA_preProcess: 2.56959 / 1 = 2.56959   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:941]
+  BasicAutomorphPrecon: 40.867 / 40 = 1.02167   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/matmul.cpp:70]
+  BluesteinFFT: 285.994 / 69661 = 0.00410551   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/bluestein.cpp:141]
+  CRT_reconstruct: 4.23489 / 17 = 0.249111   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/PAlgebra.cpp:1018]
+  CompMod: 0.044763 / 17 = 0.00263312   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/PAlgebra.cpp:981]
+  Decrypt: 0.838095 / 1 = 0.838095   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/keys.cpp:1350]
+  DoubleCRT: 179.679 / 1648 = 0.109028   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:718]
+  FFT: 224.53 / 52390 = 0.00428574   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:479]
+  FFT: 285.8 / 52390 = 0.00545524   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:448]
+  FFT: 285.88 / 2375 = 0.120371   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:70]
+  FFT_aux: 224.453 / 52390 = 0.00428427   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:360]
+  FFT_remainder: 61.2078 / 52390 = 0.00116831   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:455]
+  KS_loop: 38.0815 / 1155 = 0.032971   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:227]
+  KS_loop_1: 4.20176 / 1155 = 0.00363788   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:235]
+  KS_loop_2: 5.74974 / 1155 = 0.00497813   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:239]
+  KS_loop_3: 5.15921 / 1155 = 0.00446685   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:244]
+  KS_loop_4: 2.97394 / 1155 = 0.00257484   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:248]
+  NORM_VAL: 5.88584 / 834 = 0.00705737   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:541]
+  addCtxt: 12.9229 / 1778 = 0.00726821   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1468]
+  addPart: 11.8302 / 2891 = 0.00409208   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:914]
+  addPrimes: 173.034 / 835 = 0.207226   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:625]
+  addPrimes_5: 181.494 / 834 = 0.217619   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:518]
+  automorph: 0.973952 / 87 = 0.0111949   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:2502]
+  automorph: 21.3867 / 150 = 0.142578   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/matmul.cpp:118]
+  breakIntoDigits: 182.781 / 308 = 0.593446   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:481]
+  do_mul: 29.9976 / 6547 = 0.00458189   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:280]
+  embedInSlots: 4.28188 / 17 = 0.251875   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/PAlgebra.cpp:951]
+  extractDigitsPacked: 462.01 / 1 = 462.01   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1467]
+  extractDigitsThin: 422.649 / 18 = 23.4805   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1812]
+  frobeniusAutomorph: 14.1151 / 18 = 0.784173   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:2591]
+  iFFT: 118.628 / 17271 = 0.00686863   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:488]
+  iFFT_division: 41.2789 / 17271 = 0.00239007   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/CModulus.cpp:570]
+  keySwitchPart: 180.708 / 269 = 0.671777   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:845]
+  modDownToSet: 290.632 / 634 = 0.458409   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:417]
+  mul_BlockMatMul1DExec: 101.66 / 2 = 50.8298   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/matmul.cpp:1749]
+  mul_MatMul1DExec: 33.6114 / 2 = 16.8057   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/matmul.cpp:1025]
+  multByConstant: 15.2617 / 162 = 0.0942082   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1922]
+  multByConstant: 18.94 / 1722 = 0.0109989   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1896]
+  multLowLvl: 163.471 / 180 = 0.908175   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1743]
+  multiplyBy: 207.926 / 108 = 1.92524   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1820]
+  multiplyBy2: 132.166 / 36 = 3.67128   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:1840]
+  privateAssign: 5.21418 / 1039 = 0.00501846   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:337]
+  randomize: 16.5867 / 1155 = 0.0143608   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:1318]
+  randomize_stream: 9.25435 / 8495165 = 1.08937e-06   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:1348]
+  reCrypt: 599.908 / 1 = 599.908   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:877]
+  reLinearize: 285.566 / 334 = 0.854989   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:744]
+  repack: 9.32221 / 1 = 9.32221   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1565]
+  smartAutomorph: 109.251 / 87 = 1.25576   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/Ctxt.cpp:2527]
+  toPoly: 167.84 / 2248 = 0.0746619   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:985]
+  toPoly_CRT: 30.6612 / 2248 = 0.0136393   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:1052]
+  toPoly_FFT: 134.687 / 2248 = 0.0599143   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/DoubleCRT.cpp:1030]
+  unpack: 30.0358 / 1 = 30.0358   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1472]
+  unpack1: 2.0401 / 1 = 2.0401   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1485]
+  unpack2: 22.351 / 1 = 22.351   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1496]
+  unpack3: 5.16528 / 1 = 5.16528   [/home/luck/xzy/0724project/zhao_repro/HElib-clean/src/recryption.cpp:1511]
+  rusage.ru_maxrss=27337368
+||||| stats |||||
+KS-noise-ratio ave=0.00440468 max=1.06153
+KS-noise-ratio-hoist ave=1.55865e-09 max=6.23459e-08
+break-into-digits-ratio ave=0.324887 max=0.406423
+excess-ctxtPrimes ave=5.43078 max=5.43078
+excess-specialPrimes ave=4.50846 max=4.50846
+mod-switch-added-noise ave=0.326438 max=0.397622
+ptxt_rat_sk ave=0.180435 max=0.351116
+raw-mod-switch-noise ave=0.325584 max=0.325584
+window1-nchoices ave=4.5 max=5
+window1-out ave=0 max=0
+window2-nchoices ave=4.59028 max=9
+window2-out ave=0 max=0
+||||| stats |||||
+KS-noise-ratio ave=0.00440468 max=1.06153
+KS-noise-ratio-hoist ave=1.55865e-09 max=6.23459e-08
+break-into-digits-ratio ave=0.324887 max=0.406423
+excess-ctxtPrimes ave=5.43078 max=5.43078
+excess-specialPrimes ave=4.50846 max=4.50846
+mod-switch-added-noise ave=0.326438 max=0.397622
+ptxt_rat_sk ave=0.180435 max=0.351116
+raw-mod-switch-noise ave=0.325584 max=0.325584
+window1-nchoices ave=4.5 max=5
+window1-out ave=0 max=0
+window2-nchoices ave=4.59028 max=9
+window2-out ave=0 max=0
+exit=0 for p=65537
+ALL DONE
