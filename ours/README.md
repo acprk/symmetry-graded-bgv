@@ -26,10 +26,13 @@ git clone https://github.com/homenc/HElib.git HElib-patched
 cd HElib-patched
 git checkout 3e337a66a91a92d49de6a9505340826b0eb71081
 
-# 2. Apply our patch
-patch -p1 < ../patches/order4_order6_composed.patch
-# (equivalently: cp ../src/extractDigits.cpp src/extractDigits.cpp -- the patch and the
-#  full file in src/ are the same change, offered in both forms for convenience)
+# 2. Apply our patch (verified to reproduce ours/src/extractDigits.cpp exactly)
+cp src/extractDigits.cpp /tmp/extractDigits.cpp   # the patch's paths assume this name
+patch -p0 /tmp/extractDigits.cpp < ../patches/order4_order6_composed.patch
+cp /tmp/extractDigits.cpp src/extractDigits.cpp
+# (equivalently, and more simply: cp ../src/extractDigits.cpp src/extractDigits.cpp --
+#  the patch and the full file in src/ are the same change, offered in both forms so a
+#  reviewer can read either the diff or the whole file, whichever is more legible)
 
 # 3. Build HElib as usual (see HElib's own INSTALL.md), e.g.
 mkdir build && cd build
