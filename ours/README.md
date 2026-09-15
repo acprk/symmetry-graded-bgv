@@ -1,103 +1,108 @@
 # Building the composed `(r,d)` evaluator
 
-This is a single-file patch to vanilla HElib's digit-extraction implementation
-(`src/extractDigits.cpp`), plus a thin-bootstrapping test driver (`fatboot-driver/`) built
-on top of it. It implements, in one code path selected by environment variables, every
-arm compared in the paper:
+## Two layers, and why they are kept separate
 
-| Environment variables | Evaluator | Corresponds to |
-|---|---|---|
-| (none set) | generic / odd bounded-support | Ma et al., EUROCRYPT'24 |
-| `HELIB_AUX_ORDER4_EVAL=1` | order-4 character filter | Xiong et al. (this line of work's prior paper) |
-| `HELIB_AUX_ORDER4_EVAL=1 HELIB_FILTER_ORDER=6` | order-6 Eisenstein filter | this paper, §5 (new) |
-| `HELIB_AUX_ORDER4_EVAL=1 HELIB_COMPOSED_EVAL=1` | order-4 + Galois norm map, composed | this paper, §6–7 |
-| `HELIB_AUX_ORDER4_EVAL=1 HELIB_FILTER_ORDER=6 HELIB_COMPOSED_EVAL=1` | order-6 + Galois norm map, composed | this paper, the headline configuration |
+This artifact reaches its measured configuration in two patches against vanilla HElib
+(`homenc/HElib` at commit `3e337a6`), applied in order, because they come from two
+different places and we want that distinction to be checkable, not asserted:
 
-Running all arms through **one code path** with only an environment variable changed is
-what makes the ratios in Tables 4, 5, 7 and 8 head-to-head: the ring, modulus chain, key,
-and support are byte-identical across arms, and only the digit-extraction polynomial
-evaluator differs.
+**Layer 1** (`patches/layer1_infrastructure.patch`) is the *aux-radix thin-bootstrapping
+infrastructure* this paper's constructions are built on top of: the parameterisation of
+the recryption pipeline by an auxiliary radix (`Context::aux_param`, `t_param`, the
+`newBtsFlag` code path), which realises the bounded-support construction of Ma et
+al., EUROCRYPT'24 natively inside HElib rather than as an external wrapper. **This layer
+is not a contribution of this paper.** It is the common substrate every arm in Tables 4,
+5, 7 and 8 runs on, including the `MA_BASELINE` arm (Section "Building each baseline" in
+`../baselines/README.md`), and we ship it as its own patch precisely so that it is visible
+as a separate, clearly-attributed layer rather than folded invisibly into "our code".
+
+**Layer 2** (`patches/layer2_order456_composed_extractDigits.patch` and
+`patches/layer2_explicit_aux_recryption.patch`) is what this paper actually contributes:
+the generalisation of the order-four split to an arbitrary order `r`, the order-six
+construction on the orbit closure, the composed `(r,d)` evaluator (`ComposedEval`), and
+the small `recryption.cpp` hook that lets the radix be pinned explicitly
+(`HELIB_EXPLICIT_AUX`) so that every arm of a comparison uses the identical radix. Layer 2
+is what changes between the `MA_BASELINE` / `ORDER4` / `COMPOSED` arms of every table.
+
+`ours/src/` ships the complete, final source of both touched files for readability;
+`apply_all.sh` reconstructs them from vanilla HElib through both layers and verifies the
+result is byte-identical to what is shipped — run it yourself:
+
+```bash
+./apply_all.sh ./HElib-patched      # clones vanilla HElib, applies both layers, diffs
+```
 
 ## Build
 
 ```bash
-# 1. Vanilla HElib at the pinned base commit
-git clone https://github.com/homenc/HElib.git HElib-patched
+./apply_all.sh HElib-patched
 cd HElib-patched
-git checkout 3e337a66a91a92d49de6a9505340826b0eb71081
-
-# 2. Apply our patch (verified to reproduce ours/src/extractDigits.cpp exactly)
-cp src/extractDigits.cpp /tmp/extractDigits.cpp   # the patch's paths assume this name
-patch -p0 /tmp/extractDigits.cpp < ../patches/order4_order6_composed.patch
-cp /tmp/extractDigits.cpp src/extractDigits.cpp
-# (equivalently, and more simply: cp ../src/extractDigits.cpp src/extractDigits.cpp --
-#  the patch and the full file in src/ are the same change, offered in both forms so a
-#  reviewer can read either the diff or the whole file, whichever is more legible)
-
-# 3. Build HElib as usual (see HElib's own INSTALL.md), e.g.
 mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=$PWD/../_install -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_INSTALL_PREFIX=$PWD/../../_install -DCMAKE_BUILD_TYPE=Release ..
 make -j"$(nproc)" && make install
 
-# 4. Build the thin-bootstrapping driver against the installed library
 cd ../../fatboot-driver
 mkdir build && cd build
-cmake -Dhelib_DIR=$PWD/../../HElib-patched/_install/share/cmake/helib ..
+cmake -Dhelib_DIR=$PWD/../../_install/share/cmake/helib ..
 make -j"$(nproc)"
 ```
 
 ## Running an arm
 
+Every arm below runs the *same binary*; only the environment variables change, which is
+what makes the comparisons in the paper head-to-head (identical ring, modulus chain, key,
+and support in every arm of a case).
+
 ```bash
-export HELIB_EXPLICIT_AUX=256       # the auxiliary radix's box-form representative
-export HELIB_ZZX_CACHE_DIR=$PWD/cache   # see VERIFICATION.md: this cache affects timing
+export HELIB_EXPLICIT_AUX=256        # the auxiliary radix, box form
+export HELIB_ZZX_CACHE_DIR=$PWD/cache
 unset HELIB_AUX_ORDER4_EVAL HELIB_COMPOSED_EVAL HELIB_FILTER_ORDER
 
-# Ma et al. baseline:
+# Ma et al. baseline (odd bounded-support filter):
 ./fatboot i=4 h=12 t=-1 newbts=1 newks=1 thick=0 repeat=1
 
-# order-4 filter (Xiong et al.):
+# order-4 filter (Xiong et al., this line of work's prior paper):
 HELIB_AUX_ORDER4_EVAL=1 ./fatboot i=4 h=12 t=-1 newbts=1 newks=1 thick=0 repeat=1
 
-# our composed evaluator:
+# our composed evaluator (order-4 + Galois norm map):
 HELIB_AUX_ORDER4_EVAL=1 HELIB_COMPOSED_EVAL=1 \
   ./fatboot i=4 h=12 t=-1 newbts=1 newks=1 thick=0 repeat=1
+
+# order-6 (Eisenstein), at a Mersenne prime where order-4 does not exist:
+HELIB_EXPLICIT_AUX=90 HELIB_AUX_ORDER4_EVAL=1 HELIB_FILTER_ORDER=6 \
+  ./fatboot i=3 h=12 t=-1 newbts=1 newks=1 thick=0 repeat=1
 ```
 
-`i=4` selects the parameter set index built into the driver (Case V, `p=65537`,
-`m=50731`); `i=3` selects Case IV (`p=8191`, `m=45193`, a Mersenne prime, where
-`HELIB_AUX_ORDER4_EVAL` alone has no effect since no order-4 radix exists — see
-`rem:mersenne` — and `HELIB_FILTER_ORDER=6` must be added to reach anything beyond the
+`i=4` is Case V (`p=65537`, `m=50731`); `i=3` is Case IV (`p=8191`, `m=45193`, a Mersenne
+prime, where `HELIB_AUX_ORDER4_EVAL` alone has no effect since no order-4 radix exists —
+`rem:mersenne` — and `HELIB_FILTER_ORDER=6` is needed to reach anything past the
 baseline).
 
-## What `extractDigits.cpp` actually changes
+## What layer 2 actually changes, file by file
 
-The patch (`patches/order4_order6_composed.patch`, 1074 lines against the 310-line
-vanilla file) adds, without touching any code path the baseline arm executes:
+`extractDigits.cpp`:
+1. `compute_prime_aux_poly_order6` — builds the order-six polynomial on the orbit
+   closure of the caller's own box, basis-free (it propagates the low-digit map along
+   the order-six orbit via the covariance relation and declines if the orbit does not
+   close consistently, rather than guessing).
+2. `splitFilterCleaner` / the evaluator — generalised from the hard-coded order-4 split
+   to an arbitrary order `r`.
+3. `buildComposedPlan` — offline half of `ComposedEval` (Algorithm 1): folds by `X^r`,
+   pads `Γ` until `d | deg Γ`, searches `Q + (Γ)` for a norm form, factors it, encodes `C`.
+4. `composedBsgsEnc` / `composedOrbitProduct` — online half: baby-step/giant-step on `C`
+   (not a Horner chain — see `../VERIFICATION.md` rule 4) composed with the Frobenius
+   doubling schedule.
+5. An activation announcement printed once, the first time the composed branch is
+   *evaluated*, not when its plan is built — see `../VERIFICATION.md` rule 1.
 
-1. `compute_prime_aux_poly_order6` — builds the order-six digit-extraction polynomial on
-   the *orbit closure* of the caller's own box (basis-free: it propagates the low-digit
-   map along the order-six orbit using the covariance relation, and declines rather than
-   guessing if the orbit does not close consistently).
-2. `splitFilterCleaner` / the evaluator loop — generalised from the hard-coded order-4
-   split (`X, X^2, X^3, X^4`) to an arbitrary order `r` (`X, ..., X^{r-1}, X^r`).
-3. `buildComposedPlan` — the offline half of `ComposedEval` (Algorithm 1 of the paper):
-   folds the interpolant by `X^r`, pads the vanishing ideal `Γ` until `d | deg Γ`,
-   searches the coset `Q + (Γ)` for a norm form, factors it over the slot ring, and
-   encodes the resulting constant `C` into plaintext slots.
-4. `composedBsgsEnc` / `composedOrbitProduct` — the online half: a baby-step/giant-step
-   evaluation of `C` (not a Horner chain — see `VERIFICATION.md` for why this distinction
-   is load-bearing for the capacity numbers in Table 6) composed with the Frobenius
-   doubling schedule that closes the norm-map orbit.
-5. An activation announcement (`std::cout << "HELIB_COMPOSED_EVAL active: ..."`) printed
-   exactly once, the first time the composed branch is actually *evaluated* on a
-   ciphertext — not when the plan is merely built. Every script in `../experiments/`
-   `grep`s for this line before trusting a log's numbers; see `VERIFICATION.md`.
+`recryption.cpp`: one addition, reading `HELIB_EXPLICIT_AUX` to pin the radix explicitly
+(so all arms of a comparison share it) instead of always deriving it from the noise
+bound. Everything else in this file's diff against layer 1 is layer 1 itself; the layer-2
+patch for this file is 271 lines, almost all of it this one hook.
 
-## `dev_history/`
+## Scope
 
-The patch above is the *final* state. `dev_history/` additionally ships the sequence of
-smaller patches applied during development (the BSGS-vs-Horner fix, the order-6
-generalisation, the monodromy-label fix, etc.), each with the commit message explaining
-what it corrected and why, for readers who want the paper trail rather than only the
-end state. They are not needed to reproduce any table; the single patch above is.
+The two layers above are the final, complete state; there is no intermediate development
+history shipped in this artifact (the paper's `VERIFICATION.md` documents the one
+regression this development process caught and fixed, as a worked example, without
+requiring the intermediate patches themselves).

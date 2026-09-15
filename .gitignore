@@ -1,11 +1,5 @@
+build/
+_build*/
+HElib-patched/
 __pycache__/
 *.pyc
-*.o
-*.a
-build/
-_install/
-_upstream/
-cache/
-experiments/logs/
-*.log
-!results/raw_logs/*.log

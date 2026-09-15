@@ -1,0 +1,16 @@
+chosen idx = 20
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=3307, r=1, bits=1500, t=0, c=3, m=55801 mvec=[41 1361], gens=[50358 13613], ords=[5 1360]
+Computing key-independent tables...terminate called after throwing an instance of 'helib::LogicError'
+  what():  Invalid argument: sig and reps have inconsistent dimension
+timeout: the monitored command dumped core
+Command terminated by signal 6
+WALL=186.60 s
+exit=134

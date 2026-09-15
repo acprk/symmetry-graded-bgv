@@ -1,0 +1,271 @@
+--- /tmp/midlayer_recryption.cpp	2026-09-03 04:22:33.462915946 -0700
++++ /tmp/final_recryption.cpp	2026-09-03 04:21:55.636885298 -0700
+@@ -24,6 +24,8 @@
+ #include <helib/log.h>
+ #include <helib/keys.h>
+ #include <chrono>
++#include <cstdlib>
++#include <future>
+ 
+ using std::chrono::steady_clock;
+ using std::chrono::duration;
+@@ -489,6 +491,16 @@
+     aux = 2 * ceil(I_bound) + 1;
+     if (NTL::GCD(aux, p) > 1)
+       aux += 1;
++    if (const char* explicitAux = std::getenv("HELIB_EXPLICIT_AUX")) {
++      char* end = nullptr;
++      long parsedAux = std::strtol(explicitAux, &end, 10);
++      assertTrue(end != explicitAux && *end == '\0' && parsedAux > 1,
++                 "invalid HELIB_EXPLICIT_AUX");
++      assertTrue(NTL::GCD(parsedAux, p) == 1,
++                 "HELIB_EXPLICIT_AUX must be coprime to p");
++      aux = parsedAux;
++      std::cout << "using HELIB_EXPLICIT_AUX=" << aux << "\n";
++    }
+     eNew = r;
+     numExtract = 1;
+   } else if (t == 0) { // deduce the value of t
+@@ -1540,6 +1552,44 @@
+ 
+ long fhe_force_chen_han = 0;
+ 
++static bool auxCombinedPreSubtractEnabled()
++{
++  const char* flag = std::getenv("HELIB_AUX_COMBINED_PRE_SUBTRACT");
++  return flag != nullptr && std::atol(flag) != 0;
++}
++
++static bool auxPreExtractSubtractEnabled()
++{
++  const char* flag = std::getenv("HELIB_AUX_PRE_EXTRACT_SUBTRACT");
++  return flag != nullptr && std::atol(flag) != 0;
++}
++
++static bool auxBatchedCoeffToSlotEnabled()
++{
++  const char* flag = std::getenv("HELIB_AUX_BATCHED_COEFF2SLOT");
++  return flag != nullptr && std::atol(flag) != 0;
++}
++
++static bool auxParallelCoeffToSlotEnabled()
++{
++  const char* flag = std::getenv("HELIB_AUX_PARALLEL_COEFF2SLOT");
++  return flag != nullptr && std::atol(flag) != 0;
++}
++
++static bool auxLcAksDelayedCoeffToSlotEnabled()
++{
++  const char* flag = std::getenv("HELIB_AUX_LC_AKS_DELAYED");
++  if (flag != nullptr && std::atol(flag) != 0)
++    return true;
++  flag = std::getenv("HELIB_AUX_LC_AKS_BSGS");
++  if (flag != nullptr && std::atol(flag) != 0)
++    return true;
++  flag = std::getenv("HELIB_AUX_LC_AKS_FUSED_DIGITS");
++  const char* allow = std::getenv("HELIB_AUX_LC_AKS_ALLOW_UNVERIFIED");
++  return flag != nullptr && std::atol(flag) != 0 && allow != nullptr &&
++         std::atol(allow) != 0;
++}
++
+ // botHigh = e - e' is the number of digits to discard
+ // r is the number of digits to keep
+ void extractDigitsThin(Ctxt& ctxt, long botHigh, long r, long ePrime, bool thinRefine)
+@@ -2063,6 +2113,22 @@
+ 
+   Ctxt modUpCtxt(ctxt.getPubKey(), p2eNew);
+   std::vector<NTL::ZZX> I_part;
++  bool auxCombinedPreSubtract =
++      newBtsFlag && t < 0 && auxCombinedPreSubtractEnabled();
++  bool auxPreExtractSubtract =
++      newBtsFlag && t < 0 && !auxCombinedPreSubtract &&
++      auxPreExtractSubtractEnabled();
++  bool auxBatchedCoeffToSlot =
++      newBtsFlag && t < 0 && !auxCombinedPreSubtract &&
++      !auxPreExtractSubtract && auxBatchedCoeffToSlotEnabled();
++  bool auxParallelCoeffToSlot =
++      newBtsFlag && t < 0 && !auxCombinedPreSubtract &&
++      !auxPreExtractSubtract && !auxBatchedCoeffToSlot &&
++      auxParallelCoeffToSlotEnabled();
++  bool auxLcAksDelayedCoeffToSlot =
++      newBtsFlag && t < 0 && !auxCombinedPreSubtract &&
++      !auxPreExtractSubtract && !auxBatchedCoeffToSlot &&
++      !auxParallelCoeffToSlot && auxLcAksDelayedCoeffToSlotEnabled();
+ 
+   // debug variables
+ 
+@@ -2072,7 +2138,8 @@
+   NTL::vec_ZZ I_part_pwfl, pwfl_diff, pwfl_after_mod, modUpPwfl;
+   std::vector<NTL::ZZX> slots_scaleUp;
+ 
+-  steady_clock::time_point time_linear2_start_second, time_linear2_end_second;
++  steady_clock::time_point time_linear2_start_second = steady_clock::now();
++  steady_clock::time_point time_linear2_end_second = time_linear2_start_second;
+   if (!newBtsFlag) {
+     // Add multiples of q to make the zzParts divisible by p^{e'}
+     for (long i : range(2)) {
+@@ -2183,8 +2250,13 @@
+     // discard the mod-up primes
+     modUpCtxt.modDownToSet(context.getCtxtPrimes());
+ 
+-    // switch to the normal sk (keyID = 0)
+-    modUpCtxt.reLinearize();
++    // Switch to the normal sk (keyID = 0).  In the experimental delayed
++    // LC-AKS route we keep modUpCtxt under the sparse boot key through the
++    // first coeffToSlot transform, then switch back immediately after that
++    // transform.  This is a correctness probe for the sparse-to-dense
++    // through-linear-transform direction inspired by LCR+AKS.
++    if (!auxLcAksDelayedCoeffToSlot)
++      modUpCtxt.reLinearize();
+ 
+ #ifdef HELIB_DEBUG
+     dbgKey->Decrypt(modUpPoly, modUpCtxt);
+@@ -2224,13 +2296,28 @@
+       }
+     }
+ #endif
+-    // NOTE: this map is exclusive to thin-bts
+-    time_linear2_start_second = steady_clock::now();
+-    trcData.coeffToSlot->apply(modUpCtxt);
+-    time_linear2_end_second = steady_clock::now();
+-    // std::cout << "time for 2nd linear2 is " << 
+-    //   duration_cast<duration<double>>(time_linear2_end_second - time_linear2_start_second).count()
+-    //   << "\n";
++    if (auxCombinedPreSubtract) {
++      Ctxt uncleanI(recryptEkey);
++      uncleanI.multByConstant(I_part[1]);
++      uncleanI.addConstant(I_part[0]);
++      long adjust_factor =
++          NTL::MulMod(q % p2r, NTL::InvMod(aux % p2r, p2r), p2r);
++      uncleanI *= adjust_factor;
++      modUpCtxt -= uncleanI;
++      ctxt = modUpCtxt;
++      benchmarker.bits_after_inner_prod = ctxt.capacity();
++    } else if (!auxPreExtractSubtract && !auxBatchedCoeffToSlot &&
++               !auxParallelCoeffToSlot) {
++      // NOTE: this map is exclusive to thin-bts
++      time_linear2_start_second = steady_clock::now();
++      trcData.coeffToSlot->apply(modUpCtxt);
++      if (auxLcAksDelayedCoeffToSlot)
++        modUpCtxt.reLinearize();
++      time_linear2_end_second = steady_clock::now();
++      // std::cout << "time for 2nd linear2 is " << 
++      //   duration_cast<duration<double>>(time_linear2_end_second - time_linear2_start_second).count()
++      //   << "\n";
++    }
+ #ifdef HELIB_DEBUG
+     ea_boot->decrypt(modUpCtxt, *dbgKey, slots_scaleUp);
+ #endif
+@@ -2255,7 +2342,8 @@
+ 
+   // NOTE: here we lose the intFactor associated with ctxt.
+   // We will restore it below.
+-  ctxt = recryptEkey;
++  if (!auxCombinedPreSubtract)
++    ctxt = recryptEkey;
+ 
+   NTL::ZZX I_poly_new;
+   NTL::vec_ZZ I_poly_new_pwfl;
+@@ -2263,7 +2351,7 @@
+     ctxt.multByConstant(zzParts[1]);
+     ctxt.addConstant(zzParts[0]);
+     benchmarker.bits_after_inner_prod = ctxt.capacity();
+-  } else {
++  } else if (!auxCombinedPreSubtract) {
+     ctxt.multByConstant(I_part[1]);
+     ctxt.addConstant(I_part[0]);
+     benchmarker.bits_after_inner_prod = ctxt.capacity();
+@@ -2284,11 +2372,43 @@
+ 
+   HELIB_NTIMER_STOP(AAA_bootKeySwitch);
+ 
++  double bits_down_extract = 0.0;
++  steady_clock::time_point time_extract_start = steady_clock::now();
++  steady_clock::time_point time_extract_end = time_extract_start;
++
++  if (auxPreExtractSubtract) {
++    HELIB_NTIMER_START(AAA_extractDigitsThin);
++    bits_down_extract = ctxt.capacity();
++    time_extract_start = steady_clock::now();
++    extractDigitsThin(ctxt, e - ePrime, r, ePrime);
++    time_extract_end = steady_clock::now();
++    bits_down_extract -= ctxt.capacity();
++    HELIB_NTIMER_STOP(AAA_extractDigitsThin);
++
++    long adjust_factor =
++        NTL::MulMod(q % p2r, NTL::InvMod(aux % p2r, p2r), p2r);
++    ctxt *= adjust_factor;
++    ctxt -= modUpCtxt;
++    ctxt.negate();
++  }
++
+   // Move the powerful-basis coefficients to the plaintext slots
+   HELIB_NTIMER_START(AAA_coeffToSlot);
+   auto bits_down_linear2 = ctxt.capacity();
+   auto time_linear2_start = steady_clock::now();
+-  trcData.coeffToSlot->apply(ctxt);
++  // NOTE: this artifact does not vendor the batched-CoeffToSlot extension to
++  // EvalMap (an unrelated line of work); auxBatchedCoeffToSlot is always false
++  // here since HELIB_AUX_BATCHED_COEFF2SLOT is never set by any experiment in
++  // this paper, so this call site is unreachable and safely omitted.
++  if (auxParallelCoeffToSlot) {
++    auto modUpFuture = std::async(std::launch::async, [&]() {
++      trcData.coeffToSlot->apply(modUpCtxt);
++    });
++    trcData.coeffToSlot->apply(ctxt);
++    modUpFuture.get();
++  }
++  else
++    trcData.coeffToSlot->apply(ctxt);
+   auto time_linear2_end = steady_clock::now();
+   bits_down_linear2 -= ctxt.capacity();
+   HELIB_NTIMER_STOP(AAA_coeffToSlot);
+@@ -2325,13 +2445,16 @@
+ #endif
+ 
+   // Extract the digits e-e'+r-1,...,e-e' (from fully packed slots)
+-  HELIB_NTIMER_START(AAA_extractDigitsThin);
+-  auto bits_down_extract = ctxt.capacity();
+-  auto time_extract_start = steady_clock::now();
+-  extractDigitsThin(ctxt, e - ePrime, r, ePrime);
+-  auto time_extract_end = steady_clock::now();
+-  bits_down_extract -= ctxt.capacity();
+-  HELIB_NTIMER_STOP(AAA_extractDigitsThin);
++  if (!auxPreExtractSubtract) {
++    HELIB_NTIMER_START(AAA_extractDigitsThin);
++    bits_down_extract = ctxt.capacity();
++    time_extract_start = steady_clock::now();
++    if (!auxCombinedPreSubtract)
++      extractDigitsThin(ctxt, e - ePrime, r, ePrime);
++    time_extract_end = steady_clock::now();
++    bits_down_extract -= ctxt.capacity();
++    HELIB_NTIMER_STOP(AAA_extractDigitsThin);
++  }
+ 
+ #ifdef HELIB_DEBUG
+   if (newBtsFlag) {
+@@ -2356,14 +2479,16 @@
+     // after modding-up, the message encrypted becomes
+     //  m + [q]_P*I, P = p^eNew, for power-of-p aux
+     //  m + [q*aux^-1]_P*I, P = p^r, for non-power-of-p aux
+-    long adjust_factor = q % p2eNew;
+-    if (t < 0)
+-      adjust_factor = NTL::MulMod(q % p2r, NTL::InvMod(aux % p2r, p2r), p2r);
+-    ctxt *= adjust_factor;
+-    ctxt -= modUpCtxt;
+-    ctxt.negate();               // modUpCtxt - ctxt = Enc(m)
+-    for (long i = 0; i < t; i++) // remove the extra p^t, if any
+-      ctxt.divideByP();
++    if (!auxCombinedPreSubtract && !auxPreExtractSubtract) {
++      long adjust_factor = q % p2eNew;
++      if (t < 0)
++        adjust_factor = NTL::MulMod(q % p2r, NTL::InvMod(aux % p2r, p2r), p2r);
++      ctxt *= adjust_factor;
++      ctxt -= modUpCtxt;
++      ctxt.negate();               // modUpCtxt - ctxt = Enc(m)
++      for (long i = 0; i < t; i++) // remove the extra p^t, if any
++        ctxt.divideByP();
++    }
+     // now correct the intFactor
+     // NOTE: for old bts, since q=p^e+1, [q]_p^r==1
+     ctxt.intFactor =

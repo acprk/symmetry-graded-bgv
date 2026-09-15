@@ -17,7 +17,7 @@ d | deg F, which the orbit product requires.
 """
 import re, sys
 
-F = "/home/luck/xzy/0424project/github_order4_cleaner/src/HElib_auxradix_opt/src/extractDigits.cpp"
+F = "$HELIB_SRC/src/extractDigits.cpp"
 s = open(F).read()
 if "HELIB_COMPOSED_EVAL" in s:
     print("already patched"); sys.exit(0)

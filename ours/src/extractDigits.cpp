@@ -746,12 +746,24 @@ static bool polyEvalOrderFourCleaner(Ctxt& ret,
   if (!splitFilterCleaner(q, linearCoeff, poly, ord))
     return false;
 
-  // powers x^2 .. x^u and the folding power x^ord (ord-1 non-scalar products)
+  // powers x^u (assembly) and x^ord (folding). Only these two are used below;
+  // for ord=6 a balanced schedule reaches both in 4 products at depth 3
+  // (x^2, x^3=x^2*x, x^6=(x^3)^2, x^5=x^2*x^3) instead of the 5-product,
+  // depth-5 sequential chain x^2,x^3,x^4,x^5,x^6. For ord=4 the sequential
+  // chain is already minimal (3 products): x^3 is itself a needed stepping
+  // stone to x^4 there, unlike x^4 for ord=6.
   std::vector<Ctxt> pw(ord + 1, x);
-  for (long k = 2; k <= ord; k++) {
-    pw[k] = pw[k - 1];
-    pw[k].multiplyBy(x);
-    pw[k].reLinearize();
+  if (ord == 6) {
+    pw[2] = pw[1]; pw[2].multiplyBy(x); pw[2].reLinearize();       // x^2
+    pw[3] = pw[2]; pw[3].multiplyBy(x); pw[3].reLinearize();       // x^3
+    pw[6] = pw[3]; pw[6].multiplyBy(pw[3]); pw[6].reLinearize();   // x^6 = (x^3)^2
+    pw[5] = pw[2]; pw[5].multiplyBy(pw[3]); pw[5].reLinearize();   // x^5 = x^2*x^3
+  } else {
+    for (long k = 2; k <= ord; k++) {
+      pw[k] = pw[k - 1];
+      pw[k].multiplyBy(x);
+      pw[k].reLinearize();
+    }
   }
   Ctxt& x3 = pw[u];      // the assembly power X^{ord-1}
   Ctxt& x4 = pw[ord];    // the folding power  X^{ord}
@@ -778,18 +790,16 @@ static bool polyEvalOrderFourCleaner(Ctxt& ret,
   // -------------------------------------------------------------------------
 
   if (NTL::deg(q) >= 0) {
-    const char* asymBsgsEnv = getenv("HELIB_ASYM_BSGS");
-    if (asymBsgsEnv) {
-      long num = atol(asymBsgsEnv);
-      if (num < 2) num = 3;
-      PolyEvalAsymBSGB(qEval, x4, q, num);
-    } else {
-      std::vector<Ctxt*> qRet{&qEval};
-      NTL::vec_ZZX qVec;
-      qVec.SetLength(1);
-      qVec[0] = q;
-      polyEvalNew(qRet, qVec, x4);
-    }
+    // NOTE: this artifact evaluates Q by the standard Paterson-Stockmeyer path.
+    // The paper notes (Related Work) that the scalar filter composes orthogonally
+    // with the asymmetric BSGS method of a separate line of work; we do not ship
+    // an implementation of that separate method here, since no table in this
+    // paper depends on it.
+    std::vector<Ctxt*> qRet{&qEval};
+    NTL::vec_ZZX qVec;
+    qVec.SetLength(1);
+    qVec[0] = q;
+    polyEvalNew(qRet, qVec, x4);
     qEval.multiplyBy(x3);
     qEval.reLinearize();
   } else {

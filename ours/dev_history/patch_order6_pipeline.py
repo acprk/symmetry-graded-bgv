@@ -11,7 +11,7 @@ Four changes:
   3. polyEvalOrderFourCleaner -> powers x^2..x^{r-1}, x^r instead of hardcoded x^2,x^3,x^4.
   4. buildComposedPlan -> folds by X^r using the folded support recorded at build time.
 """
-F = "/home/luck/xzy/0424project/github_order4_cleaner/src/HElib_auxradix_opt/src/extractDigits.cpp"
+F = "$HELIB_SRC/src/extractDigits.cpp"
 s = open(F).read()
 if "compute_prime_aux_poly_order6" in s:
     print("already patched"); raise SystemExit

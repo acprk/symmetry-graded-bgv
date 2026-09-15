@@ -1,0 +1,9 @@
+======================================================================================================================
+set28-p15377-h12 MAIN          n=53640  log2q=2026.35  h=120  -> MIN=87.2 via primal_hybrid_nb | primal_usvp=90.4, primal_bdd=90.4, primal_hybrid=87.6, dual=91.0, dual_hybrid=91.4 | [1190s]
+set28-p15377-h12 ENCAP         n=53640  log2q=66.41    h=12   -> MIN=92.2 via primal_hybrid_nb | primal_hybrid=93.9 | [265s]
+set29-p13457-h26 MAIN          n=62776  log2q=1406.93  h=120  -> MIN=129.8 via primal_hybrid_nb | primal_usvp=153.4, primal_bdd=153.1, primal_hybrid=130.9, dual=154.4, dual_hybrid=153.9 | [872s]
+set29-p13457-h26 ENCAP         n=62776  log2q=66.42    h=26   -> MIN=158.5 via primal_hybrid_nb | primal_hybrid=162.2 | [395s]
+======================================================================================================================
+set                      phi(m)      main    encap      MIN  binding   main_argmin    encap_argmin  
+set28-p15377-h12         53640       87.2     92.2     87.2  main      primal_hybrid_nb primal_hybrid_nb
+set29-p13457-h26         62776      129.8    158.5    129.8  main      primal_hybrid_nb primal_hybrid_nb

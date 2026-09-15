@@ -10,33 +10,37 @@ This repository is the experimental artifact for the paper. It contains:
 2. **`baselines/`** — build recipes pinning the exact upstream commits of the three
    constructions this paper is measured against, so that the comparison is against the
    authors' own code, not our reimplementation of it.
-3. **`ours/`** — the patch that turns vanilla HElib into the composed `(r,d)` evaluator
+3. **`ours/`** — the two-layer patch that turns vanilla HElib into the composed `(r,d)` evaluator
    (order-4, order-6, and the Galois-norm composition), plus the thin-bootstrapping driver
    used to measure it.
 4. **`experiments/`** — the exact scripts used to produce every table in the paper's
-   evaluation section, from the pure-arithmetic selector predictions (Table 6) to the
-   full-census exhaustive verification of the density theorem (Table 9).
-5. **`results/raw_logs/`** — the actual, unedited stdout logs from the runs that produced
+   evaluation section, from the pure-arithmetic selector predictions (`tab:offline`) to the
+   full-census exhaustive verification of the density theorem (`tab:census`).
+5. **`newexp/`** — the extended sweep of Section 6 and Appendix D: 17 general cyclotomic rings at `h=12` and five at `h=26`, every arm on identical ring, chain, key and support, with the per-ring Lattice Estimator security, the raw logs and the scripts that produce every table and figure.
+6. **`results/raw_logs/`** — the actual, unedited stdout logs from the runs that produced
    the numbers in the paper. Every number quoted in the tables can be grepped out of these
    files; nothing here is a summary or a simulation.
 
 ## Correspondence between paper tables and this repository
 
-| Paper table | What it measures | Where it comes from |
+Numbering refers to the current manuscript (Section 6 and Appendices C, D).
+
+| Paper table / figure | What it measures | Where it comes from |
 |---|---|---|
-| Table 1 (`tab:related_compare`) | Asymptotic comparison, prior work vs. this work | prose / literature, no script |
-| Table 3 (`tab:rho`) | Effective order ρ per admissible scalar order and region | `selector/select.py` (the `rho` column) |
-| Table 4 (`tab:plan`) | Selector predictions on the state of the art's own sets, *no ciphertext* | `selector/select.py`, `--self-test` |
-| Table 12 (`tab:select`) | Selector predictions on 8 parameter sets | `selector/select.py`, `--self-test` |
-| Table 5 (`tab:e2e`) | End-to-end thin bootstrapping, 3 baselines + ours | `experiments/12_..._case4_order6.sh`, `13_..._case5_bsgsfix.sh`, `14_..._case5_pass2.sh` |
-| Table 6 (`tab:capacity`) | Depth/capacity, our format vs. Zhao et al.'s | `results/raw_logs/table_unified.log`, `table_fix.log` |
-| Table 7 (`tab:po2`) | Scalar axis on power-of-two rings, real ciphertexts | `experiments/11_table_po2_composed_backtoback.sh` |
-| Table 8 (`tab:composed`) | Composed `(r,d)` evaluator vs. scalar axis alone | `experiments/11_table_po2_composed_backtoback.sh` |
-| Table 9 (`tab:census`) | Exhaustive census of the folded coset (obstruction + density) | `experiments/01_full_census_naive.cpp` / `02_full_census_fast.cpp` |
-| Table 10 (`tab:rscan`) | Exhaustive scan of scalar orders r=1..32 | `selector/select.py --rmax 32` (see `baselines/README.md` note) |
-| Table 11 (`tab:monodromy`) | Monodromy certificate (H1–H4) for the composed pencil | `experiments/05_monodromy_certificate.cpp` |
-| Theorem "Obstruction for the odd filter" | `gcd(Q,Γ)` computation | `experiments/04_obstruction_check.cpp` |
-| Reproduction of Zhao et al.'s own artifact (Discussion, §8) | Their own configuration, thick bootstrapping | `results/raw_logs/build_and_run.log`, `zhao_thin24.log` |
+| Table 3 (`tab:results`), Fig. 7 | Six representative rings: parameters, security, three evaluators end to end | `newexp/final/final_rows.json`, `newexp/make_origin_figs.py`; raw logs `newexp/logs/set*_pass*.log` |
+| Table 4 (`tab:comparison`) | Prior implementations at Ma et al.'s set V | `newexp/logs/` (Ma / Xiong–Wang / ours), `results/raw_logs/zhao_thin24.log`, `build_and_run.log` (Zhao et al.'s artifact), `baselines/README.md` |
+| App. D, `tab:offline` | Selector output per ring: radix, degrees, coset index, search time, chains, capacity | `newexp/collect.py`, `newexp/make_final.py` → `newexp/final/tab_offline.tex` |
+| App. D, `tab:sec_full` | Lattice Estimator, six attacks, main and encapsulated key, every ring | `newexp/security/estimate_security.py`, `newexp/security/est_h*_slice*.json` |
+| App. D, `tab:e2e`, `tab:e2e128` | All 17 rings at h=12 and 5 rings at h=26 | `newexp/final/tables_final.tex` |
+| App. D, `tab:po2`, `tab:composed` | Scalar axis and composed evaluator on shared contexts | `experiments/11_table_po2_composed_backtoback.sh`, `results/raw_logs/O6_backtoback.log` |
+| App. D, `tab:passes` | Reproducibility across two passes | `newexp/final/tab_passes.tex` |
+| App. C, `tab:census` | Exhaustive census of the folded coset (obstruction + density) | `experiments/01_full_census_naive.cpp` / `02_full_census_fast.cpp`, `07_make_census_table.py` |
+| App. C, monodromy certificate | Hypotheses H1–H4 for the composed pencil | `experiments/05_monodromy_certificate.cpp` |
+| Lemma "obstruction at r = 2" | `gcd(Q, Γ)` of degree 2B for the unfiltered polynomial | `experiments/04_obstruction_check.cpp` |
+| Selector `Select` | Cost-optimal `(r*, d)` before any ciphertext exists | `selector/select.py` |
+
+The machine-checked Lean 4 proofs of the algebraic core and of the noise model live in the
+companion repository `symmetry-graded-lean`.
 
 ## Quick start
 
@@ -66,30 +70,30 @@ the accompanying (unmodified) linear-transform time recorded as a load barometer
 ## Repository layout
 
 ```
-artifact/
+.
 ├── README.md                  (this file)
 ├── VERIFICATION.md            (measurement discipline, with a worked example)
-├── selector/
-│   └── select.py              (standalone (r,d) selector; --self-test replays paper tables)
-├── baselines/
-│   └── README.md              (pinned commits + build recipes for Ma'24, Zhao'26, Geelen'23)
+├── selector/select.py         (standalone (r,d) selector; --self-test replays the paper's rows)
+├── baselines/README.md        (pinned commits + build recipes for Ma'24, Xiong–Wang'26, Zhao'26, Geelen'23)
 ├── ours/
-│   ├── README.md              (how to build the patched HElib and the fatboot driver)
-│   ├── patches/
-│   │   ├── order4_order6_composed.patch      (unified diff, vanilla HElib -> ours)
-│   │   └── extractDigits.vanilla-3e337a6.cpp (the base file the patch is against)
-│   ├── src/extractDigits.cpp  (the patched file in full, for readability)
-│   ├── fatboot-driver/        (thin-bootstrapping test driver + its own patch)
-│   └── dev_history/           (the incremental patches applied during development, for
-│                                transparency; the single unified patch above is what a
-│                                fresh build should apply)
-├── experiments/
-│   ├── 01-02_full_census_*.cpp        (Table 9, two independent implementations)
-│   ├── 03_census_predict.py            (exact cycle-type prediction, no sampling)
-│   ├── 04_obstruction_check.cpp        (gcd(Q,Gamma) obstruction theorem check)
-│   ├── 05_monodromy_certificate.cpp    (Table 10, hypotheses H1-H4)
-│   ├── 06_density_validation.cpp       (3-level density: IRR/NORM/ZHAO, with padding)
-│   ├── 07_make_census_table.py         (renders Table 9 from the .cpp output)
-│   └── 10-14_table_*.sh                (Tables 4/7/8, real ciphertext runs)
-└── results/raw_logs/           (unedited stdout of every run cited above)
+│   ├── README.md              (two-layer patch structure, build, how to run one arm)
+│   ├── apply_all.sh           (vanilla HElib 3e337a6 → layer 1 → layer 2, byte-verified against src/)
+│   ├── patches/               (layer1_infrastructure, layer2_order456_composed_extractDigits, layer2_explicit_aux_recryption)
+│   ├── src/                   (extractDigits.cpp, recryption.cpp in full)
+│   ├── fatboot-driver/        (thin-bootstrapping driver `fatboot`, presets 3/4 = Ma et al.'s sets IV/V, 14–33 = new rings)
+│   └── dev_history/           (incremental development patches and the legacy single patch, for transparency)
+├── newexp/                    (the extended sweep behind Section 6 and Appendix D)
+│   ├── README.md              (arms, environment variables, parameter sets)
+│   ├── sets.tsv, sets128.tsv, cases.tsv   (rings at h=12, h=26, and Ma et al.'s sets)
+│   ├── run_batch*.sh, run_pool.sh, arms.sh (drivers; set ARTIFACT to this directory's parent if not auto-detected)
+│   ├── collect.py, make_final.py, make_origin_figs.py (log parsing, pass selection, tables and figures)
+│   ├── logs/                  (unedited driver output of every run)
+│   ├── final/                 (final_rows.json and every LaTeX table and figure in the paper)
+│   └── security/              (estimate_security.py and the estimator output per ring; needs LATTICE_ESTIMATOR=<checkout>)
+├── experiments/               (census, obstruction, monodromy, density, shared-context scripts)
+└── results/raw_logs/          (unedited stdout of the shared-context and Zhao-artifact runs)
 ```
+
+Absolute paths of the machine the runs were made on have been replaced by the
+placeholders `$ARTIFACT`, `$HELIB_SRC`, `$ORDER4_SRC`, `$ZHAO_SRC`, `$LATTICE_ESTIMATOR`
+in scripts and logs; nothing else in the logs was edited.

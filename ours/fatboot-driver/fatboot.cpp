@@ -89,8 +89,12 @@ struct Parameters
                                  outer_rep(outer_rep),
                                  inner_rep(inner_rep)
     {
-        if (global_gens.empty() || global_ords.empty() || global_mvec.empty())
-            throw helib::LogicError("gens, ords, and mvec must be non-empty");
+        if (global_mvec.empty())
+            throw helib::LogicError("mvec must be non-empty");
+        // gens/ords may be left empty: HElib's own PAlgebra constructor
+        // (see NumbTh.cpp findGenerators) derives them automatically from
+        // mvec when none are supplied, which is what the "custom" mode below
+        // relies on for parameter sets nobody hand-tuned gens/ords for.
     };
 
     friend std::ostream &operator<<(std::ostream &os, const Parameters &params)
@@ -644,6 +648,20 @@ int main(int argc, char *argv[])
     long force_hoist_arg = 0;
     amap.arg("forcehoist", force_hoist_arg, "force hoisted automorphisms: 0 default/on, -1 off");
 
+    // Custom-parameter mode: run at a (p, m=m1*m2, B) triple nobody hand-tuned
+    // gens/ords for, letting HElib's own findGenerators (NumbTh.cpp) derive
+    // the hypercube structure automatically. i= is ignored when custom=1.
+    long custom_arg = 0;
+    amap.arg("custom", custom_arg, "1 to use cp/cm1/cm2/cbits instead of the indexed parameter table");
+    long cp_arg = 3019;
+    amap.arg("cp", cp_arg, "custom plaintext prime p");
+    long cm1_arg = 71;
+    amap.arg("cm1", cm1_arg, "custom mvec first factor");
+    long cm2_arg = 503;
+    amap.arg("cm2", cm2_arg, "custom mvec second factor");
+    long cbits_arg = 1300;
+    amap.arg("cbits", cbits_arg, "custom modulus chain bit budget");
+
     amap.parse(argc, argv);
     // some candidate primes:
     // 2^14 - 3
@@ -877,6 +895,167 @@ int main(int argc, char *argv[])
                     0, 0, force_chen_han, 0, 0,
                 // global_gens,global_ords,global_mvec,outer_rep,inner_rep
                 {14313, 3587}, {10, 447}, {11, 1789}, 1, 5),
+/*N14*/  Parameters( // p=2971 (7 mod 12), order-six A=55, d=4, m=49589=17*2917, nslots=11664
+                // p, r, c, bits, h
+                2971, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {20420, 26878}, {16, 729}, {17, 2917}, 1, 5),
+/*N15*/  Parameters( // p=4423 (7 mod 12), order-six A=67, d=3, m=50633=11*4603, nslots=15340
+                // p, r, c, bits, h
+                4423, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {41428, 13817}, {10, 1534}, {11, 4603}, 1, 5),
+/*N16*/  Parameters( // p=13807 (7 mod 12), order-six A=118, d=7, m=43837=59*743, nslots=6148
+                // p, r, c, bits, h
+                13807, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {20062, 5311}, {58, 106}, {59, 743}, 1, 5),
+/*N17*/  Parameters( // p=19183 (7 mod 12), order-six A=139, d=12, m=44347=727*61, nslots=3630
+                // p, r, c, bits, h
+                19183, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {9456, 25446}, {726, 5}, {727, 61}, 1, 5),
+/*N18*/  Parameters( // p=37831 (7 mod 12), order-six A=195, d=4, m=37637=617*61, nslots=9240
+                // p, r, c, bits, h
+                37831, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {32087, 22830}, {616, 15}, {617, 61}, 1, 5),
+/*N19*/  Parameters( // p=60271 (7 mod 12), order-six A=246, d=4, m=60517=73*829, nslots=14904
+                // p, r, c, bits, h
+                60271, 1, 3, 1500, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {14094, 53072}, {72, 207}, {73, 829}, 1, 5),
+/*N20*/  Parameters( // p=3307 (7 mod 12), order-six A=58, d=8, m=60371=827*73, nslots=7434
+                // p, r, c, bits, h
+                3307, 1, 3, 1500, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {2483, 57891}, {826, 9}, {827, 73}, 1, 5),
+/*N21*/  Parameters( // p=6163 (7 mod 12), order-six A=79, d=9, m=41317=79*523, nslots=4524
+                // p, r, c, bits, h
+                6163, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {10984, 24570}, {78, 58}, {79, 523}, 1, 5),
+/*N22*/  Parameters( // p=14401 (1 mod 12), order-four A=120 / order-six A=318, d=11, m=43033=23*1871, nslots=3740
+                // p, r, c, bits, h
+                14401, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {22453, 13295}, {22, 170}, {23, 1871}, 1, 5),
+/*N23*/  Parameters( // p=2521 (1 mod 12), order-four A=71 / order-six A=676, d=18, m=50731=97*523, nslots=2784
+                // p, r, c, bits, h
+                2521, 1, 3, 1500, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {48117, 27840}, {96, 29}, {97, 523}, 1, 5),
+/*N24*/  Parameters( // p=2917 (1 mod 12), order-four A=54 / order-six A=248, d=4, m=53983=1459*37, nslots=13122
+                // p, r, c, bits, h
+                2917, 1, 3, 1500, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {33560, 45230}, {1458, 9}, {1459, 37}, 1, 5),
+/*N25*/  Parameters( // p=4513 (1 mod 12), order-four A=95 / order-six A=815, d=4, m=37637=61*617, nslots=9240 (bad dim, as preset i=9)
+                // p, r, c, bits, h
+                4513, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {21596, 32087}, {60, -154}, {61, 617}, 1, 5),
+/*N26*/  Parameters( // p=8101 (1 mod 12), order-four A=90, d=8, m=51833=17*3049, nslots=6096
+                // p, r, c, bits, h
+                8101, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {18295, 47720}, {16, 381}, {17, 3049}, 1, 5),
+/*N27*/  Parameters( // p=13457 (5 mod 12), order-four A=116, d=7, m=45193=43*1051, nslots=6300
+                // p, r, c, bits, h
+                13457, 1, 3, 1320, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {26276, 21630}, {42, 150}, {43, 1051}, 1, 5),
+/*N28*/  Parameters( // p=15377 (5 mod 12), order-four A=124, d=4, m=55459=31*1789, nslots=13410
+                // p, r, c, bits, h
+                15377, 1, 3, 1500, 0,
+                // nthreads,seed,useCache,c_m,
+                    1, 0, 1, 100, 
+                // force_bsgs,force_hoist,chen_han,debug,scale
+                    0, 0, force_chen_han, 0, 0, 
+                // global_gens,global_ords,global_mvec,outer_rep,inner_rep
+                {30414, 24553}, {30, 447}, {31, 1789}, 1, 5),
+
+/*N29*/  Parameters( // 128-tier h=26: p=13457 (5 mod 12), order-four A=116, d=2, m=65047=29*2243, nslots=31388
+                13457, 1, 3, 1055, 0,
+                    1, 0, 1, 100, 
+                    0, 0, force_chen_han, 0, 0, 
+                {6730, 51592}, {28, 1121}, {29, 2243}, 1, 5),
+/*N30*/  Parameters( // 128-tier h=26: p=2917 (1 mod 12), A4=54 / A6=248, d=4, m=53983=1459*37, nslots=13122
+                2917, 1, 3, 856, 0,
+                    1, 0, 1, 100, 
+                    0, 0, force_chen_han, 0, 0, 
+                {33560, 7296}, {1458, 9}, {1459, 37}, 1, 5),
+/*N31*/  Parameters( // 128-tier h=26: p=15377 (5 mod 12), order-four A=124, d=4, m=55459=31*1789, nslots=13410
+                15377, 1, 3, 892, 0,
+                    1, 0, 1, 100, 
+                    0, 0, force_chen_han, 0, 0, 
+                {30414, 44734}, {30, 447}, {31, 1789}, 1, 5),
+/*N32*/  Parameters( // 128-tier h=26: p=8101 (1 mod 12), order-four A=90, d=8, m=57521=97*593, nslots=7104
+                8101, 1, 3, 918, 0,
+                    1, 0, 1, 100, 
+                    0, 0, force_chen_han, 0, 0, 
+                {10675, 52187}, {96, -74}, {97, 593}, 1, 5),
+/*N33*/  Parameters( // 128-tier h=26: p=14401 (1 mod 12), A4=120 / A6=318, d=10, m=54359=19*2861, nslots=5148
+                14401, 1, 3, 839, 0,
+                    1, 0, 1, 100, 
+                    0, 0, force_chen_han, 0, 0, 
+                {20028, 34334}, {18, -286}, {19, 2861}, 1, 5),
 
         };
     // clang-format on
@@ -900,8 +1079,21 @@ int main(int argc, char *argv[])
     std::cout << "repeat times = " << repeat_arg << "\n";
     std::cout << "force bsgs = " << force_bsgs_arg << "\n";
     std::cout << "force hoist = " << force_hoist_arg << "\n";
-    real_params[i_arg].inner_rep = repeat_arg;
-    GTestFatboot test(real_params[i_arg],
+    // p, r, c, bits, h, nthreads, seed, useCache, c_m, force_bsgs, force_hoist,
+    // chen_han, debug, scale, global_gens={}, global_ords={} (both empty: HElib
+    // derives them from mvec), global_mvec, outer_rep, inner_rep
+    Parameters customParam(cp_arg, 1, 3, cbits_arg, 0,
+                            1, 0, 1, 100,
+                            0, 0, force_chen_han, 0, 0,
+                            {}, {}, {cm1_arg, cm2_arg}, 1, repeat_arg);
+    if (custom_arg) {
+        std::cout << "custom mode: p=" << cp_arg << " m=" << cm1_arg * cm2_arg
+                   << " (" << cm1_arg << "*" << cm2_arg << ") bits=" << cbits_arg
+                   << " -- gens/ords auto-derived by HElib, not hand-supplied\n";
+    } else {
+        real_params[i_arg].inner_rep = repeat_arg;
+    }
+    GTestFatboot test(custom_arg ? customParam : real_params[i_arg],
                       noPrint,
                       dry,
                       encapSkHwt,

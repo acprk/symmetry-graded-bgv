@@ -1,0 +1,52 @@
+########## SMOKE i=14 :: BASELINE :: 08:15:05 ##########
+chosen idx = 14
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=3307, r=1, bits=1320, t=0, c=3, m=50447 mvec=[61 827], gens=[1655 28122], ords=[20 413]
+Computing key-independent tables...terminate called after throwing an instance of 'helib::LogicError'
+  what():  ThinEvalMap: case not handled: bad inertPrefix
+timeout: the monitored command dumped core
+Command terminated by signal 6
+WALL=159.83 s MAXRSS=7390532 kB
+exit=134 (BASELINE)
+########## SMOKE i=14 :: ORDER6 :: 08:17:45 ##########
+chosen idx = 14
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=3307, r=1, bits=1320, t=0, c=3, m=50447 mvec=[61 827], gens=[1655 28122], ords=[20 413]
+Computing key-independent tables...terminate called after throwing an instance of 'helib::LogicError'
+  what():  ThinEvalMap: case not handled: bad inertPrefix
+timeout: the monitored command dumped core
+Command terminated by signal 6
+WALL=159.68 s MAXRSS=7391844 kB
+exit=134 (ORDER6)
+########## SMOKE i=14 :: ORDER6_COMPOSED :: 08:20:25 ##########
+chosen idx = 14
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=3307, r=1, bits=1320, t=0, c=3, m=50447 mvec=[61 827], gens=[1655 28122], ords=[20 413]
+Computing key-independent tables...terminate called after throwing an instance of 'helib::LogicError'
+  what():  ThinEvalMap: case not handled: bad inertPrefix
+timeout: the monitored command dumped core
+Command terminated by signal 6
+WALL=160.87 s MAXRSS=7393056 kB
+exit=134 (ORDER6_COMPOSED)
+SMOKE_DONE

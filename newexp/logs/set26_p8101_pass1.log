@@ -1,0 +1,737 @@
+########## SET 26 p=8101 m=51833 d=8 :: BASELINE :: aux=90 :: pass1 :: 2026-09-14 20:07:59 ##########
+chosen idx = 26
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=8101, r=1, bits=1320, t=0, c=3, m=51833 mvec=[17 3049], gens=[18295 47720], ords=[16 381]
+Computing key-independent tables...using HELIB_EXPLICIT_AUX=90
+
+t = -1
+bound on I = 16.019734
+log2(aux) = 6.491853
+log2(beta) = 27.509303
+log2(qks) >= 36.694426, final log2(qks) = 36.694428
+log2(R) >= 27.663080, final log2(R) = 27.664398
+INFO: total bits = 1794.92, security level = 84.5555deg of poly for non-power-of-p aux is 1223
+security=84.5555
+# small primes = 6
+# ctxt primes = 23
+# bits in ctxt primes = 1331
+# special primes = 8
+# bits in special primes = 463
+scale=10
+ done in 311.384 seconds
+  e=0, e'=0, t=12
+  m = 51833, p = 8101, phi(m) = 48768
+  ord(p) = 8
+  normBnd = 1.61652
+  polyNormBnd = 3.56984
+  factors = [17 3049]
+  generator 18295 has order (== Z_m^*) of 16
+  generator 47720 has order (== Z_m^*) of 381
+r = 1
+nslots = 6096
+hwt = 120
+ctxtPrimes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+specialPrimes = [33,34,35,36,37,38,39,40]
+number of bits = 1795
+
+security level = 84.5555
+Generating keys, Keys generated. Now genRecryptData...
+computing key-dependent tables...Sparse boot key hwt = 12
+genRecryptData done. recryptKeyID=1
+lcAksBsgs=0 lcAksDelayed=0
+Post-key setup done.
+ done in 38.452 seconds
+Encrypt succeeded.
+WARNING: KS-noise-ratio = 1.067 > 1
+time for linear1 = 7.626578, linear2 = 71.156024, extract = 135.480622, total = 216.476032
+bits for linear1 = 54.434124, linear2 = 56.485773, extract = 315.416896, min cap = 9.185125, after cap = 913.354798, after prod = 1285.257468
+cap / time = 3.925310
+
+### summary over 1 test
+time for linear1 = 7.626578, linear2 = 71.156024, extract = 135.480622, total = 216.476032
+bits for linear1 = 54.434124, linear2 = 56.485773, extract = 315.416896, min cap = 9.185125, after cap = 913.354798, after prod = 1285.257468
+cap / time = 3.925310
+
+
+### bts finished, everything ok ###
+
+  AAA_bootKeySwitch: 37.8921 / 1 = 37.8921   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1968]
+  AAA_coeffToSlot: 35.0596 / 1 = 35.0596   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2396]
+  AAA_embeddingLargest: 1.0017 / 377 = 0.00265702   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:250]
+  AAA_embeddingLargest_x2: 0.702185 / 266 = 0.00263979   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:423]
+  AAA_extractDigitsThin: 135.479 / 1 = 135.479   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2449]
+  AAA_modDownEnbeddings: 0.818206 / 266 = 0.00307596   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:506]
+  AAA_slotToCoeff: 7.62648 / 1 = 7.62648   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1954]
+  BasicAutomorphPrecon: 4.25006 / 8 = 0.531258   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:69]
+  BluesteinFFT: 94.4443 / 25253 = 0.00373993   [$ARTIFACT/ours/_build_case1/HElib-patched/src/bluestein.cpp:141]
+  Decrypt: 0.579627 / 1 = 0.579627   [$ARTIFACT/ours/_build_case1/HElib-patched/src/keys.cpp:1350]
+  DoubleCRT: 54.7402 / 590 = 0.09278   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:718]
+  FFT: 70.3303 / 17989 = 0.00390963   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:479]
+  FFT: 86.7971 / 904 = 0.0960145   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:70]
+  FFT: 86.7876 / 17989 = 0.00482448   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:448]
+  FFT_aux: 70.3162 / 17989 = 0.00390885   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:360]
+  FFT_remainder: 16.4472 / 17989 = 0.000914294   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:455]
+  KS_loop: 16.0736 / 581 = 0.0276654   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:219]
+  KS_loop_1: 2.67313 / 581 = 0.00460092   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:227]
+  KS_loop_2: 2.16535 / 581 = 0.00372694   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:231]
+  KS_loop_3: 2.70612 / 581 = 0.0046577   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:236]
+  KS_loop_4: 0.928559 / 581 = 0.00159821   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:240]
+  NORM_VAL: 1.83574 / 318 = 0.00577275   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:541]
+  addCtxt: 11.9915 / 2489 = 0.00481779   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1458]
+  addPart: 4.92486 / 1448 = 0.00340115   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:905]
+  addPrimes: 50.9809 / 319 = 0.159815   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:625]
+  addPrimes_5: 53.5574 / 318 = 0.168419   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:518]
+  automorph: 13.0048 / 122 = 0.106596   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:117]
+  automorph: 0.226345 / 57 = 0.00397096   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2489]
+  breakIntoDigits: 53.867 / 120 = 0.448891   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:481]
+  decode: 17.4882 / 1 = 17.4882   [$ARTIFACT/ours/_build_case1/HElib-patched/src/EncryptedArray.cpp:375]
+  do_mul: 12.8029 / 3847 = 0.00332803   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:280]
+  extractDigitsThin: 135.479 / 1 = 135.479   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1597]
+  iFFT: 44.4478 / 7264 = 0.00611892   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:488]
+  iFFT_division: 15.8257 / 7264 = 0.00217865   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:570]
+  keySwitchPart: 59.3268 / 113 = 0.525016   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:836]
+  modDownToSet: 103.869 / 325 = 0.319596   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:409]
+  mul_MatMul1DExec: 74.8946 / 6 = 12.4824   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:975]
+  multByConstant: 6.49659 / 1192 = 0.00545016   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1884]
+  multByConstant: 0.112736 / 1 = 0.112736   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1910]
+  multLowLvl: 61.9923 / 75 = 0.826564   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1733]
+  multiplyBy: 57.4626 / 32 = 1.79571   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1809]
+  privateAssign: 2.82744 / 607 = 0.00465806   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:329]
+  randomize: 6.43965 / 581 = 0.0110837   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1318]
+  randomize_stream: 3.60977 / 3669147 = 9.83818e-07   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1348]
+  reLinearize: 87.4309 / 210 = 0.416337   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:736]
+  smartAutomorph: 27.665 / 57 = 0.48535   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2514]
+  thinReCrypt: 216.485 / 1 = 216.485   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1872]
+  toPoly: 58.9006 / 908 = 0.0648685   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:985]
+  toPoly_CRT: 9.85629 / 908 = 0.0108549   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1052]
+  toPoly_FFT: 48.428 / 908 = 0.0533348   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1030]
+  rusage.ru_maxrss=18445756
+||||| stats |||||
+KS-noise-ratio ave=0.0659836 max=1.067
+KS-noise-ratio-hoist ave=2327.75 max=18622
+break-into-digits-ratio ave=0.324026 max=0.410737
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.322629 max=0.412006
+ptxt_rat_sk ave=0.00120359 max=0.00120359
+ptxt_rat_sk ave=0.34754 max=0.34754
+raw-mod-switch-noise ave=0.342241 max=0.342241
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=3.77143 max=6
+window2-out ave=0 max=0
+||||| stats |||||
+KS-noise-ratio ave=0.0659836 max=1.067
+KS-noise-ratio-hoist ave=2327.75 max=18622
+break-into-digits-ratio ave=0.324026 max=0.410737
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.322629 max=0.412006
+ptxt_rat_sk ave=0.00120359 max=0.00120359
+ptxt_rat_sk ave=0.34754 max=0.34754
+raw-mod-switch-noise ave=0.342241 max=0.342241
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=3.77143 max=6
+window2-out ave=0 max=0
+WALL=588.96 s MAXRSS=18445756 kB
+exit=0 (BASELINE pass1)
+########## SET 26 p=8101 m=51833 d=8 :: ORDER4 :: aux=90 :: pass1 :: 2026-09-14 20:17:48 ##########
+chosen idx = 26
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=8101, r=1, bits=1320, t=0, c=3, m=51833 mvec=[17 3049], gens=[18295 47720], ords=[16 381]
+Computing key-independent tables...using HELIB_EXPLICIT_AUX=90
+
+t = -1
+bound on I = 16.019734
+log2(aux) = 6.491853
+log2(beta) = 27.509303
+log2(qks) >= 36.694426, final log2(qks) = 36.694428
+log2(R) >= 27.663080, final log2(R) = 27.664398
+INFO: total bits = 1794.92, security level = 84.5555deg of poly for non-power-of-p aux is 1223
+security=84.5555
+# small primes = 6
+# ctxt primes = 23
+# bits in ctxt primes = 1331
+# special primes = 8
+# bits in special primes = 463
+scale=10
+ done in 310.738 seconds
+  e=0, e'=0, t=12
+  m = 51833, p = 8101, phi(m) = 48768
+  ord(p) = 8
+  normBnd = 1.61652
+  polyNormBnd = 3.56984
+  factors = [17 3049]
+  generator 18295 has order (== Z_m^*) of 16
+  generator 47720 has order (== Z_m^*) of 381
+r = 1
+nslots = 6096
+hwt = 120
+ctxtPrimes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+specialPrimes = [33,34,35,36,37,38,39,40]
+number of bits = 1795
+
+security level = 84.5555
+Generating keys, Keys generated. Now genRecryptData...
+computing key-dependent tables...Sparse boot key hwt = 12
+genRecryptData done. recryptKeyID=1
+lcAksBsgs=0 lcAksDelayed=0
+Post-key setup done.
+ done in 37.4652 seconds
+Encrypt succeeded.
+WARNING: KS-noise-ratio = 1.03324 > 1
+HELIB_AUX_ORDER4_EVAL enabled: order=4, deg(P)=1223, terms(P)=307, deg(Q)=305, terms(Q)=306
+time for linear1 = 7.641134, linear2 = 70.610515, extract = 77.020984, total = 157.476285
+bits for linear1 = 54.436670, linear2 = 56.487044, extract = 370.222382, min cap = 9.185125, after cap = 858.611441, after prod = 1285.320867
+cap / time = 5.048313
+
+### summary over 1 test
+time for linear1 = 7.641134, linear2 = 70.610515, extract = 77.020984, total = 157.476285
+bits for linear1 = 54.436670, linear2 = 56.487044, extract = 370.222382, min cap = 9.185125, after cap = 858.611441, after prod = 1285.320867
+cap / time = 5.048313
+
+
+### bts finished, everything ok ###
+
+  AAA_bootKeySwitch: 37.6118 / 1 = 37.6118   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1968]
+  AAA_coeffToSlot: 34.7761 / 1 = 34.7761   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2396]
+  AAA_embeddingLargest: 0.749995 / 288 = 0.00260415   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:250]
+  AAA_embeddingLargest_x2: 0.479441 / 179 = 0.00267844   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:423]
+  AAA_extractDigitsThin: 77.0199 / 1 = 77.0199   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2449]
+  AAA_modDownEnbeddings: 0.547774 / 179 = 0.00306019   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:506]
+  AAA_slotToCoeff: 7.64103 / 1 = 7.64103   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1954]
+  BasicAutomorphPrecon: 4.21087 / 8 = 0.526358   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:69]
+  BluesteinFFT: 63.9815 / 17321 = 0.00369387   [$ARTIFACT/ours/_build_case1/HElib-patched/src/bluestein.cpp:141]
+  Decrypt: 0.591484 / 1 = 0.591484   [$ARTIFACT/ours/_build_case1/HElib-patched/src/keys.cpp:1350]
+  DoubleCRT: 34.0047 / 394 = 0.0863062   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:718]
+  FFT: 47.7078 / 12361 = 0.00385954   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:479]
+  FFT: 58.8331 / 641 = 0.0917832   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:70]
+  FFT: 58.8267 / 12361 = 0.00475906   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:448]
+  FFT_aux: 47.6991 / 12361 = 0.00385884   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:360]
+  FFT_remainder: 11.1125 / 12361 = 0.000898998   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:455]
+  KS_loop: 14.2359 / 514 = 0.0276962   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:219]
+  KS_loop_1: 2.33958 / 514 = 0.00455172   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:227]
+  KS_loop_2: 2.03615 / 514 = 0.00396139   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:231]
+  KS_loop_3: 2.39089 / 514 = 0.00465153   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:236]
+  KS_loop_4: 0.804986 / 514 = 0.00156612   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:240]
+  NORM_VAL: 1.4121 / 251 = 0.00562589   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:541]
+  addConstant: 0.225145 / 22 = 0.0102339   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2197]
+  addCtxt: 11.7411 / 1572 = 0.00746887   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1458]
+  addPart: 4.33766 / 1292 = 0.00335732   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:905]
+  addPrimes: 39.5493 / 252 = 0.156942   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:625]
+  addPrimes_5: 41.5229 / 251 = 0.16543   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:518]
+  automorph: 12.9143 / 122 = 0.105855   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:117]
+  automorph: 0.223811 / 57 = 0.00392651   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2489]
+  breakIntoDigits: 41.7609 / 98 = 0.426131   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:481]
+  decode: 17.5101 / 1 = 17.5101   [$ARTIFACT/ours/_build_case1/HElib-patched/src/EncryptedArray.cpp:375]
+  do_mul: 11.6588 / 3581 = 0.00325574   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:280]
+  extractDigitsThin: 77.0199 / 1 = 77.0199   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1597]
+  iFFT: 30.0342 / 4960 = 0.00605528   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:488]
+  iFFT_division: 10.7166 / 4960 = 0.00216061   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:570]
+  keySwitchPart: 45.2573 / 91 = 0.497333   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:836]
+  modDownToSet: 65.0376 / 238 = 0.273267   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:409]
+  mul_MatMul1DExec: 74.3753 / 6 = 12.3959   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:975]
+  multByConstant: 6.43156 / 1192 = 0.0053956   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1884]
+  multByConstant: 0.12076 / 1 = 0.12076   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1910]
+  multLowLvl: 32.6956 / 42 = 0.778467   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1733]
+  multiplyBy: 35.7326 / 21 = 1.70155   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1809]
+  privateAssign: 2.58376 / 540 = 0.00478473   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:329]
+  randomize: 5.69969 / 514 = 0.0110889   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1318]
+  randomize_stream: 3.19741 / 3244024 = 9.85632e-07   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1348]
+  reLinearize: 60.6874 / 181 = 0.33529   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:736]
+  smartAutomorph: 27.4863 / 57 = 0.482215   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2514]
+  thinReCrypt: 157.486 / 1 = 157.486   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1872]
+  toPoly: 40.0117 / 645 = 0.0620337   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:985]
+  toPoly_CRT: 6.80301 / 645 = 0.0105473   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1052]
+  toPoly_FFT: 32.7578 / 645 = 0.0507873   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1030]
+  rusage.ru_maxrss=18174768
+||||| stats |||||
+KS-noise-ratio ave=0.0597592 max=1.03324
+KS-noise-ratio-hoist ave=2178.22 max=17425.7
+break-into-digits-ratio ave=0.321091 max=0.400733
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.317006 max=0.386277
+ptxt_rat_sk ave=0.00132712 max=0.00132712
+ptxt_rat_sk ave=0.319232 max=0.319232
+raw-mod-switch-noise ave=0.320007 max=0.320007
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=4.13158 max=6
+window2-out ave=0 max=0
+||||| stats |||||
+KS-noise-ratio ave=0.0597592 max=1.03324
+KS-noise-ratio-hoist ave=2178.22 max=17425.7
+break-into-digits-ratio ave=0.321091 max=0.400733
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.317006 max=0.386277
+ptxt_rat_sk ave=0.00132712 max=0.00132712
+ptxt_rat_sk ave=0.319232 max=0.319232
+raw-mod-switch-noise ave=0.320007 max=0.320007
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=4.13158 max=6
+window2-out ave=0 max=0
+WALL=528.35 s MAXRSS=18174768 kB
+exit=0 (ORDER4 pass1)
+########## SET 26 p=8101 m=51833 d=8 :: ORDER4_COMPOSED :: aux=90 :: pass1 :: 2026-09-14 20:26:36 ##########
+chosen idx = 26
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=8101, r=1, bits=1320, t=0, c=3, m=51833 mvec=[17 3049], gens=[18295 47720], ords=[16 381]
+Computing key-independent tables...using HELIB_EXPLICIT_AUX=90
+
+t = -1
+bound on I = 16.019734
+log2(aux) = 6.491853
+log2(beta) = 27.509303
+log2(qks) >= 36.694426, final log2(qks) = 36.694428
+log2(R) >= 27.663080, final log2(R) = 27.664398
+INFO: total bits = 1794.92, security level = 84.5555HELIB_COMPOSED_EVAL: order=4 d=8 |folded support|=306 degQ=305 padded to n'=312
+HELIB_COMPOSED_EVAL: norm form c=355 degC=39 (search 17.6236s)
+deg of poly for non-power-of-p aux is 1223
+security=84.5555
+# small primes = 6
+# ctxt primes = 23
+# bits in ctxt primes = 1331
+# special primes = 8
+# bits in special primes = 463
+scale=10
+ done in 327.304 seconds
+  e=0, e'=0, t=12
+  m = 51833, p = 8101, phi(m) = 48768
+  ord(p) = 8
+  normBnd = 1.61652
+  polyNormBnd = 3.56984
+  factors = [17 3049]
+  generator 18295 has order (== Z_m^*) of 16
+  generator 47720 has order (== Z_m^*) of 381
+r = 1
+nslots = 6096
+hwt = 120
+ctxtPrimes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+specialPrimes = [33,34,35,36,37,38,39,40]
+number of bits = 1795
+
+security level = 84.5555
+Generating keys, Keys generated. Now genRecryptData...
+computing key-dependent tables...Sparse boot key hwt = 12
+genRecryptData done. recryptKeyID=1
+lcAksBsgs=0 lcAksDelayed=0
+Post-key setup done.
+ done in 37.2909 seconds
+Encrypt succeeded.
+WARNING: KS-noise-ratio = 1.08097 > 1
+HELIB_COMPOSED_EVAL active: order=4 degC=39 d=8
+time for linear1 = 7.603242, linear2 = 70.462642, extract = 39.613291, total = 119.843780
+bits for linear1 = 54.501443, linear2 = 56.480980, extract = 430.648616, min cap = 9.185125, after cap = 797.807367, after prod = 1284.936963
+cap / time = 6.125648
+
+### summary over 1 test
+time for linear1 = 7.603242, linear2 = 70.462642, extract = 39.613291, total = 119.843780
+bits for linear1 = 54.501443, linear2 = 56.480980, extract = 430.648616, min cap = 9.185125, after cap = 797.807367, after prod = 1284.936963
+cap / time = 6.125648
+
+
+### bts finished, everything ok ###
+
+  AAA_bootKeySwitch: 37.4704 / 1 = 37.4704   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1968]
+  AAA_coeffToSlot: 34.7429 / 1 = 34.7429   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2396]
+  AAA_embeddingLargest: 0.705031 / 276 = 0.00255446   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:250]
+  AAA_embeddingLargest_x2: 0.322653 / 121 = 0.00266655   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:423]
+  AAA_extractDigitsThin: 39.6128 / 1 = 39.6128   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2449]
+  AAA_modDownEnbeddings: 0.361671 / 121 = 0.00298902   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:506]
+  AAA_slotToCoeff: 7.60314 / 1 = 7.60314   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1954]
+  BasicAutomorphPrecon: 4.2127 / 8 = 0.526587   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:69]
+  BluesteinFFT: 50.0766 / 13578 = 0.00368807   [$ARTIFACT/ours/_build_case1/HElib-patched/src/bluestein.cpp:141]
+  Decrypt: 0.637105 / 1 = 0.637105   [$ARTIFACT/ours/_build_case1/HElib-patched/src/keys.cpp:1350]
+  DoubleCRT: 26.3459 / 304 = 0.0866642   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:718]
+  FFT: 38.9599 / 10113 = 0.00385246   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:479]
+  FFT: 47.2286 / 517 = 0.0913512   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:70]
+  FFT: 47.2235 / 10113 = 0.00466958   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:448]
+  FFT_aux: 38.9533 / 10113 = 0.0038518   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:360]
+  FFT_remainder: 8.25865 / 10113 = 0.000816637   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:455]
+  KS_loop: 13.2394 / 476 = 0.0278138   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:219]
+  KS_loop_1: 2.16891 / 476 = 0.00455654   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:227]
+  KS_loop_2: 2.0029 / 476 = 0.00420777   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:231]
+  KS_loop_3: 2.20937 / 476 = 0.00464154   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:236]
+  KS_loop_4: 0.744984 / 476 = 0.00156509   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:240]
+  NORM_VAL: 1.18319 / 213 = 0.00555489   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:541]
+  addCtxt: 3.36873 / 1306 = 0.00257943   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1458]
+  addPart: 4.03482 / 1175 = 0.00343389   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:905]
+  addPrimes: 33.5436 / 214 = 0.156746   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:625]
+  addPrimes_5: 35.2066 / 213 = 0.165289   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:518]
+  automorph: 12.9297 / 122 = 0.105981   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:117]
+  automorph: 0.241348 / 60 = 0.00402247   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2489]
+  breakIntoDigits: 35.4022 / 87 = 0.406921   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:481]
+  decode: 17.5035 / 1 = 17.5035   [$ARTIFACT/ours/_build_case1/HElib-patched/src/EncryptedArray.cpp:375]
+  do_mul: 11.3363 / 3477 = 0.00326036   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:280]
+  extractDigitsThin: 39.6128 / 1 = 39.6128   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1597]
+  frobeniusAutomorph: 2.45489 / 3 = 0.818298   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2578]
+  iFFT: 21.0199 / 3465 = 0.00606634   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:488]
+  iFFT_division: 7.52267 / 3465 = 0.00217105   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:570]
+  keySwitchPart: 37.732 / 80 = 0.471649   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:836]
+  modDownToSet: 41.3634 / 180 = 0.229797   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:409]
+  mul_MatMul1DExec: 74.1888 / 6 = 12.3648   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:975]
+  multByConstant: 6.74083 / 1226 = 0.00549823   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1884]
+  multByConstant: 4.28083 / 35 = 0.12231   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1910]
+  multLowLvl: 13.7239 / 18 = 0.762439   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1733]
+  multiplyBy: 30.4404 / 18 = 1.69113   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1809]
+  privateAssign: 0.798261 / 260 = 0.00307023   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:329]
+  randomize: 5.26616 / 476 = 0.0110634   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1318]
+  randomize_stream: 2.94574 / 3002915 = 9.80961e-07   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1348]
+  reLinearize: 46.9429 / 173 = 0.271346   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:736]
+  smartAutomorph: 29.9505 / 60 = 0.499175   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2514]
+  thinReCrypt: 119.854 / 1 = 119.854   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1872]
+  toPoly: 28.1918 / 477 = 0.0591023   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:985]
+  toPoly_CRT: 4.90853 / 477 = 0.0102904   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1052]
+  toPoly_FFT: 22.9432 / 477 = 0.048099   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1030]
+  rusage.ru_maxrss=17970076
+||||| stats |||||
+KS-noise-ratio ave=0.0705168 max=1.08097
+KS-noise-ratio-hoist ave=2238.69 max=17909.5
+break-into-digits-ratio ave=0.32318 max=0.410066
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.325887 max=0.403877
+ptxt_rat_sk ave=0.00118126 max=0.00118126
+ptxt_rat_sk ave=0.316655 max=0.316655
+raw-mod-switch-noise ave=0.319702 max=0.319702
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=4.6 max=7
+window2-out ave=0 max=0
+||||| stats |||||
+KS-noise-ratio ave=0.0705168 max=1.08097
+KS-noise-ratio-hoist ave=2238.69 max=17909.5
+break-into-digits-ratio ave=0.32318 max=0.410066
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.325887 max=0.403877
+ptxt_rat_sk ave=0.00118126 max=0.00118126
+ptxt_rat_sk ave=0.316655 max=0.316655
+raw-mod-switch-noise ave=0.319702 max=0.319702
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=4.6 max=7
+window2-out ave=0 max=0
+WALL=507.13 s MAXRSS=17970076 kB
+exit=0 (ORDER4_COMPOSED pass1)
+########## SET 26 p=8101 m=51833 d=8 :: NORMONLY :: aux=90 :: pass1 :: 2026-09-14 20:35:03 ##########
+chosen idx = 26
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=8101, r=1, bits=1320, t=0, c=3, m=51833 mvec=[17 3049], gens=[18295 47720], ords=[16 381]
+Computing key-independent tables...using HELIB_EXPLICIT_AUX=90
+
+t = -1
+bound on I = 16.019734
+log2(aux) = 6.491853
+log2(beta) = 27.509303
+log2(qks) >= 36.694426, final log2(qks) = 36.694428
+log2(R) >= 27.663080, final log2(R) = 27.664398
+INFO: total bits = 1794.92, security level = 84.5555deg of poly for non-power-of-p aux is 1223
+security=84.5555
+# small primes = 6
+# ctxt primes = 23
+# bits in ctxt primes = 1331
+# special primes = 8
+# bits in special primes = 463
+scale=10
+ done in 311.597 seconds
+  e=0, e'=0, t=12
+  m = 51833, p = 8101, phi(m) = 48768
+  ord(p) = 8
+  normBnd = 1.61652
+  polyNormBnd = 3.56984
+  factors = [17 3049]
+  generator 18295 has order (== Z_m^*) of 16
+  generator 47720 has order (== Z_m^*) of 381
+r = 1
+nslots = 6096
+hwt = 120
+ctxtPrimes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+specialPrimes = [33,34,35,36,37,38,39,40]
+number of bits = 1795
+
+security level = 84.5555
+Generating keys, Keys generated. Now genRecryptData...
+computing key-dependent tables...Sparse boot key hwt = 12
+genRecryptData done. recryptKeyID=1
+lcAksBsgs=0 lcAksDelayed=0
+Post-key setup done.
+ done in 38.2499 seconds
+Encrypt succeeded.
+WARNING: KS-noise-ratio = 1.00949 > 1
+time for linear1 = 7.617378, linear2 = 70.068971, extract = 135.094549, total = 214.971982
+bits for linear1 = 54.459650, linear2 = 56.486005, extract = 315.500401, min cap = 9.185125, after cap = 913.291606, after prod = 1285.278011
+cap / time = 3.952361
+
+### summary over 1 test
+time for linear1 = 7.617378, linear2 = 70.068971, extract = 135.094549, total = 214.971982
+bits for linear1 = 54.459650, linear2 = 56.486005, extract = 315.500401, min cap = 9.185125, after cap = 913.291606, after prod = 1285.278011
+cap / time = 3.952361
+
+
+### bts finished, everything ok ###
+
+  AAA_bootKeySwitch: 37.4689 / 1 = 37.4689   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1968]
+  AAA_coeffToSlot: 34.3685 / 1 = 34.3685   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2396]
+  AAA_embeddingLargest: 1.0241 / 377 = 0.00271645   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:250]
+  AAA_embeddingLargest_x2: 0.709322 / 266 = 0.00266662   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:423]
+  AAA_extractDigitsThin: 135.093 / 1 = 135.093   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2449]
+  AAA_modDownEnbeddings: 0.825476 / 266 = 0.00310329   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:506]
+  AAA_slotToCoeff: 7.61728 / 1 = 7.61728   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1954]
+  BasicAutomorphPrecon: 4.24052 / 8 = 0.530066   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:69]
+  BluesteinFFT: 95.3042 / 25348 = 0.00375983   [$ARTIFACT/ours/_build_case1/HElib-patched/src/bluestein.cpp:141]
+  Decrypt: 0.610224 / 1 = 0.610224   [$ARTIFACT/ours/_build_case1/HElib-patched/src/keys.cpp:1350]
+  DoubleCRT: 54.9768 / 590 = 0.093181   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:718]
+  FFT: 70.9586 / 18039 = 0.00393362   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:479]
+  FFT: 87.0728 / 906 = 0.0961069   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:70]
+  FFT: 87.0644 / 18039 = 0.00482645   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:448]
+  FFT_aux: 70.9454 / 18039 = 0.00393289   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:360]
+  FFT_remainder: 16.0952 / 18039 = 0.000892246   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:455]
+  KS_loop: 15.6311 / 581 = 0.0269037   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:219]
+  KS_loop_1: 2.61064 / 581 = 0.00449335   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:227]
+  KS_loop_2: 2.05436 / 581 = 0.00353591   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:231]
+  KS_loop_3: 2.66531 / 581 = 0.00458746   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:236]
+  KS_loop_4: 0.905775 / 581 = 0.00155899   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:240]
+  NORM_VAL: 1.83256 / 318 = 0.00576276   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:541]
+  addCtxt: 11.4547 / 2489 = 0.00460211   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1458]
+  addPart: 4.76391 / 1448 = 0.00328999   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:905]
+  addPrimes: 50.8929 / 319 = 0.159539   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:625]
+  addPrimes_5: 53.4563 / 318 = 0.168102   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:518]
+  automorph: 12.7798 / 122 = 0.104752   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:117]
+  automorph: 0.223287 / 57 = 0.00391732   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2489]
+  breakIntoDigits: 53.7351 / 120 = 0.447792   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:481]
+  decode: 17.4661 / 1 = 17.4661   [$ARTIFACT/ours/_build_case1/HElib-patched/src/EncryptedArray.cpp:375]
+  do_mul: 12.6405 / 3847 = 0.0032858   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:280]
+  extractDigitsThin: 135.093 / 1 = 135.093   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1597]
+  iFFT: 44.7387 / 7309 = 0.00612104   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:488]
+  iFFT_division: 15.8275 / 7309 = 0.00216548   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:570]
+  keySwitchPart: 58.9504 / 113 = 0.521685   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:836]
+  modDownToSet: 104.147 / 325 = 0.320453   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:409]
+  mul_MatMul1DExec: 73.8321 / 6 = 12.3053   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:975]
+  multByConstant: 6.44337 / 1192 = 0.00540551   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1884]
+  multByConstant: 0.11335 / 1 = 0.11335   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1910]
+  multLowLvl: 61.9115 / 75 = 0.825487   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1733]
+  multiplyBy: 57.0637 / 32 = 1.78324   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1809]
+  privateAssign: 2.64733 / 607 = 0.00436133   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:329]
+  randomize: 6.34134 / 581 = 0.0109145   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1318]
+  randomize_stream: 3.57308 / 3669390 = 9.73753e-07   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1348]
+  reLinearize: 87.4239 / 210 = 0.416305   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:736]
+  smartAutomorph: 27.4788 / 57 = 0.482084   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2514]
+  thinReCrypt: 214.981 / 1 = 214.981   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1872]
+  toPoly: 58.9186 / 908 = 0.0648883   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:985]
+  toPoly_CRT: 9.82134 / 908 = 0.0108164   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1052]
+  toPoly_FFT: 48.4595 / 908 = 0.0533695   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1030]
+  rusage.ru_maxrss=18443976
+||||| stats |||||
+KS-noise-ratio ave=0.0668168 max=1.00949
+KS-noise-ratio-hoist ave=2427.42 max=19419.3
+break-into-digits-ratio ave=0.321005 max=0.424521
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.321537 max=0.398504
+ptxt_rat_sk ave=0.00116362 max=0.00116362
+ptxt_rat_sk ave=0.354202 max=0.354202
+raw-mod-switch-noise ave=0.322427 max=0.322427
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=3.67143 max=6
+window2-out ave=0 max=0
+||||| stats |||||
+KS-noise-ratio ave=0.0668168 max=1.00949
+KS-noise-ratio-hoist ave=2427.42 max=19419.3
+break-into-digits-ratio ave=0.321005 max=0.424521
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.321537 max=0.398504
+ptxt_rat_sk ave=0.00116362 max=0.00116362
+ptxt_rat_sk ave=0.354202 max=0.354202
+raw-mod-switch-noise ave=0.322427 max=0.322427
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=3.67143 max=6
+window2-out ave=0 max=0
+WALL=587.79 s MAXRSS=18443976 kB
+exit=0 (NORMONLY pass1)
+SET_DONE 26
+########## SET 26 p=8101 m=51833 d=8 :: NORMONLY :: aux=90 :: pass1 :: h=12 :: 2026-09-15 08:35:49 ##########
+chosen idx = 26
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+*** GTestFatboot: p=8101, r=1, bits=1320, t=0, c=3, m=51833 mvec=[17 3049], gens=[18295 47720], ords=[16 381]
+Computing key-independent tables...using HELIB_EXPLICIT_AUX=90
+
+t = -1
+bound on I = 16.019734
+log2(aux) = 6.491853
+log2(beta) = 27.509303
+log2(qks) >= 36.694426, final log2(qks) = 36.694428
+log2(R) >= 27.663080, final log2(R) = 27.664398
+INFO: total bits = 1794.92, security level = 84.5555HELIB_NORMONLY: order=1, norm map on the unfiltered P_A, deg(P)=1223
+HELIB_COMPOSED_EVAL: order=1 d=8 |folded support|=1224 degQ=1223 padded to n'=1224
+HELIB_COMPOSED_EVAL: no norm form found; staying on P-S
+deg of poly for non-power-of-p aux is 1223
+security=84.5555
+# small primes = 6
+# ctxt primes = 23
+# bits in ctxt primes = 1331
+# special primes = 8
+# bits in special primes = 463
+scale=10
+ done in 2386.72 seconds
+  e=0, e'=0, t=12
+  m = 51833, p = 8101, phi(m) = 48768
+  ord(p) = 8
+  normBnd = 1.61652
+  polyNormBnd = 3.56984
+  factors = [17 3049]
+  generator 18295 has order (== Z_m^*) of 16
+  generator 47720 has order (== Z_m^*) of 381
+r = 1
+nslots = 6096
+hwt = 120
+ctxtPrimes = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]
+specialPrimes = [33,34,35,36,37,38,39,40]
+number of bits = 1795
+
+security level = 84.5555
+Generating keys, Keys generated. Now genRecryptData...
+computing key-dependent tables...Sparse boot key hwt = 12
+genRecryptData done. recryptKeyID=1
+lcAksBsgs=0 lcAksDelayed=0
+Post-key setup done.
+ done in 37.5004 seconds
+Encrypt succeeded.
+WARNING: KS-noise-ratio = 1.00805 > 1
+HELIB_AUX_ORDER4_EVAL enabled: order=1, deg(P)=1223, terms(P)=307, deg(Q)=1223, terms(Q)=307
+time for linear1 = 7.746923, linear2 = 73.287531, extract = 136.923399, total = 220.215027
+bits for linear1 = 54.462432, linear2 = 56.486583, extract = 315.277246, min cap = 9.185125, after cap = 913.432618, after prod = 1285.196446
+cap / time = 3.858888
+
+### summary over 1 test
+time for linear1 = 7.746923, linear2 = 73.287531, extract = 136.923399, total = 220.215027
+bits for linear1 = 54.462432, linear2 = 56.486583, extract = 315.277246, min cap = 9.185125, after cap = 913.432618, after prod = 1285.196446
+cap / time = 3.858888
+
+
+### bts finished, everything ok ###
+
+  AAA_bootKeySwitch: 40.2118 / 1 = 40.2118   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1968]
+  AAA_coeffToSlot: 34.8568 / 1 = 34.8568   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2396]
+  AAA_embeddingLargest: 1.01613 / 377 = 0.0026953   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:250]
+  AAA_embeddingLargest_x2: 0.71295 / 266 = 0.00268026   [$ARTIFACT/ours/_build_case1/HElib-patched/src/norms.cpp:423]
+  AAA_extractDigitsThin: 136.922 / 1 = 136.922   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:2449]
+  AAA_modDownEnbeddings: 0.830088 / 266 = 0.00312063   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:506]
+  AAA_slotToCoeff: 7.74683 / 1 = 7.74683   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1954]
+  BasicAutomorphPrecon: 4.21821 / 8 = 0.527276   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:69]
+  BluesteinFFT: 94.4345 / 25348 = 0.00372552   [$ARTIFACT/ours/_build_case1/HElib-patched/src/bluestein.cpp:141]
+  Decrypt: 0.636695 / 1 = 0.636695   [$ARTIFACT/ours/_build_case1/HElib-patched/src/keys.cpp:1350]
+  DoubleCRT: 54.934 / 590 = 0.0931085   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:718]
+  FFT: 70.044 / 18039 = 0.00388292   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:479]
+  FFT: 86.7875 / 906 = 0.0957919   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:70]
+  FFT: 86.7777 / 18039 = 0.00481056   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:448]
+  FFT_aux: 70.0289 / 18039 = 0.00388208   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:360]
+  FFT_remainder: 16.7214 / 18039 = 0.000926961   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:455]
+  KS_loop: 15.8786 / 581 = 0.0273297   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:219]
+  KS_loop_1: 2.65266 / 581 = 0.00456567   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:227]
+  KS_loop_2: 2.14391 / 581 = 0.00369003   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:231]
+  KS_loop_3: 2.66722 / 581 = 0.00459073   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:236]
+  KS_loop_4: 0.94418 / 581 = 0.00162509   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:240]
+  NORM_VAL: 1.80929 / 318 = 0.00568959   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:541]
+  addCtxt: 12.137 / 2489 = 0.00487627   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1458]
+  addPart: 4.9224 / 1448 = 0.00339945   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:905]
+  addPrimes: 50.9145 / 319 = 0.159606   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:625]
+  addPrimes_5: 53.4733 / 318 = 0.168155   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:518]
+  automorph: 12.8471 / 122 = 0.105304   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:117]
+  automorph: 0.229387 / 57 = 0.00402433   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2489]
+  breakIntoDigits: 53.789 / 120 = 0.448241   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:481]
+  decode: 17.3686 / 1 = 17.3686   [$ARTIFACT/ours/_build_case1/HElib-patched/src/EncryptedArray.cpp:375]
+  do_mul: 15.3337 / 3847 = 0.00398589   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:280]
+  extractDigitsThin: 136.922 / 1 = 136.922   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1597]
+  iFFT: 44.6094 / 7309 = 0.00610335   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:488]
+  iFFT_division: 15.8375 / 7309 = 0.00216684   [$ARTIFACT/ours/_build_case1/HElib-patched/src/CModulus.cpp:570]
+  keySwitchPart: 59.2129 / 113 = 0.524008   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:836]
+  modDownToSet: 104.904 / 325 = 0.322783   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:409]
+  mul_MatMul1DExec: 77.17 / 6 = 12.8617   [$ARTIFACT/ours/_build_case1/HElib-patched/src/matmul.cpp:975]
+  multByConstant: 9.08198 / 1192 = 0.00761911   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1884]
+  multByConstant: 0.111643 / 1 = 0.111643   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1910]
+  multLowLvl: 62.7476 / 75 = 0.836635   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1733]
+  multiplyBy: 57.256 / 32 = 1.78925   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:1809]
+  privateAssign: 2.90993 / 608 = 0.00478607   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:329]
+  randomize: 6.29698 / 581 = 0.0108382   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1318]
+  randomize_stream: 3.52733 / 3669222 = 9.6133e-07   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1348]
+  reLinearize: 87.7684 / 210 = 0.417945   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:736]
+  smartAutomorph: 27.5602 / 57 = 0.483512   [$ARTIFACT/ours/_build_case1/HElib-patched/src/Ctxt.cpp:2514]
+  thinReCrypt: 220.224 / 1 = 220.224   [$ARTIFACT/ours/_build_case1/HElib-patched/src/recryption.cpp:1872]
+  toPoly: 59.8811 / 908 = 0.0659484   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:985]
+  toPoly_CRT: 9.9654 / 908 = 0.0109751   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1052]
+  toPoly_FFT: 49.2577 / 908 = 0.0542486   [$ARTIFACT/ours/_build_case1/HElib-patched/src/DoubleCRT.cpp:1030]
+  rusage.ru_maxrss=18477516
+||||| stats |||||
+KS-noise-ratio ave=0.0616344 max=1.00805
+KS-noise-ratio-hoist ave=2620.06 max=20960.4
+break-into-digits-ratio ave=0.322175 max=0.38518
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.323871 max=0.383431
+ptxt_rat_sk ave=0.00119851 max=0.00119851
+ptxt_rat_sk ave=0.311826 max=0.311826
+raw-mod-switch-noise ave=0.320995 max=0.320995
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=3.91429 max=6
+window2-out ave=0 max=0
+||||| stats |||||
+KS-noise-ratio ave=0.0616344 max=1.00805
+KS-noise-ratio-hoist ave=2620.06 max=20960.4
+break-into-digits-ratio ave=0.322175 max=0.38518
+excess-ctxtPrimes ave=11.4543 max=11.4543
+excess-specialPrimes ave=8.82842 max=8.82842
+mod-switch-added-noise ave=0.323871 max=0.383431
+ptxt_rat_sk ave=0.00119851 max=0.00119851
+ptxt_rat_sk ave=0.311826 max=0.311826
+raw-mod-switch-noise ave=0.320995 max=0.320995
+window1-nchoices ave=4 max=4
+window1-out ave=0 max=0
+window2-nchoices ave=3.91429 max=6
+window2-out ave=0 max=0
+WALL=2667.14 s MAXRSS=18477516 kB
+exit=0 (NORMONLY pass1)
+SET_DONE 26

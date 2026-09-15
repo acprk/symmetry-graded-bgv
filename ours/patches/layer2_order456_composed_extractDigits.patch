@@ -1,0 +1,485 @@
+--- /tmp/midlayer_extractDigits.cpp
++++ /tmp/final_extractDigits.cpp
+@@ -11,11 +11,23 @@
+  */
+ /* EncryptedArray.cpp - Data-movement operations on arrays of slots
+  */
++#include <set>
++#include <map>
++#include <vector>
++#include <utility>
++#include <algorithm>
+ #include <NTL/ZZ.h>
+ #include <NTL/ZZ_p.h>
+ #include <helib/EncryptedArray.h>
+ #include <helib/polyEval.h>
+ #include <helib/debugging.h>
++#include <cstdlib>
++#include <iostream>
++#include <NTL/ZZ_pE.h>
++#include <NTL/ZZ_pEX.h>
++#include <NTL/ZZ_pXFactoring.h>
++#include <NTL/ZZ_pEXFactoring.h>
++#include <set>
+ 
+ namespace helib {
+ 
+@@ -179,8 +191,11 @@
+   // NOTE: this can be really time-consuming for large p
+   // thus, we store the computed value into files
+   // and load them later
+-  char buf[200] = "";
+-  sprintf(buf, "your_path_to_main_dir/saved_ZZX/%ld_%ld_ZZX.txt", p, e);
++  const char* cacheDir = std::getenv("HELIB_ZZX_CACHE_DIR");
++  if (cacheDir == nullptr || cacheDir[0] == '\0')
++    cacheDir = "cache/saved_ZZX";
++  char buf[512] = "";
++  snprintf(buf, sizeof(buf), "%s/%ld_%ld_ZZX.txt", cacheDir, p, e);
+   {
+     FILE* file = fopen(buf, "r");
+     if (file != nullptr) {
+@@ -236,11 +251,19 @@
+ 
+   // write to file for large p
+   if (p > 1000) {
++    // ensure cache directory exists
++    std::string dirPath(cacheDir);
++    std::string mkdirCmd = "mkdir -p " + dirPath;
++    int rc = system(mkdirCmd.c_str());
++    (void)rc;
++
+     FILE* file = fopen(buf, "w");
+-    for (long i = 0; i <= NTL::deg(poly1); i++)
+-      fprintf(file, "%ld\n", NTL::to_long(poly1[i]));
+-    fclose(file);
+-    std::cerr << "write file " << buf << '\n';
++    if (file != nullptr) {
++      for (long i = 0; i <= NTL::deg(poly1); i++)
++        fprintf(file, "%ld\n", NTL::to_long(poly1[i]));
++      fclose(file);
++      std::cerr << "write file " << buf << '\n';
++    }
+   }
+ }
+ 
+@@ -435,6 +458,375 @@
+   poly = interp_poly;
+ }
+ 
++
++// ---- order-r filter state, set when the extraction polynomial is built ----------
++static long g_filterOrder = 4;          // 4 (Gaussian) or 6 (Eisenstein)
++static long g_filterRadix = 0;          // the radix actually used
++static std::set<long> g_foldSupport;    // { x^ord : x in support }, recorded at build time
++
++// Order-six (Eisenstein) bounded-support polynomial. The order-six rotation
++// (h,l) -> (h+l,-h) does not preserve the coordinate box, so we interpolate on the
++// ORBIT CLOSURE of the box, which is stable by construction and costs exactly the 3/2
++// inflation of the box-closure lemma. The low-digit map extends to the closure as the
++// same "return l" function, which is precisely its covariant extension, so the
++// interpolant satisfies P(AX) = A^{-1}(P(X) - X) and carries the monomial pattern
++// {1} u {k = 5 mod 6}. Returns the radix used, or 0 if no usable one exists.
++long compute_prime_aux_poly_order6(NTL::ZZX& poly, long p, long r, long B, long aux)
++{
++  if (p % 3 != 1) return 0;
++  if (r != 1) {
++    // The closure values are general field elements, so the Hensel lift of the
++    // order-four builder does not carry over verbatim; decline instead of guessing.
++    std::cout << "HELIB_ORDER6: r=" << r << " > 1 not supported by this builder\n";
++    return 0;
++  }
++  NTL::ZZ p_ZZ(p);
++  NTL::ZZ_pPush push(p_ZZ);
++
++  // The order-six unit is whichever of +-aux is a primitive 6th root of unity: the
++  // pipeline's digit decomposition uses aux, and -aux spans the same lattice.
++  long A6 = 0;
++  long cand[2] = { ((aux % p) + p) % p, ((p - (aux % p)) % p) };
++  for (int t = 0; t < 2; t++)
++    if (((NTL::MulMod(cand[t], cand[t], p) - cand[t]) % p + 1) % p == 0) { A6 = cand[t]; break; }
++  if (!A6) {
++    std::cout << "HELIB_ORDER6: aux=" << aux << " is not an order-six radix mod p=" << p << "\n";
++    return 0;
++  }
++  long Ainv = NTL::InvMod(A6, p);
++
++  // S0: the honest box in the pipeline's own parameterisation, value = low digit.
++  std::map<long, long> val;
++  std::vector<long> frontier;
++  for (long hi = -B; hi <= B; hi++)
++    for (long lo = -B; lo <= B; lo++) {
++      long x = ((((hi % p) * (aux % p)) % p + lo) % p + p) % p;
++      long v = ((lo % p) + p) % p;
++      std::map<long, long>::iterator it = val.find(x);
++      if (it != val.end()) {
++        if (it->second != v) {
++          std::cout << "HELIB_ORDER6: box not injective at aux=" << aux << "\n"; return 0; }
++      } else { val[x] = v; frontier.push_back(x); }
++    }
++
++  // Orbit closure under x -> A6*x, values propagated by P(Ax) = A^{-1}(P(x) - x).
++  // An inconsistent collision means the order-six structure does not close on this
++  // region, and we decline rather than emit a wrong polynomial.
++  for (int step = 0; step < 6 && !frontier.empty(); step++) {
++    std::vector<long> next;
++    for (size_t k = 0; k < frontier.size(); k++) {
++      long x = frontier[k], v = val[x];
++      long ax = NTL::MulMod(x, A6, p);
++      long av = NTL::MulMod(NTL::SubMod(v, x, p), Ainv, p);
++      std::map<long, long>::iterator it = val.find(ax);
++      if (it == val.end()) { val[ax] = av; next.push_back(ax); }
++      else if (it->second != av) {
++        std::cout << "HELIB_ORDER6: covariance inconsistent at x=" << x << "\n"; return 0; }
++    }
++    frontier.swap(next);
++  }
++
++  NTL::vec_ZZ_p xs, ys; xs.SetLength(val.size()); ys.SetLength(val.size());
++  { long i2 = 0;
++    for (std::map<long, long>::iterator it = val.begin(); it != val.end(); ++it) {
++      xs[i2] = NTL::conv<NTL::ZZ_p>(it->first);
++      ys[i2] = NTL::conv<NTL::ZZ_p>(it->second); i2++; } }
++  NTL::ZZX interp = NTL::conv<NTL::ZZX>(NTL::interpolate(xs, ys));
++
++  long bad = 0;
++  for (long i2 = 0; i2 <= NTL::deg(interp); i2++)
++    if (!NTL::IsZero(NTL::coeff(interp, i2)) && i2 != 1 && (i2 % 6) != 5) bad++;
++  if (bad) {
++    std::cout << "HELIB_ORDER6: " << bad << " off-pattern terms; declining\n"; return 0; }
++
++  poly = interp;
++  g_filterOrder = 6; g_filterRadix = A6;
++  g_foldSupport.clear();
++  for (std::map<long, long>::iterator it = val.begin(); it != val.end(); ++it)
++    if (it->first) g_foldSupport.insert(NTL::PowerMod(it->first, 6L, p));
++  std::cout << "HELIB_ORDER6: A=" << A6 << " aux=" << aux << " |closure|=" << val.size()
++            << " (inflation " << (double)val.size() / (double)((2*B+1)*(2*B+1))
++            << ") deg(P)=" << NTL::deg(poly)
++            << " |folded|=" << g_foldSupport.size() << "\n";
++  return A6;
++}
++
++// ==================== composed (r,d) evaluation ==============================
++// Built once from (p, B, aux, d) where the cleaner is built, consumed at evaluation
++// time. Q is pinned only as a FUNCTION on the folded support, so F = Q + c*Gamma agrees
++// with it there for every c, provided Gamma vanishes on that support. Choosing c so that
++// F is a norm from GR(p^e,d)[t] replaces the degree-(deg F) evaluation by a
++// degree-(deg F / d) one plus an O(log d) Frobenius orbit.
++struct ComposedPlan {
++  bool built = false, ok = false;
++  long d = 0, cmul = 1, nprime = 0, degC = 0, sgn = 1;
++  std::vector<NTL::ZZX> ck;          // coefficients of C, already slot-encoded
++};
++static ComposedPlan g_composedPlan;
++static long g_composedAutos = 0;
++
++// N(x) = prod_{i<d} Frob^i(x), by binary doubling: O(log d) non-scalar multiplications.
++
++// BSGS evaluation of sum_i ck[i] * X^i at a ciphertext power, over slot-encoded
++// constants. Depth O(log deg), unlike a Horner chain whose depth equals the degree.
++static Ctxt composedBsgsEnc(const Ctxt& x, const std::vector<NTL::ZZX>& ck) {
++  long k = (long)ck.size() - 1;                    // degree
++  long kap = 1; while (kap * kap < k + 1) kap++;   // baby-step count ~ sqrt
++  std::vector<Ctxt> baby;
++  baby.push_back(Ctxt(x.getPubKey(), x.getPtxtSpace()));  // X^0 placeholder
++  baby.push_back(x);
++  for (long i = 2; i <= kap; i++) {
++    long h = i / 2; Ctxt t = baby[h];
++    if (i - h == h) { t.square(); t.reLinearize(); }
++    else { t.multiplyBy(baby[i - h]); t.reLinearize(); }
++    baby.push_back(t);
++  }
++  long nb = (k + 1 + kap - 1) / kap;
++  auto block = [&](long blk) {
++    Ctxt part(x.getPubKey(), x.getPtxtSpace()); part.clear(); bool e = true;
++    for (long i = 0; i < kap; i++) {
++      long idx = blk * kap + i; if (idx > k) break;
++      Ctxt t(x.getPubKey(), x.getPtxtSpace());
++      if (i == 0) { t.clear(); t.addConstant(ck[idx]); }
++      else { t = baby[i]; t.multByConstant(ck[idx]); }
++      if (e) { part = t; e = false; } else part += t;
++    }
++    return part;
++  };
++  Ctxt acc = block(nb - 1);
++  for (long blk = nb - 2; blk >= 0; blk--) {
++    acc.multiplyBy(baby[kap]); acc.reLinearize();
++    acc += block(blk);
++  }
++  return acc;
++}
++
++static Ctxt composedOrbitProduct(const Ctxt& A0, long d) {
++  if (d <= 1) return A0;
++  long tb = 0; while ((1L << (tb + 1)) <= d) tb++;
++  Ctxt B = A0; long cur = 1;
++  for (long b = tb - 1; b >= 0; b--) {
++    Ctxt t = B; t.frobeniusAutomorph(cur); g_composedAutos++;
++    B.multiplyBy(t); B.reLinearize(); cur *= 2;
++    if ((d >> b) & 1L) {
++      Ctxt u = A0; u.frobeniusAutomorph(cur); g_composedAutos++;
++      B.multiplyBy(u); B.reLinearize(); cur += 1;
++    }
++  }
++  return B;
++}
++
++// Build the plan. `poly` is the cleaner P; the folded Q is P's k=3 mod 4 part.
++__attribute__((used)) static void buildComposedPlan(const NTL::ZZX& poly, long p, long B, long aux,
++                              long d, const EncryptedArray& ea)
++{
++  ComposedPlan& P = g_composedPlan;
++  if (P.built) return;
++  P.built = true; P.d = d;
++  if (d < 2) { std::cout << "HELIB_COMPOSED_EVAL: d=" << d
++                         << ", Galois axis trivial; staying on P-S\n"; return; }
++  NTL::ZZ_pPush push(NTL::conv<NTL::ZZ>(p));
++
++  // folded support { x^ord }: recorded when the order-six polynomial was built,
++  // recomputed from the box when the order-four filter is in use.
++  const long ord = g_filterOrder, u = ord - 1;
++  std::set<long> fold;
++  if (!g_foldSupport.empty()) {
++    fold = g_foldSupport;
++  } else {
++    for (long hi = -B; hi <= B; hi++)
++      for (long lo = -B; lo <= B; lo++) {
++        long x = (((hi % p) * (aux % p) + lo) % p + p) % p;
++        if (x == 0) continue;
++        fold.insert(NTL::PowerMod(x, ord, p));
++      }
++  }
++  long n = (long)fold.size();
++
++  // Q from P: coefficient of X^{ord*j+u} becomes coefficient of Y^j
++  NTL::ZZ_pX Qp;
++  for (long i = u; i <= NTL::deg(poly); i++)
++    if ((i % ord) == u && !NTL::IsZero(NTL::coeff(poly, i)))
++      NTL::SetCoeff(Qp, (i - u) / ord, NTL::conv<NTL::ZZ_p>(NTL::coeff(poly, i)));
++
++  // Gamma vanishes on the folded support; pad with points off it until d | deg Gamma
++  long ntar = ((n + d - 1) / d) * d;
++  if (ntar <= NTL::deg(Qp)) ntar += d;
++  NTL::vec_ZZ_p roots; roots.SetLength(ntar);
++  { long i = 0;
++    for (long y : fold) roots[i++] = NTL::conv<NTL::ZZ_p>(y);
++    long z = 0;
++    while (i < ntar) { while (fold.count(z)) z++; roots[i++] = NTL::conv<NTL::ZZ_p>(z);
++                       fold.insert(z); z++; } }
++  NTL::ZZ_pX Gam; NTL::BuildFromRoots(Gam, roots);
++  std::cout << "HELIB_COMPOSED_EVAL: order=" << ord << " d=" << d
++            << " |folded support|=" << n
++            << " degQ=" << NTL::deg(Qp) << " padded to n'=" << ntar << "\n";
++
++  double t0 = NTL::GetTime();
++  for (long c = 1; c < p; c++) {
++    NTL::ZZ_pX Fc = Qp + NTL::conv<NTL::ZZ_p>(c) * Gam;
++    if (NTL::deg(Fc) != ntar) continue;
++    NTL::MakeMonic(Fc);
++    if (!NTL::DetIrredTest(Fc)) continue;
++    NTL::ZZ_pX Gslot; NTL::conv(Gslot, ea.getAlMod().getFactorsOverZZ()[0]);
++    NTL::ZZ_pEPush push2(Gslot);
++    NTL::ZZ_pEX Fe = NTL::conv<NTL::ZZ_pEX>(Fc);
++    NTL::vec_pair_ZZ_pEX_long fac; NTL::CanZass(fac, Fe);
++    if (fac.length() != d || NTL::deg(fac[0].a) != ntar / d) continue;
++    NTL::ZZ_pEX C = fac[0].a;
++    for (long i = 0; i <= NTL::deg(C); i++) {
++      NTL::ZZX cz; NTL::conv(cz, NTL::rep(NTL::coeff(C, i)));
++      std::vector<NTL::ZZX> sv(ea.size(), cz);
++      NTL::ZZX enc; ea.encode(enc, sv); P.ck.push_back(enc);
++    }
++    P.ok = true; P.cmul = c; P.nprime = ntar; P.degC = ntar / d;
++    P.sgn = (ntar % 2 == 0) ? 1 : -1;
++    std::cout << "HELIB_COMPOSED_EVAL: norm form c=" << c << " degC=" << P.degC
++              << " (search " << NTL::GetTime() - t0 << "s)\n";
++    break;
++  }
++  if (!P.ok) std::cout << "HELIB_COMPOSED_EVAL: no norm form found; staying on P-S\n";
++}
++// =============================================================================
++
++static bool envFlagEnabled(const char* name)
++{
++  const char* flag = std::getenv(name);
++  return flag != nullptr && flag[0] != '\0' && flag[0] != '0';
++}
++
++static long countNonZeroTerms(const NTL::ZZX& poly)
++{
++  long count = 0;
++  for (long i = 0; i <= NTL::deg(poly); i++)
++    if (!NTL::IsZero(NTL::coeff(poly, i)))
++      count++;
++  return count;
++}
++
++static bool splitFilterCleaner(NTL::ZZX& q,
++                               NTL::ZZ& linearCoeff,
++                               const NTL::ZZX& poly,
++                               long ord)
++{
++  const long u = ord - 1;   // P = c1*X + X^u * Q(X^ord)
++  q = NTL::ZZX::zero();
++  linearCoeff = NTL::ZZ::zero();
++
++  for (long i = 0; i <= NTL::deg(poly); i++) {
++    const NTL::ZZ& c = NTL::coeff(poly, i);
++    if (NTL::IsZero(c))
++      continue;
++
++    if (i == 1) {
++      linearCoeff = c;
++      continue;
++    }
++
++    if (i >= u && (i % ord) == u) {
++      NTL::SetCoeff(q, (i - u) / ord, c);
++      continue;
++    }
++
++    return false;
++  }
++
++  q.normalize();
++  return NTL::deg(q) >= 0 || !NTL::IsZero(linearCoeff);
++}
++
++static bool polyEvalOrderFourCleaner(Ctxt& ret,
++                                     const NTL::ZZX& poly,
++                                     const Ctxt& x)
++{
++  const long ord = g_filterOrder, u = ord - 1;
++  NTL::ZZX q;
++  NTL::ZZ linearCoeff;
++  if (!splitFilterCleaner(q, linearCoeff, poly, ord))
++    return false;
++
++  // powers x^u (assembly) and x^ord (folding). Only these two are used below;
++  // for ord=6 a balanced schedule reaches both in 4 products at depth 3
++  // (x^2, x^3=x^2*x, x^6=(x^3)^2, x^5=x^2*x^3) instead of the 5-product,
++  // depth-5 sequential chain x^2,x^3,x^4,x^5,x^6. For ord=4 the sequential
++  // chain is already minimal (3 products): x^3 is itself a needed stepping
++  // stone to x^4 there, unlike x^4 for ord=6.
++  std::vector<Ctxt> pw(ord + 1, x);
++  if (ord == 6) {
++    pw[2] = pw[1]; pw[2].multiplyBy(x); pw[2].reLinearize();       // x^2
++    pw[3] = pw[2]; pw[3].multiplyBy(x); pw[3].reLinearize();       // x^3
++    pw[6] = pw[3]; pw[6].multiplyBy(pw[3]); pw[6].reLinearize();   // x^6 = (x^3)^2
++    pw[5] = pw[2]; pw[5].multiplyBy(pw[3]); pw[5].reLinearize();   // x^5 = x^2*x^3
++  } else {
++    for (long k = 2; k <= ord; k++) {
++      pw[k] = pw[k - 1];
++      pw[k].multiplyBy(x);
++      pw[k].reLinearize();
++    }
++  }
++  Ctxt& x3 = pw[u];      // the assembly power X^{ord-1}
++  Ctxt& x4 = pw[ord];    // the folding power  X^{ord}
++
++  Ctxt qEval(x.getPubKey(), x.getPtxtSpace());
++
++  // ---- composed branch: Q evaluated through the Galois norm map ------------
++  if (NTL::deg(q) >= 0 && g_composedPlan.ok) {
++    const ComposedPlan& P = g_composedPlan;
++    Ctxt acc = composedBsgsEnc(x4, P.ck);   // BSGS: depth O(log degC), not degC
++    Ctxt orb = composedOrbitProduct(acc, P.d);
++    if (P.sgn < 0) orb.negate();
++    orb.multByConstant(NTL::to_ZZ(P.cmul));
++    orb.multiplyBy(x3); orb.reLinearize();
++    if (!NTL::IsZero(linearCoeff)) {
++      Ctxt linear = x; linear.multByConstant(linearCoeff); orb += linear;
++    }
++    ret = orb;
++    static bool pr = false;
++    if (!pr) { std::cout << "HELIB_COMPOSED_EVAL active: order=" << ord
++                         << " degC=" << P.degC << " d=" << P.d << "\n"; pr = true; }
++    return true;
++  }
++  // -------------------------------------------------------------------------
++
++  if (NTL::deg(q) >= 0) {
++    // NOTE: this artifact evaluates Q by the standard Paterson-Stockmeyer path.
++    // The paper notes (Related Work) that the scalar filter composes orthogonally
++    // with the asymmetric BSGS method of a separate line of work; we do not ship
++    // an implementation of that separate method here, since no table in this
++    // paper depends on it.
++    std::vector<Ctxt*> qRet{&qEval};
++    NTL::vec_ZZX qVec;
++    qVec.SetLength(1);
++    qVec[0] = q;
++    polyEvalNew(qRet, qVec, x4);
++    qEval.multiplyBy(x3);
++    qEval.reLinearize();
++  } else {
++    qEval.clear();
++  }
++
++  if (!NTL::IsZero(linearCoeff)) {
++    Ctxt linear = x;
++    linear.multByConstant(linearCoeff);
++    qEval += linear;
++  }
++
++  ret = qEval;
++
++  static bool printed = false;
++  if (!printed) {
++    std::cout << "HELIB_AUX_ORDER4_EVAL enabled: order=" << ord
++              << ", deg(P)=" << NTL::deg(poly)
++              << ", terms(P)=" << countNonZeroTerms(poly)
++              << ", deg(Q)=" << NTL::deg(q)
++              << ", terms(Q)=" << countNonZeroTerms(q) << "\n";
++    printed = true;
++  }
++
++  return true;
++}
++
+ // extendExtractDigits assumes that the slots of *this contains integers mod
+ // p^{r+e} i.e., that only the free terms are nonzero. (If that assumptions
+ // does not hold then the result will not be a valid ciphertext anymore.)
+@@ -552,8 +944,16 @@
+     // now the digit extraction is actually interpolation within the lowest
+     // digit
+     digits.resize(1, tmp);
+-    std::vector<Ctxt*> ctxt_ptr_vec{&digits[0]};
+-    polyEvalNew(ctxt_ptr_vec, context.getExtractPolys(), c);
++    const NTL::Vec<NTL::ZZX>& extractPolys = context.getExtractPolys();
++    if (!(envFlagEnabled("HELIB_AUX_ORDER4_EVAL") &&
++          extractPolys.length() == 1 &&
++          polyEvalOrderFourCleaner(digits[0], extractPolys[0], c))) {
++      if (envFlagEnabled("HELIB_AUX_ORDER4_EVAL"))
++        std::cout << "HELIB_AUX_ORDER4_EVAL skipped: cleaner does not have "
++                     "the required order-four support\n";
++      std::vector<Ctxt*> ctxt_ptr_vec{&digits[0]};
++      polyEvalNew(ctxt_ptr_vec, extractPolys, c);
++    }
+   } else {
+     // power-of-p aux
+     // numExtract is either 1 or 2
+@@ -799,7 +1199,24 @@
+ 
+     if (t < 0) { // non-power-of-p aux
+       extractPolys.SetLength(1);
+-      compute_prime_aux_poly(extractPolys[0], p, r, bnd, aux);
++      // Order selection: the order-four radix needs -1 to be a square, so for
++      // p = 7 (mod 12) -- every Mersenne prime above 3 -- only the order-six
++      // Eisenstein filter exists. HELIB_FILTER_ORDER overrides the choice.
++      long a6 = 0;
++      { const char* fo = getenv("HELIB_FILTER_ORDER");
++        // Only deviate from the established path when the filter is switched on: the
++        // baseline arm must build exactly the polynomial it always built.
++        bool filterOn = envFlagEnabled("HELIB_AUX_ORDER4_EVAL");
++        long want = fo ? atol(fo) : 4;
++        if (filterOn && want == 6)
++          a6 = compute_prime_aux_poly_order6(extractPolys[0], p, r, bnd, aux);
++        if (filterOn && want == 6 && !a6)
++          std::cout << "HELIB_ORDER6: unavailable at p=" << p
++                    << "; falling back to the order-four path\n"; }
++      if (!a6) compute_prime_aux_poly(extractPolys[0], p, r, bnd, aux);
++      if (envFlagEnabled("HELIB_COMPOSED_EVAL"))
++        buildComposedPlan(extractPolys[0], p, bnd, aux,
++                          getOrdP(), getEA());
+       std::cout << "deg of poly for non-power-of-p aux is " << NTL::deg(extractPolys[0]) << "\n";
+     } else { // power-of-p aux
+       if (numExtract_param == 1) {

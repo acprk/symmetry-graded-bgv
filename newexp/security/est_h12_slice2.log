@@ -1,0 +1,15 @@
+======================================================================================================================
+set22-p14401 MAIN              n=41140  log2q=1786.36  h=120  -> MIN=77.4 via primal_hybrid_nb | primal_usvp=79.2, primal_bdd=79.2, primal_hybrid=77.9, dual=79.6, dual_hybrid=80.3 | [1052s]
+set22-p14401 ENCAP             n=41140  log2q=65.58    h=12   -> MIN=88.7 via primal_hybrid_nb | primal_hybrid=90.4 | [283s]
+set23-p2521 MAIN               n=50112  log2q=2026.15  h=120  -> MIN=82.4 via primal_hybrid_nb | primal_usvp=84.7, primal_bdd=84.7, primal_hybrid=82.9, dual=85.3, dual_hybrid=85.9 | [1079s]
+set23-p2521 ENCAP              n=50112  log2q=61.66    h=12   -> MIN=91.7 via primal_hybrid_nb | primal_hybrid=93.5 | [266s]
+set24-p2917 MAIN               n=52488  log2q=2026.02  h=120  -> MIN=85.4 via primal_hybrid_nb | primal_usvp=88.6, primal_bdd=88.7, primal_hybrid=86.1, dual=89.0, dual_hybrid=89.5 | [1144s]
+set24-p2917 ENCAP              n=52488  log2q=61.55    h=12   -> MIN=92.3 via primal_hybrid_nb | primal_hybrid=94.1 | [249s]
+set25-p4513 MAIN               n=36960  log2q=1794.30  h=120  -> MIN=70.7 via primal_hybrid_nb | primal_usvp=71.6, primal_bdd=71.9, primal_hybrid=71.1, dual=72.0, dual_hybrid=72.7 | [711s]
+set25-p4513 ENCAP              n=36960  log2q=62.60    h=12   -> MIN=87.6 via primal_hybrid_nb | primal_hybrid=89.4 | [255s]
+======================================================================================================================
+set                      phi(m)      main    encap      MIN  binding   main_argmin    encap_argmin  
+set22-p14401             41140       77.4     88.7     77.4  main      primal_hybrid_nb primal_hybrid_nb
+set23-p2521              50112       82.4     91.7     82.4  main      primal_hybrid_nb primal_hybrid_nb
+set24-p2917              52488       85.4     92.3     85.4  main      primal_hybrid_nb primal_hybrid_nb
+set25-p4513              36960       70.7     87.6     70.7  main      primal_hybrid_nb primal_hybrid_nb

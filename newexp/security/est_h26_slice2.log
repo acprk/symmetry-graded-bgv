@@ -1,0 +1,9 @@
+======================================================================================================================
+set32-p8101-h26 MAIN           n=56832  log2q=1267.48  h=120  -> MIN=130.0 via primal_hybrid_nb | primal_usvp=154.1, primal_bdd=153.8, primal_hybrid=131.1, dual=155.1, dual_hybrid=154.5 | [1244s]
+set32-p8101-h26 ENCAP          n=56832  log2q=64.68    h=26   -> MIN=156.0 via primal_hybrid_nb | primal_hybrid=159.8 | [392s]
+set33-p14401-h26 MAIN          n=51480  log2q=1132.56  h=120  -> MIN=130.8 via primal_hybrid_nb | primal_usvp=155.9, primal_bdd=155.9, primal_hybrid=132.1, dual=157.0, dual_hybrid=156.7 | [1074s]
+set33-p14401-h26 ENCAP         n=51480  log2q=66.15    h=26   -> MIN=153.0 via primal_hybrid_nb | primal_hybrid=156.7 | [368s]
+======================================================================================================================
+set                      phi(m)      main    encap      MIN  binding   main_argmin    encap_argmin  
+set32-p8101-h26          56832      130.0    156.0    130.0  main      primal_hybrid_nb primal_hybrid_nb
+set33-p14401-h26         51480      130.8    153.0    130.8  main      primal_hybrid_nb primal_hybrid_nb

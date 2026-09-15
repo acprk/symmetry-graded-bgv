@@ -9,7 +9,7 @@ values along the orbit by the covariance relation P(Ax) = A^{-1}(P(x) - x), decl
 if any orbit closes inconsistently. It also only deviates from the established
 polynomial when the filter is actually switched on, so the baseline arm is untouched.
 """
-F = "/home/luck/xzy/0424project/github_order4_cleaner/src/HElib_auxradix_opt/src/extractDigits.cpp"
+F = "$HELIB_SRC/src/extractDigits.cpp"
 s = open(F).read()
 
 i = s.index("long compute_prime_aux_poly_order6(NTL::ZZX& poly, long p, long r, long B)")

@@ -1,0 +1,39 @@
+chosen idx = 0
+encapHwt = 12
+t for new bts is -1
+new bts ? 1
+new ks ? 1
+thick bts ?0
+repeat times = 1
+force bsgs = 0
+force hoist = 0
+custom mode: p=8191 m=45193 (43*1051) bits=1320 -- gens/ords auto-derived by HElib, not hand-supplied
+*** GTestFatboot: p=8191, r=1, bits=1320, t=0, c=3, m=45193 mvec=[43 1051], gens=[], ords=[]
+Computing key-independent tables...terminate called after throwing an instance of 'helib::LogicError'
+  what():  Invalid argument: sig and reps have inconsistent dimension
+timeout: the monitored command dumped core
+Command terminated by signal 6
+	Command being timed: "timeout 3600 fatboot-driver/build/fatboot custom=1 cp=8191 cm1=43 cm2=1051 cbits=1320 h=12 t=-1 newbts=1 newks=1 thick=0 repeat=1"
+	User time (seconds): 122.80
+	System time (seconds): 3.54
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:06.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3536164
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 2220006
+	Voluntary context switches: 7
+	Involuntary context switches: 339
+	Swaps: 0
+	File system inputs: 40
+	File system outputs: 32
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+exit=134

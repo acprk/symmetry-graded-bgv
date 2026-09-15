@@ -1,0 +1,15 @@
+======================================================================================================================
+set18-p37831 MAIN              n=36960  log2q=1786.22  h=120  -> MIN=70.8 via primal_hybrid_nb | primal_usvp=71.9, primal_bdd=71.9, primal_hybrid=71.4, dual=72.3, dual_hybrid=73.0 | [945s]
+set18-p37831 ENCAP             n=36960  log2q=68.06    h=12   -> MIN=87.0 via primal_hybrid_nb | primal_hybrid=88.8 | [272s]
+set19-p60271 MAIN              n=59616  log2q=2017.38  h=120  -> MIN=95.1 via primal_hybrid_nb | primal_usvp=100.5, primal_bdd=100.4, primal_hybrid=95.6, dual=101.0, dual_hybrid=101.6 | [1239s]
+set19-p60271 ENCAP             n=59616  log2q=70.59    h=12   -> MIN=93.1 via primal_hybrid_nb | primal_hybrid=94.6 | [296s]
+set20-p3307 MAIN               n=59472  log2q=2026.13  h=120  -> MIN=94.6 via primal_hybrid_nb | primal_usvp=99.9, primal_bdd=100.1, primal_hybrid=95.1, dual=100.5, dual_hybrid=101.0 | [1326s]
+set20-p3307 ENCAP              n=59472  log2q=62.23    h=12   -> MIN=93.9 via primal_hybrid_nb | primal_hybrid=95.8 | [258s]
+set21-p6163 MAIN               n=40716  log2q=1794.57  h=120  -> MIN=76.2 via primal_hybrid_nb | primal_usvp=78.1, primal_bdd=78.1, primal_hybrid=77.1, dual=78.7, dual_hybrid=79.2 | [723s]
+set21-p6163 ENCAP              n=40716  log2q=63.08    h=12   -> MIN=88.9 via primal_hybrid_nb | primal_hybrid=90.7 | [237s]
+======================================================================================================================
+set                      phi(m)      main    encap      MIN  binding   main_argmin    encap_argmin  
+set18-p37831             36960       70.8     87.0     70.8  main      primal_hybrid_nb primal_hybrid_nb
+set19-p60271             59616       95.1     93.1     93.1  encap     primal_hybrid_nb primal_hybrid_nb
+set20-p3307              59472       94.6     93.9     93.9  encap     primal_hybrid_nb primal_hybrid_nb
+set21-p6163              40716       76.2     88.9     76.2  main      primal_hybrid_nb primal_hybrid_nb

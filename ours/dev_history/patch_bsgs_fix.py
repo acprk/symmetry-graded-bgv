@@ -9,7 +9,7 @@ used. Same multiplication count, wrong depth. This patch replaces Horner with th
 baby-step/giant-step evaluation the benchmarks use, operating on the slot-encoded
 coefficients.
 """
-F = "/home/luck/xzy/0424project/github_order4_cleaner/src/HElib_auxradix_opt/src/extractDigits.cpp"
+F = "$HELIB_SRC/src/extractDigits.cpp"
 s = open(F).read()
 assert "HELIB_COMPOSED_EVAL" in s, "composed patch missing"
 if "composedBsgsEnc" in s:
