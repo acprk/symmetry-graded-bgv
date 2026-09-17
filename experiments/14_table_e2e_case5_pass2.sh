@@ -4,7 +4,10 @@
 set -u
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOGDIR=${LOGDIR:-$HERE/logs}; mkdir -p "$LOGDIR"
-O4=${OURS_ROOT:-../ours}
+O4=$(cd "${OURS_ROOT:-$HERE/../ours}" && pwd)
+FATBOOT=${FATBOOT:-$O4/fatboot-driver/build/fatboot}
+[ -x "$FATBOOT" ] || { echo "fatboot not built at $FATBOOT -- see ../ours/README.md, or set OURS_ROOT / FATBOOT" >&2; exit 1; }
+
 OUT=$LOGDIR/VERIFY_pass2.log; : > "$OUT"
 for MODE in MA_BASELINE ORDER4 COMPOSED; do
   cd "$O4"; export HELIB_ZZX_CACHE_DIR=$PWD/cache/x; mkdir -p "$HELIB_ZZX_CACHE_DIR"
@@ -12,7 +15,7 @@ for MODE in MA_BASELINE ORDER4 COMPOSED; do
   [ "$MODE" != "MA_BASELINE" ] && export HELIB_AUX_ORDER4_EVAL=1
   [ "$MODE" = "COMPOSED" ] && export HELIB_COMPOSED_EVAL=1
   echo "########## PASS2 V :: $MODE ##########" >>"$OUT"
-  HELIB_EXPLICIT_AUX=256 timeout 3600 src/BGV-Boot-auxradix-opt/build_o4/fatboot \
+  HELIB_EXPLICIT_AUX=256 timeout 3600 "$FATBOOT" \
     i=4 h=12 t=-1 newbts=1 newks=1 thick=0 repeat=1 >>"$OUT" 2>&1
   echo "exit=$? ($MODE)" >>"$OUT"
 done

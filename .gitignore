@@ -6,3 +6,8 @@ __pycache__/
 _install/
 baselines/_upstream/
 newexp/cache/
+# created by experiments/10..14_*.sh and experiments/bench/run_*.sh at run time
+ours/cache/
+experiments/logs/
+experiments/bench/logs/
+experiments/normdens
