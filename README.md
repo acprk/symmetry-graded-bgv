@@ -68,7 +68,7 @@ repository's, and the note says where in this repository each of those figures i
 |---|---|---|---|
 | Table 3 (`tab:params`) | the nine representative sets, with security | `newexp/security/estimate_security.py`; derivation in `newexp/PARAMETERS.md` | `newexp/security/est_*.json`, `newexp/logs/` |
 | Table 4 (`tab:results`) | three evaluators on those nine sets | `newexp/collect.py` → `newexp/make_final.py` | `newexp/logs/set*_pass*.log` |
-| Table 5 (`tab:comparison`) | prior implementations at set V | hand-assembled from the four sources at right | `newexp/logs/set4_p65537_pass1.log` (Ma, Xiong–Wang, ours), `results/raw_logs/build_and_run.log` and `ma_baseline_five_presets.log` (Zhao et al. vs Ma, set V) |
+| Table 5 (`tab:comparison`) | prior implementations at set V | hand-assembled from the four sources at right | `newexp/logs/set4_p65537_pass1.log` (Ma, Xiong et al., ours), `results/raw_logs/build_and_run.log` and `ma_baseline_five_presets.log` (Zhao et al. vs Ma, set V) |
 | Fig. 7 (`fig:results`) | stage breakdown, and set V against prior work | `newexp/make_fig6_v2.py` (see note below) | `newexp/logs/set*_pass*.log`, `newexp/final/final_rows.json` |
 | Table 9 (`tab:offline`) | per-ring offline data: radix, degrees, coset index, search time, chains, capacity | `newexp/make_appendix_tables.py` | `newexp/results.csv` |
 | Table 10 (`tab:sec_full`) | six attacks on both LWE instances, every ring | `newexp/make_appendix_tables.py` | `newexp/security/est_*.json` |
