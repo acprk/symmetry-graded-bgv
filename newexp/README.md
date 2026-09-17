@@ -35,7 +35,7 @@ one; the rest select the evaluator. `arms.sh` maps an arm name onto these variab
 | arm | `HELIB_EXPLICIT_AUX` | `HELIB_AUX_ORDER4_EVAL` | `HELIB_FILTER_ORDER` | `HELIB_COMPOSED_EVAL` | what it is |
 |---|---|---|---|---|---|
 | `BASELINE` | `aux4`, or `aux6` if no order-four radix | – | – | – | Ma et al.'s odd bounded-support filter with Paterson–Stockmeyer |
-| `ORDER4` | `aux4` | 1 | – | – | order-four character filter (Xiong–Wang), `p = 1 (mod 4)` |
+| `ORDER4` | `aux4` | 1 | – | – | order-four character filter (Xiong et al.), `p = 1 (mod 4)` |
 | `ORDER4_COMPOSED` | `aux4` | 1 | – | 1 | order four followed by the Galois norm map |
 | `ORDER6` | `aux6` | 1 | 6 | – | order-six filter on the box's orbit closure, `p = 1 (mod 3)` |
 | `ORDER6_COMPOSED` | `aux6` | 1 | 6 | 1 | order six followed by the Galois norm map |

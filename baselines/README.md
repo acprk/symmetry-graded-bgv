@@ -13,11 +13,11 @@ code); `setup.sh` clones each at the pinned commit.
 | Ma et al., EUROCRYPT'24 | Bounded-support digit extraction (the odd filter) | `github.com/msh086/BGV-Boot-for-Large-p` | `83b54d534ef36776c912ca49247d1e3157509299` |
 | Zhao et al., CRYPTO'26 | Galois norm-map evaluation | `github.com/Nobody673/artifact-helib` | `e8b9cab0908e994a8f2d7b9b2c3dda02bf135c32` |
 | Geelen et al., EUROCRYPT'23 | Null-polynomial lattice sparsification | `github.com/KULeuven-COSIC/Bootstrapping_Polyfunctions` | `fc27e5461815499c1d6366a1d73ec7e39087b2cd` |
-| Xiong et al. (this line of work's prior paper) | The order-four character filter | *same codebase as `ours/`* | see `ours/README.md` |
+| Xiong et al., ASIACRYPT'26 (eprint 2026/1847) | The order-four character filter | *re-implemented in `ours/`* | see `ours/README.md` |
 
 The fourth row is not a separate download: the order-four filter is one configuration
 (`HELIB_AUX_ORDER4_EVAL=1`, `HELIB_COMPOSED_EVAL` unset) of the exact same patched HElib
-tree in `ours/`, since our composed evaluator is built as a strict extension of it. Running
+tree in `ours/`, the composed evaluator being a strict extension of that construction. Running
 it with both flags unset instead reproduces the Ma et al. baseline *on the same code path*,
 which is what makes the ratios in Tables 4, 5, 11 and 14 head-to-head: only the environment
 variable changes, not the ring, modulus chain, key, or support.

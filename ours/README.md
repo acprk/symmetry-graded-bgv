@@ -80,7 +80,7 @@ unset HELIB_AUX_ORDER4_EVAL HELIB_COMPOSED_EVAL HELIB_FILTER_ORDER
 # Ma et al.'s baseline, set V (p=65537, m=50731):
 HELIB_EXPLICIT_AUX=256 ./fatboot i=4 h=12 t=-1 newbts=1 newks=1 thick=0 repeat=1
 
-# order-four filter (Xiong-Wang):
+# order-four filter (Xiong et al., ASIACRYPT'26):
 HELIB_EXPLICIT_AUX=256 HELIB_AUX_ORDER4_EVAL=1 \
   ./fatboot i=4 h=12 t=-1 newbts=1 newks=1 thick=0 repeat=1
 
