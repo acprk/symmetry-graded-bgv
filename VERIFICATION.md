@@ -37,9 +37,11 @@ different sessions are never compared directly.
 HElib caches encoded plaintext constants keyed by content; the *first* run of a given
 configuration pays the encoding cost inside the timed region, and every subsequent run does
 not. The same order-six configuration measured 135.8s cold and 83.2s warm on one ring — a
-63% difference invisible to rule 3's load normalisation, since the linear transform's time
-is unaffected by this particular cache. Every number quoted in the paper is warm-cache; the
-one cold-cache data point we kept (for completeness) is explicitly marked in Table 5.
+63% difference invisible to rule 3's load normalisation, since the linear transform's time is
+unaffected by this particular cache. Both halves of that pair are shipped: `results/raw_logs/`
+holds the cold run in `O6_smoke.log` (`extract = 135.763812`) and the warm one in
+`O6_backtoback.log` (`extract = 83.242292`), same evaluator, same ring, same chain. Every number
+quoted in the paper is warm-cache.
 
 ## A worked example: how rule 1 caught a wrong result
 
@@ -62,7 +64,8 @@ executing the *same* baseline computation, and the measured "1.23x" was pure ses
 noise, not a real speedup. This was caught, retracted, and replaced with the correct
 experiment: the composed evaluator was extended to operate on the order-six filter's
 orbit-closed box (which *does* exist at every Mersenne prime), re-measured, and re-verified
-under all four rules before the number 3.7x (Table 5, Case IV) replaced the retracted 1.23x.
+under all four rules. The number that replaced the retracted 1.23x is the Case IV row of
+Table 4, 3.60x.
 
 The general lesson, and the reason rule 1 is stated the way it is: **a number that looks
 plausible is not evidence that the code path producing it executed.** Every script here
@@ -72,8 +75,10 @@ checks the activation string first and the arithmetic second, in that order.
 
 ```bash
 cd results/raw_logs
-grep -c "HELIB_COMPOSED_EVAL active" O6_backtoback.log       # -> 2 (both passes, Table 8)
-grep -c "HELIB_AUX_ORDER4_EVAL enabled" v_rerun_bsgs.log     # -> 1 (Table 5, Case V, order-4 arm)
+grep -c "HELIB_COMPOSED_EVAL active" O6_backtoback.log       # -> 2 (both passes of the Case IV
+                                                              #    back-to-back run)
+grep -c "HELIB_AUX_ORDER4_EVAL enabled" v_rerun_bsgs.log     # -> 1 (the order-four arm at set V;
+                                                              #    last row of Table 13)
 grep -c "everything ok" O6_backtoback.log v_rerun_bsgs.log CASE4_clean.log
 #   -> O6_backtoback.log:6 (2 passes x 3 arms), v_rerun_bsgs.log:3 (3 arms),
 #      CASE4_clean.log:6 (2 passes x 3 arms) -- one match per arm, as expected.

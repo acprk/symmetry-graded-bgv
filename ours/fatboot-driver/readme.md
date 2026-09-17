@@ -18,8 +18,8 @@ Usage: build/fatboot [i=<arg>] [h=<arg>] [t=<arg>] [newbts=<arg>] [newks=<arg>] 
   thick  if thick bts is used [ default=0 ]
   repeat number of tests [ default=5 ]
 ```
-+ Five parameter sets are available (given in Table 3 of the paper with ID I, II, III, IV and V). By setting the argument `i` to an integer in 0 to 4, the corresponding parameter set is chosen.
-+ The Hamming weight of the encapsulated secret key needs to be assigned through the argument `h`. Again, please refer to Table 3 for the values of `h` with 80 or 128 bits of security.
++ `real_params[]` in `fatboot.cpp` holds 34 parameter sets, selected by `i=0..33`. `i=0,1,2` are Ma et al.'s sets at `p=17,127,257`; `i=3` and `i=4` are their sets IV and V; `i=5..13` are earlier order-four candidates, kept for the rejection notes in their comments; `i=14..33` are the 20 rings of the sweep, in the order of `../../newexp/sets.tsv` and `sets128.tsv`. Their derivation is in `../../newexp/PARAMETERS.md`.
++ The Hamming weight of the encapsulated secret key is the argument `h`: `h=12` for the 80-bit tier, `h=26` for the 128-bit tier. The security each ring actually reaches at each weight is in `../../newexp/final/tab_sec_full.tex`.
 + Argument `t` controls the $t$ in our paper, i.e., $t=v_p(\Delta)$. Setting `t=0` tells the program to decide a positive $t$ that is as small as possible (type-A parameters), while setting `t=-1` uses $\Delta=\Delta_0$, i.e., $t=0$ (type-B parameters). Setting `t` to any positive integer will also set $t$ to the same value.
 + Set `newbts=1` if you want to test our optimized digit removal. Set `newbts=0` to test the native implementation of HElib.
 + Set `thick=1` to test general bootstrapping. Set `thick=0` to test thin bootstrapping.

@@ -3,3 +3,6 @@ _build*/
 HElib-patched/
 __pycache__/
 *.pyc
+_install/
+baselines/_upstream/
+newexp/cache/

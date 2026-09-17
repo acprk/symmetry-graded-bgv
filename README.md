@@ -1,99 +1,147 @@
 # Artifact: Symmetry-Graded Digit Extraction for Faster BGV/BFV Bootstrapping
 
-This repository is the experimental artifact for the paper. It contains:
+Everything behind the evaluation section of the paper: the patch that turns vanilla HElib into
+the composed `(r,d)` evaluator, the driver that measures it, the 22-ring sweep, the security
+estimates, the raw logs, and the scripts that turn the logs into the tables.
 
-1. **`selector/`** — a standalone, dependency-light (r,d) selector (`select.py`). Given a
-   plaintext prime `p`, a cyclotomic index `m`, and a digit bound `B`, it searches for and
-   returns the cost-optimal symmetry-graded configuration `(r*, d)` *before any ciphertext
-   is created*. This is the "advance-determination script" the paper's Section 7 documents
-   as `Procedure SELECT`. It needs no HElib and runs in milliseconds.
-2. **`baselines/`** — build recipes pinning the exact upstream commits of the three
-   constructions this paper is measured against, so that the comparison is against the
-   authors' own code, not our reimplementation of it.
-3. **`ours/`** — the two-layer patch that turns vanilla HElib into the composed `(r,d)` evaluator
-   (order-4, order-6, and the Galois-norm composition), plus the thin-bootstrapping driver
-   used to measure it.
-4. **`experiments/`** — the exact scripts used to produce every table in the paper's
-   evaluation section, from the pure-arithmetic selector predictions (`tab:offline`) to the
-   full-census exhaustive verification of the density theorem (`tab:census`).
-5. **`newexp/`** — the extended sweep of Section 6 and Appendix D: 17 general cyclotomic rings at `h=12` and five at `h=26`, every arm on identical ring, chain, key and support, with the per-ring Lattice Estimator security, the raw logs and the scripts that produce every table and figure.
-6. **`results/raw_logs/`** — the actual, unedited stdout logs from the runs that produced
-   the numbers in the paper. Every number quoted in the tables can be grepped out of these
-   files; nothing here is a summary or a simulation.
+```
+README.md                  this file
+VERIFICATION.md            the four measurement rules, and a worked case of one catching an error
+selector/select.py         standalone (r,d) selector; --self-test replays the paper's rows
+baselines/README.md        pinned commits and build recipes for the three prior implementations
+ours/
+  README.md                the two-layer patch, the build, how to run one arm
+  apply_all.sh             vanilla HElib 3e337a6 -> layer 1 -> layer 2, byte-verified against src/
+  patches/                 the two layers, as three .patch files
+  src/                     extractDigits.cpp and recryption.cpp in full, post-patch
+  fatboot-driver/          the thin-bootstrapping driver; presets i=3,4 are Ma et al.'s sets IV/V,
+                           i=14..33 the new rings
+  dev_history/             development patches and the vanilla extractDigits.cpp, for transparency
+newexp/
+  README.md                arms, environment variables, how to run a pass, what did not work
+  PARAMETERS.md            how every ring, digit bound, radix, chain and security figure was derived
+  sets.tsv sets128.tsv cases.tsv   the 22 parameter sets
+  run_batch.sh arms.sh     the driver harness
+  collect.py               logs/ -> results.csv
+  make_final.py make_appendix_tables.py make_origin_figs.py parse_logs.py
+  logs/                    unedited driver output of every run
+  final/                   final_rows.json and the LaTeX tables and figures
+  security/                estimate_security.py and its per-ring output
+experiments/               census, obstruction, monodromy, density, shared-context scripts
+results/raw_logs/          unedited stdout of the shared-context runs and of the prior artifacts
+```
 
-## Correspondence between paper tables and this repository
+Absolute paths of the machine the runs were made on have been replaced throughout by the
+placeholders `$ARTIFACT`, `$HELIB_SRC`, `$ORDER4_SRC`, `$ZHAO_SRC` and `$LATTICE_ESTIMATOR`, and
+the timezone abbreviation in two copied logs by `TZ`. Nothing else in any log was edited.
 
-Numbering refers to the current manuscript (Section 6 and Appendices C, D).
+## Start here
 
-| Paper table / figure | What it measures | Where it comes from |
-|---|---|---|
-| Table 3 (`tab:results`), Fig. 7 | Six representative rings: parameters, security, three evaluators end to end | `newexp/final/final_rows.json`, `newexp/make_origin_figs.py`; raw logs `newexp/logs/set*_pass*.log` |
-| Table 4 (`tab:comparison`) | Prior implementations at Ma et al.'s set V | `newexp/logs/` (Ma / Xiong–Wang / ours), `results/raw_logs/zhao_thin24.log`, `build_and_run.log` (Zhao et al.'s artifact), `baselines/README.md` |
-| App. D, `tab:offline` | Selector output per ring: radix, degrees, coset index, search time, chains, capacity | `newexp/collect.py`, `newexp/make_final.py` → `newexp/final/tab_offline.tex` |
-| App. D, `tab:sec_full` | Lattice Estimator, six attacks, main and encapsulated key, every ring | `newexp/security/estimate_security.py`, `newexp/security/est_h*_slice*.json` |
-| App. D, `tab:e2e`, `tab:e2e128` | All 17 rings at h=12 and 5 rings at h=26 | `newexp/final/tables_final.tex` |
-| App. D, `tab:po2`, `tab:composed` | Scalar axis and composed evaluator on shared contexts | `experiments/11_table_po2_composed_backtoback.sh`, `results/raw_logs/O6_backtoback.log` |
-| App. D, `tab:passes` | Reproducibility across two passes | `newexp/final/tab_passes.tex` |
-| App. C, `tab:census` | Exhaustive census of the folded coset (obstruction + density) | `experiments/01_full_census_naive.cpp` / `02_full_census_fast.cpp`, `07_make_census_table.py` |
-| App. C, monodromy certificate | Hypotheses H1–H4 for the composed pencil | `experiments/05_monodromy_certificate.cpp` |
-| Lemma "obstruction at r = 2" | `gcd(Q, Γ)` of degree 2B for the unfiltered polynomial | `experiments/04_obstruction_check.cpp` |
-| Selector `Select` | Cost-optimal `(r*, d)` before any ciphertext exists | `selector/select.py` |
-
-The machine-checked Lean 4 proofs of the algebraic core and of the noise model live in the
-companion repository `symmetry-graded-lean`.
-
-## Quick start
+The selector is the only piece with no heavy dependencies. It answers the question the paper's
+`Procedure SELECT` poses — given `(p, m, B)`, which order `r*` and which slot degree `d` give the
+cheapest digit extraction — before any ciphertext exists, in under a second.
 
 ```bash
-# 1. The selector needs nothing but Python + sympy. Try it now:
 cd selector
 pip install sympy
-python3 select.py --self-test               # replays every selector row in the paper
-python3 select.py --p 8191 --m 65536 --B 17 --support hex   # predicts r*=6 for a Mersenne prime
-
-# 2. Everything downstream of step 1 needs HElib built with our patch (see ours/README.md)
-#    and, for the baseline comparisons, the three repositories in baselines/ (see below).
+python3 select.py --self-test                                # replays every selector row; prints ALL PASS
+python3 select.py --p 8191 --m 65536 --B 17 --support hex    # r*=6 at a Mersenne prime
 ```
+
+Everything else needs HElib built with the patch in `ours/` (see `ours/README.md`), and the
+baseline comparisons additionally need the three repositories pinned in `baselines/README.md`.
+
+## Where each table comes from
+
+Numbers refer to the current manuscript. Every file named here exists in this repository.
+
+| Paper | What it is | Produced by | Raw data |
+|---|---|---|---|
+| Table 3 (`tab:params`) | the nine representative sets, with security | `newexp/security/estimate_security.py`; derivation in `newexp/PARAMETERS.md` | `newexp/security/est_*.json`, `newexp/logs/` |
+| Table 4 (`tab:results`) | three evaluators on those nine sets | `newexp/collect.py` → `newexp/make_final.py` | `newexp/logs/set*_pass*.log` |
+| Table 5 (`tab:comparison`) | prior implementations at set V | hand-assembled from the four sources at right | `newexp/logs/set4_p65537_pass1.log` (Ma, Xiong–Wang, ours), `results/raw_logs/build_and_run.log` and `ma_baseline_five_presets.log` (Zhao et al. vs Ma, set V) |
+| Fig. 7 (`fig:results`) | stage breakdown, and set V against prior work | not reproduced by any script here (see note below) | `newexp/final/final_rows.json` |
+| Table 9 (`tab:offline`) | per-ring offline data: radix, degrees, coset index, search time, chains, capacity | `newexp/make_appendix_tables.py` | `newexp/results.csv` |
+| Table 10 (`tab:sec_full`) | six attacks on both LWE instances, every ring | `newexp/make_appendix_tables.py` | `newexp/security/est_*.json` |
+| Table 11 (`tab:e2e`) | all 17 rings at `h=12` | `newexp/make_final.py` → `newexp/final/tables_final.tex` | `newexp/logs/` |
+| Table 12 (`tab:po2`) | scalar axis on `m=2^16` | — | `results/raw_logs/sweep_po2_ma_sets.log` (2000 bits), `sweep_po2_deep.log` (the † rows, 3600 bits) |
+| Table 13 (`tab:composed`) | composed evaluator against the scalar axis | — | `results/raw_logs/sweep_composed.log` (rows 1–3), `sweep_composed_4003.log` (row 4), `v_rerun_bsgs.log` (row 5) |
+| Table 14 (`tab:e2e128`) | the five rings at `h=26` | `newexp/make_final.py` → `newexp/final/tables_final.tex` | `newexp/logs/set2*_h26_*.log`, `set3*_h26_*.log` |
+| Table 15 (`tab:passes`) | the four rings measured twice | `newexp/make_appendix_tables.py` | `newexp/results.csv` |
+| Table 6 (`tab:census`) | exhaustive census of the folded coset | `experiments/01_full_census_naive.cpp`, `02_full_census_fast.cpp`, `07_make_census_table.py` | `results/raw_logs/CENSUS*.txt` |
+| Table 7 (`tab:monodromy`) | monodromy certificates H1–H4 | `experiments/05_monodromy_certificate.cpp` | `results/raw_logs/MONODROMY.txt` |
+| Table 8 (`tab:select`) | `Select` output at `B=17` | `selector/select.py --self-test` | — |
+| Lemma, obstruction at `r=2` | `gcd(Q, Gamma)` of degree `2B` | `experiments/04_obstruction_check.cpp` | — |
+
+Three caveats on that table, none of which affect Tables 3, 4, 9, 10, 11, 14 or 15.
+
+Fig. 7 of the manuscript uses `figs/fig6a_stacked.pdf` and `figs/fig6b_prior.pdf`; both come
+from `newexp/make_fig6_v2.py`, which reads the stage timings straight out of `newexp/logs/`
+and the speedups out of `final_rows.json`. `make_origin_figs.py` and `make_final.py` produce
+the two earlier pairs, `fig6a_bars.pdf`/`fig6b_speedup.pdf` and
+`fig_extract_time.pdf`/`fig_speedup_vs_d.pdf`, from the same data.
+
+In Table 12, the multiplication count and the time in a row are each the minimum over the
+Paterson–Stockmeyer parameter kappa, and on two rows they come from different kappa: at
+`p=8191, r=2` the log has 43 mults at 49.92 s (kappa=20) and 44 mults at 48.95 s (kappa=26), and
+at `p=8191, r=3` it has 37 mults at 38.50 s (kappa=16) and 39 mults at 37.60 s (kappa=12). The
+four daggered counts (43, 59, 50, 68) are likewise kappa-minima from the 3600-bit rerun, because
+those four arms crashed at 2000 bits with `Decrypting with too much noise`.
+
+The last row of Table 13 (`p=65537`, `m=50731`) is a different kind of measurement from the other
+four. The first four come from the stage-level harness, which reports its own multiplication
+count and time per row; the last comes from a full recryption, `results/raw_logs/v_rerun_bsgs.log`,
+where the times are the `extract` field (84.02 s order four, 36.64 s composed) and the counts are
+HElib's own `multiplyBy` counter (`multiplyBy: 38.865 / 21` and `multiplyBy: 28.1643 / 16`). That
+run predates the sweep and used a different build, which is why its times differ from the 92.72 s
+and 41.41 s that Tables 4, 5 and 11 report for the same ring out of
+`newexp/logs/set4_p65537_pass1.log`. There is also a stage-level run on that ring,
+`results/raw_logs/sweep_aligned65537.log`, but it has no composed arm.
+
+## Raw logs
+
+`results/raw_logs/` holds the runs that are not part of the `newexp/` sweep.
+
+| file | what it is |
+|---|---|
+| `build_and_run.log` | Zhao et al.'s artifact rebuilt and run at their presets `p=8191` and `p=65537`, thick bootstrapping |
+| `zhao_repro_p17_p127_p257.log` | the same, at their remaining three presets `p=17`, `127`, `257` |
+| `ma_baseline_five_presets.log` | Ma et al.'s baseline at all five of those presets, same session |
+| `sweep_po2_ma_sets.log` | scalar axis on `m=2^16` at 2000 bits, `p=131071/8191/65537`, orders 6/3/2/1 and 4/2/1 |
+| `sweep_po2_deep.log` | the four arms that exhausted the 2000-bit budget, rerun at 3600 bits |
+| `sweep_composed.log`, `sweep_composed_4003.log` | composed evaluator against the scalar axis on the same contexts |
+| `sweep_aligned65537.log` | order-4/2/1 scalar axis on `m=50731`, `p=65537` |
+| `O6_backtoback.log`, `CASE4_clean.log`, `ORDER6_case4.log`, `O6_smoke.log` | Case IV back-to-back arms |
+| `v_rerun_bsgs.log`, `VERIFY_pass2.log` | Case V arms, and the second verification pass |
+| `zhao_thin24.log`, `zhao_t-1_probe.log` | Zhao et al.'s evaluator on the thin path, both aborts |
+| `table_unified.log`, `table_fix.log` | earlier unified table runs, superseded by `newexp/` |
+| `CENSUS*.txt`, `MONODROMY.txt` | census and monodromy certificate output |
+
+The comparison with Zhao et al. quoted in Section 6 as `1.15x-2.37x` is the ratio of Ma et al.'s
+digit-extraction time to theirs, preset by preset, and can be checked directly:
+
+```bash
+cd results/raw_logs
+grep -h "time for linear1" ma_baseline_five_presets.log | sort -u     # 677.08 2542.73 1477.28 429.34 689.12
+grep -h "time for linear1" build_and_run.log zhao_repro_p17_p127_p257.log | sort -u
+```
+
+which gives, in the order `p = 17, 127, 257, 8191, 65537`, extraction times of
+677.08 / 2542.73 / 1477.28 / 429.34 / 689.12 s for Ma et al. against
+549.10 / 1072.90 / 689.31 / 373.77 / 422.66 s for Zhao et al., so ratios of
+1.23, 2.37, 2.14, 1.15 and 1.63. The 1.63 at `p=65537` is the figure in Table 5. These are
+extraction-only ratios; on total bootstrapping time the same five runs give 1.23, 2.14, 1.83,
+1.04 and 1.37.
 
 ## Correctness discipline
 
-Every number in the paper that comes from a ciphertext experiment is subject to the
-verification discipline documented in `VERIFICATION.md`: (i) the evaluator under test must
-announce itself *at evaluation time*, not merely when a plan is built, and every log in
-`results/raw_logs/` is `grep`-checked for that announcement before its numbers are trusted;
-(ii) every bootstrapping run ends with HElib's own all-slot decryption check, and a run
-that fails it is reported as a failure, never silently dropped; (iii) ratios that must be
-compared across arms are always measured back-to-back in one session on one machine, with
-the accompanying (unmodified) linear-transform time recorded as a load barometer.
-`VERIFICATION.md` walks through one complete example end to end.
+Every ciphertext number in the paper is subject to the four rules in `VERIFICATION.md`: the
+evaluator under test must announce itself at *evaluation* time and every log is grep-checked for
+that announcement before its numbers are used; every run ends with HElib's all-slot decryption
+check and a failure is reported as a failure; cross-arm ratios are measured back to back in one
+session with the untouched linear transform as a load reference; and the plaintext-constant cache
+is treated as a measurement hazard. `VERIFICATION.md` walks through one case where the first rule
+caught a wrong result before it reached the paper.
 
-## Repository layout
-
-```
-.
-├── README.md                  (this file)
-├── VERIFICATION.md            (measurement discipline, with a worked example)
-├── selector/select.py         (standalone (r,d) selector; --self-test replays the paper's rows)
-├── baselines/README.md        (pinned commits + build recipes for Ma'24, Xiong–Wang'26, Zhao'26, Geelen'23)
-├── ours/
-│   ├── README.md              (two-layer patch structure, build, how to run one arm)
-│   ├── apply_all.sh           (vanilla HElib 3e337a6 → layer 1 → layer 2, byte-verified against src/)
-│   ├── patches/               (layer1_infrastructure, layer2_order456_composed_extractDigits, layer2_explicit_aux_recryption)
-│   ├── src/                   (extractDigits.cpp, recryption.cpp in full)
-│   ├── fatboot-driver/        (thin-bootstrapping driver `fatboot`, presets 3/4 = Ma et al.'s sets IV/V, 14–33 = new rings)
-│   └── dev_history/           (incremental development patches and the legacy single patch, for transparency)
-├── newexp/                    (the extended sweep behind Section 6 and Appendix D)
-│   ├── README.md              (arms, environment variables, parameter sets)
-│   ├── sets.tsv, sets128.tsv, cases.tsv   (rings at h=12, h=26, and Ma et al.'s sets)
-│   ├── run_batch*.sh, run_pool.sh, arms.sh (drivers; set ARTIFACT to this directory's parent if not auto-detected)
-│   ├── collect.py, make_final.py, make_origin_figs.py (log parsing, pass selection, tables and figures)
-│   ├── logs/                  (unedited driver output of every run)
-│   ├── final/                 (final_rows.json and every LaTeX table and figure in the paper)
-│   └── security/              (estimate_security.py and the estimator output per ring; needs LATTICE_ESTIMATOR=<checkout>)
-├── experiments/               (census, obstruction, monodromy, density, shared-context scripts)
-└── results/raw_logs/          (unedited stdout of the shared-context and Zhao-artifact runs)
-```
-
-Absolute paths of the machine the runs were made on have been replaced by the
-placeholders `$ARTIFACT`, `$HELIB_SRC`, `$ORDER4_SRC`, `$ZHAO_SRC`, `$LATTICE_ESTIMATOR`
-in scripts and logs; nothing else in the logs was edited.
+The machine-checked Lean 4 proofs of the algebraic core and of the noise model live in the
+companion repository `symmetry-graded-lean`.

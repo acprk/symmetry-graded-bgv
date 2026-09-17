@@ -1,0 +1,22 @@
+########## m=209833 p=4003 A=823 sup=hex ordr=6 bits=3000
+INFO: total bits = 4072.76, security level = 161.177context m=209833 p=4003 d=6 nslots=32280  filter r=6  A=823  B=17  setup=1453.5s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+order-6 filter: Atil=823 c1=1609 n=|orbits|=153 degQ=152 density=1/6
+norm-form: n=153 padded to n'=156 (d=6 divides it: yes)
+norm-form: c=80 found in 2.25s, deg F=156 -> 6 factors of degree 26 (want 6 x 26)
+
+RESULT r=6 degEval=152 |S|=919
+RESULT  kappa    time_s   mults  cap_used verify
+RESULT     10   266.730      29       747 CORRECT
+ORBIT      10   152.639      19       427 CORRECT  autos=3
+RESULT     14   246.203      28       607 CORRECT
+exit=143
+########## m=209833 p=4003 A=823 sup=boxcl ordr=6 bits=3000
+INFO: total bits = 4072.76, security level = 161.177context m=209833 p=4003 d=6 nslots=32280  filter r=6  A=823  B=17  setup=1203.2s
+boxcl: box (2B+1)^2=1225 closed under M -> |region|=1837 (inflation 1.4996)
+box-closure B=17 |S_A|=1837 (formula=1837) A-stable injective
+order-6 filter: Atil=823 c1=1609 n=|orbits|=306 degQ=305 density=1/6
+norm-form: n=306 padded to n'=306 (d=6 divides it: yes)
+norm-form: c=359 found in 14.89s, deg F=306 -> 6 factors of degree 51 (want 6 x 51)
+exit=143
+ALL DONE

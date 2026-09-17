@@ -1,0 +1,257 @@
+
+########## p=131071 sup=hex ordr=2 bits=3600
+INFO: total bits = 4890.6, security level = 5.4695context m=65536 p=131071 d=2 nslots=16384  filter r=2  A=21906  B=17  setup=70.1s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+order-2 filter: Atil=131070 c1=0 n=|orbits|=459 degQ=458 density=1/2
+
+RESULT r=2 degEval=458 |S|=919
+RESULT  kappa    time_s   mults  cap_used verify
+WARNING: KS-noise-ratio = 467.552 > 1
+WARNING: KS-noise-ratio = 243.972 > 1
+WARNING: KS-noise-ratio = 143.703 > 1
+WARNING: KS-noise-ratio = 109.003 > 1
+WARNING: KS-noise-ratio = 11.6051 > 1
+WARNING: KS-noise-ratio = 74.0821 > 1
+WARNING: KS-noise-ratio = 90.6006 > 1
+WARNING: KS-noise-ratio = 78.9896 > 1
+WARNING: KS-noise-ratio = 73.7101 > 1
+RESULT     20    67.013      43      1056 CORRECT
+WARNING: KS-noise-ratio = 467.552 > 1
+WARNING: KS-noise-ratio = 243.972 > 1
+WARNING: KS-noise-ratio = 143.703 > 1
+WARNING: KS-noise-ratio = 109.003 > 1
+WARNING: KS-noise-ratio = 1.15829 > 1
+WARNING: KS-noise-ratio = 89.2229 > 1
+WARNING: KS-noise-ratio = 86.2517 > 1
+WARNING: KS-noise-ratio = 67.3791 > 1
+RESULT     26    65.373      44       866 CORRECT
+WARNING: KS-noise-ratio = 467.552 > 1
+WARNING: KS-noise-ratio = 243.972 > 1
+WARNING: KS-noise-ratio = 143.703 > 1
+WARNING: KS-noise-ratio = 109.003 > 1
+WARNING: KS-noise-ratio = 75.2735 > 1
+WARNING: KS-noise-ratio = 76.8668 > 1
+WARNING: KS-noise-ratio = 99.2291 > 1
+RESULT     34    67.891      48       757 CORRECT
+WARNING: KS-noise-ratio = 467.552 > 1
+WARNING: KS-noise-ratio = 243.972 > 1
+WARNING: KS-noise-ratio = 143.703 > 1
+WARNING: KS-noise-ratio = 109.003 > 1
+WARNING: KS-noise-ratio = 1.66926 > 1
+WARNING: KS-noise-ratio = 76.7458 > 1
+RESULT     44    73.953      55       646 CORRECT
+=== m14 done ===
+exit=0 (p=131071 r=2)
+
+########## p=131071 sup=hex ordr=1 bits=3600
+INFO: total bits = 4890.6, security level = 5.4695context m=65536 p=131071 d=2 nslots=16384  filter r=1  A=21906  B=17  setup=69.7s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+generic baseline: deg P = 917 (no filter)
+
+RESULT r=1 degEval=917 |S|=919
+RESULT  kappa    time_s   mults  cap_used verify
+WARNING: KS-noise-ratio = 695.379 > 1
+WARNING: KS-noise-ratio = 345.915 > 1
+WARNING: KS-noise-ratio = 254.999 > 1
+WARNING: KS-noise-ratio = 199.257 > 1
+WARNING: KS-noise-ratio = 191.244 > 1
+WARNING: KS-noise-ratio = 184.837 > 1
+WARNING: KS-noise-ratio = 145.407 > 1
+WARNING: KS-noise-ratio = 125.564 > 1
+WARNING: KS-noise-ratio = 10.8701 > 1
+WARNING: KS-noise-ratio = 87.0184 > 1
+WARNING: KS-noise-ratio = 81.2545 > 1
+WARNING: KS-noise-ratio = 65.4868 > 1
+WARNING: KS-noise-ratio = 74.4351 > 1
+WARNING: KS-noise-ratio = 62.5446 > 1
+WARNING: KS-noise-ratio = 84.1059 > 1
+WARNING: KS-noise-ratio = 79.5306 > 1
+WARNING: KS-noise-ratio = 81.5137 > 1
+RESULT     20   103.357      64      1810 CORRECT
+WARNING: KS-noise-ratio = 695.379 > 1
+WARNING: KS-noise-ratio = 345.915 > 1
+WARNING: KS-noise-ratio = 254.999 > 1
+WARNING: KS-noise-ratio = 199.257 > 1
+WARNING: KS-noise-ratio = 191.244 > 1
+WARNING: KS-noise-ratio = 184.837 > 1
+WARNING: KS-noise-ratio = 145.407 > 1
+WARNING: KS-noise-ratio = 125.564 > 1
+WARNING: KS-noise-ratio = 85.1901 > 1
+WARNING: KS-noise-ratio = 78.5078 > 1
+WARNING: KS-noise-ratio = 86.3473 > 1
+WARNING: KS-noise-ratio = 81.0019 > 1
+WARNING: KS-noise-ratio = 84.6502 > 1
+WARNING: KS-noise-ratio = 69.3927 > 1
+WARNING: KS-noise-ratio = 89.3538 > 1
+RESULT     26   129.634      60      1440 CORRECT
+WARNING: KS-noise-ratio = 695.379 > 1
+WARNING: KS-noise-ratio = 345.915 > 1
+WARNING: KS-noise-ratio = 254.999 > 1
+WARNING: KS-noise-ratio = 199.257 > 1
+WARNING: KS-noise-ratio = 191.244 > 1
+WARNING: KS-noise-ratio = 184.837 > 1
+WARNING: KS-noise-ratio = 145.407 > 1
+WARNING: KS-noise-ratio = 125.564 > 1
+WARNING: KS-noise-ratio = 10.5866 > 1
+WARNING: KS-noise-ratio = 84.0236 > 1
+WARNING: KS-noise-ratio = 70.9578 > 1
+WARNING: KS-noise-ratio = 71.5648 > 1
+WARNING: KS-noise-ratio = 76.9906 > 1
+WARNING: KS-noise-ratio = 89.6975 > 1
+RESULT     34   132.446      59      1166 CORRECT
+WARNING: KS-noise-ratio = 695.379 > 1
+WARNING: KS-noise-ratio = 345.915 > 1
+WARNING: KS-noise-ratio = 254.999 > 1
+WARNING: KS-noise-ratio = 199.257 > 1
+WARNING: KS-noise-ratio = 191.244 > 1
+WARNING: KS-noise-ratio = 184.837 > 1
+WARNING: KS-noise-ratio = 145.407 > 1
+WARNING: KS-noise-ratio = 125.564 > 1
+WARNING: KS-noise-ratio = 7.84884 > 1
+WARNING: KS-noise-ratio = 83.6607 > 1
+WARNING: KS-noise-ratio = 76.0778 > 1
+WARNING: KS-noise-ratio = 58.9215 > 1
+RESULT     44   140.114      63       946 CORRECT
+=== m14 done ===
+exit=0 (p=131071 r=1)
+
+########## p=8191 sup=hex ordr=1 bits=3600
+INFO: total bits = 4890.6, security level = 5.4695context m=65536 p=8191 d=8 nslots=4096  filter r=1  A=91  B=17  setup=26.1s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+generic baseline: deg P = 917 (no filter)
+
+RESULT r=1 degEval=917 |S|=919
+RESULT  kappa    time_s   mults  cap_used verify
+WARNING: KS-noise-ratio = 277.427 > 1
+WARNING: KS-noise-ratio = 177.903 > 1
+RESULT     20   135.020      64      1564 CORRECT
+WARNING: KS-noise-ratio = 231.556 > 1
+RESULT     26   129.088      60      1244 CORRECT
+WARNING: KS-noise-ratio = 213.267 > 1
+RESULT     34   124.794      59      1007 CORRECT
+WARNING: KS-noise-ratio = 254.222 > 1
+RESULT     44   128.990      63       821 CORRECT
+=== m14 done ===
+exit=0 (p=8191 r=1)
+
+########## p=65537 sup=box ordr=2 bits=3600
+INFO: total bits = 4890.6, security level = 5.4695context m=65536 p=65537 d=1 nslots=32768  filter r=2  A=256  B=17  setup=101.8s
+box B=17 |S_A|=1225 (formula=1225) A-stable injective
+order-2 filter: Atil=65536 c1=0 n=|orbits|=612 degQ=611 density=1/2
+
+RESULT r=2 degEval=611 |S|=1225
+RESULT  kappa    time_s   mults  cap_used verify
+WARNING: KS-noise-ratio = 977.263 > 1
+WARNING: KS-noise-ratio = 3.8288 > 1
+WARNING: KS-noise-ratio = 2.94378 > 1
+WARNING: KS-noise-ratio = 2.72595 > 1
+WARNING: KS-noise-ratio = 2.31502 > 1
+WARNING: KS-noise-ratio = 511.868 > 1
+WARNING: KS-noise-ratio = 4.39141 > 1
+WARNING: KS-noise-ratio = 3.40112 > 1
+WARNING: KS-noise-ratio = 3.82554 > 1
+RESULT     20   102.407      51      1275 CORRECT
+WARNING: KS-noise-ratio = 977.263 > 1
+WARNING: KS-noise-ratio = 3.8288 > 1
+WARNING: KS-noise-ratio = 2.94378 > 1
+WARNING: KS-noise-ratio = 2.72595 > 1
+WARNING: KS-noise-ratio = 2.31502 > 1
+WARNING: KS-noise-ratio = 2.24798 > 1
+WARNING: KS-noise-ratio = 2.37724 > 1
+WARNING: KS-noise-ratio = 2.73732 > 1
+WARNING: KS-noise-ratio = 2.83415 > 1
+WARNING: KS-noise-ratio = 2.69818 > 1
+WARNING: KS-noise-ratio = 2.52335 > 1
+WARNING: KS-noise-ratio = 28.6958 > 1
+WARNING: KS-noise-ratio = 3.74035 > 1
+WARNING: KS-noise-ratio = 3.50122 > 1
+RESULT     26    99.733      50      1035 CORRECT
+WARNING: KS-noise-ratio = 977.263 > 1
+WARNING: KS-noise-ratio = 3.8288 > 1
+WARNING: KS-noise-ratio = 2.94378 > 1
+WARNING: KS-noise-ratio = 2.72595 > 1
+WARNING: KS-noise-ratio = 2.31502 > 1
+WARNING: KS-noise-ratio = 2.24798 > 1
+WARNING: KS-noise-ratio = 2.37724 > 1
+WARNING: KS-noise-ratio = 2.73732 > 1
+WARNING: KS-noise-ratio = 2.83415 > 1
+WARNING: KS-noise-ratio = 2.69818 > 1
+WARNING: KS-noise-ratio = 2.52335 > 1
+WARNING: KS-noise-ratio = 2.2682 > 1
+WARNING: KS-noise-ratio = 2.4837 > 1
+WARNING: KS-noise-ratio = 3.06514 > 1
+WARNING: KS-noise-ratio = 566.84 > 1
+WARNING: KS-noise-ratio = 518.215 > 1
+RESULT     34    94.497      52       890 CORRECT
+WARNING: KS-noise-ratio = 977.263 > 1
+WARNING: KS-noise-ratio = 3.8288 > 1
+WARNING: KS-noise-ratio = 2.94378 > 1
+WARNING: KS-noise-ratio = 2.72595 > 1
+WARNING: KS-noise-ratio = 2.31502 > 1
+WARNING: KS-noise-ratio = 2.24798 > 1
+WARNING: KS-noise-ratio = 2.37724 > 1
+WARNING: KS-noise-ratio = 2.73732 > 1
+WARNING: KS-noise-ratio = 2.83415 > 1
+WARNING: KS-noise-ratio = 2.69818 > 1
+WARNING: KS-noise-ratio = 2.52335 > 1
+WARNING: KS-noise-ratio = 2.2682 > 1
+WARNING: KS-noise-ratio = 2.4837 > 1
+WARNING: KS-noise-ratio = 572.011 > 1
+WARNING: KS-noise-ratio = 520.252 > 1
+RESULT     44   101.026      58       761 CORRECT
+=== m14 done ===
+exit=0 (p=65537 r=2)
+
+########## p=65537 sup=box ordr=1 bits=3600
+INFO: total bits = 4890.6, security level = 5.4695context m=65536 p=65537 d=1 nslots=32768  filter r=1  A=256  B=17  setup=92.2s
+box B=17 |S_A|=1225 (formula=1225) A-stable injective
+generic baseline: deg P = 1223 (no filter)
+
+RESULT r=1 degEval=1223 |S|=1225
+RESULT  kappa    time_s   mults  cap_used verify
+WARNING: KS-noise-ratio = 21.4879 > 1
+WARNING: KS-noise-ratio = 4.37037 > 1
+WARNING: KS-noise-ratio = 3.32949 > 1
+WARNING: KS-noise-ratio = 3.80369 > 1
+WARNING: KS-noise-ratio = 3.0275 > 1
+WARNING: KS-noise-ratio = 3.71418 > 1
+WARNING: KS-noise-ratio = 3.85753 > 1
+WARNING: KS-noise-ratio = 3.19908 > 1
+WARNING: KS-noise-ratio = 538.16 > 1
+RESULT     20   150.816      80      2268 CORRECT
+WARNING: KS-noise-ratio = 14.6067 > 1
+WARNING: KS-noise-ratio = 3.65806 > 1
+WARNING: KS-noise-ratio = 460.757 > 1
+WARNING: KS-noise-ratio = 3.39764 > 1
+WARNING: KS-noise-ratio = 2.98114 > 1
+WARNING: KS-noise-ratio = 23.5818 > 1
+WARNING: KS-noise-ratio = 3.7594 > 1
+RESULT     26   136.852      72      1789 CORRECT
+WARNING: KS-noise-ratio = 27.7386 > 1
+WARNING: KS-noise-ratio = 21.9518 > 1
+WARNING: KS-noise-ratio = 31.317 > 1
+WARNING: KS-noise-ratio = 4.04639 > 1
+WARNING: KS-noise-ratio = 441.004 > 1
+WARNING: KS-noise-ratio = 3.6667 > 1
+WARNING: KS-noise-ratio = 3.44326 > 1
+RESULT     34   147.620      68      1430 CORRECT
+WARNING: KS-noise-ratio = 27.7386 > 1
+WARNING: KS-noise-ratio = 21.9518 > 1
+WARNING: KS-noise-ratio = 19.7761 > 1
+WARNING: KS-noise-ratio = 20.1354 > 1
+WARNING: KS-noise-ratio = 18.606 > 1
+WARNING: KS-noise-ratio = 19.7636 > 1
+WARNING: KS-noise-ratio = 16.7382 > 1
+WARNING: KS-noise-ratio = 17.582 > 1
+WARNING: KS-noise-ratio = 17.0258 > 1
+WARNING: KS-noise-ratio = 17.4452 > 1
+WARNING: KS-noise-ratio = 17.7667 > 1
+WARNING: KS-noise-ratio = 17.9123 > 1
+WARNING: KS-noise-ratio = 22.6144 > 1
+WARNING: KS-noise-ratio = 3.90296 > 1
+WARNING: KS-noise-ratio = 3.68346 > 1
+WARNING: KS-noise-ratio = 3.47163 > 1
+RESULT     44   140.341      70      1148 CORRECT
+=== m14 done ===
+exit=0 (p=65537 r=1)
+ALL DONE

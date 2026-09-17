@@ -1,0 +1,151 @@
+
+########## m=65536 p=131071 A=21906 sup=hex ordr=6 bits=2000
+INFO: total bits = 2731.52, security level = 25.6137context m=65536 p=131071 d=2 nslots=16384  filter r=6  A=21906  B=17  setup=110.8s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+order-6 filter: Atil=21906 c1=94683 n=|orbits|=153 degQ=152 density=1/6
+norm-form: n=153 padded to n'=154 (d=2 divides it: yes)
+norm-form: c=188 found in 4.59s, deg F=154 -> 2 factors of degree 77 (want 2 x 77)
+
+RESULT r=6 degEval=152 |S|=919
+RESULT  kappa    time_s   mults  cap_used verify
+WARNING: KS-noise-ratio = 1349.4 > 1
+WARNING: KS-noise-ratio = 357.263 > 1
+WARNING: KS-noise-ratio = 463.812 > 1
+WARNING: KS-noise-ratio = 493.832 > 1
+RESULT     10    25.984      29       826 CORRECT
+WARNING: KS-noise-ratio = 1349.4 > 1
+WARNING: KS-noise-ratio = 393.674 > 1
+WARNING: KS-noise-ratio = 473.043 > 1
+ORBIT      10    19.336      22       580 CORRECT  autos=1
+WARNING: KS-noise-ratio = 1349.4 > 1
+WARNING: KS-noise-ratio = 6442.34 > 1
+WARNING: KS-noise-ratio = 528.659 > 1
+WARNING: KS-noise-ratio = 454.993 > 1
+RESULT     14    26.797      28       690 CORRECT
+WARNING: KS-noise-ratio = 1349.4 > 1
+WARNING: KS-noise-ratio = 6524.56 > 1
+ORBIT      14    19.527      24       520 CORRECT  autos=1
+WARNING: KS-noise-ratio = 1349.4 > 1
+WARNING: KS-noise-ratio = 6398.26 > 1
+WARNING: KS-noise-ratio = 6827.87 > 1
+WARNING: KS-noise-ratio = 89.455 > 1
+WARNING: KS-noise-ratio = 6602.48 > 1
+RESULT     20    25.251      31       586 CORRECT
+WARNING: KS-noise-ratio = 1349.4 > 1
+WARNING: KS-noise-ratio = 6398.26 > 1
+WARNING: KS-noise-ratio = 6827.87 > 1
+WARNING: KS-noise-ratio = 330.624 > 1
+ORBIT      20    21.621      28       484 CORRECT  autos=1
+=== m14 done ===
+exit=0 (m=65536 p=131071 r=6)
+
+########## m=65536 p=131071 A=21906 sup=boxcl ordr=6 bits=2000
+INFO: total bits = 2731.52, security level = 25.6137context m=65536 p=131071 d=2 nslots=16384  filter r=6  A=21906  B=17  setup=77.5s
+boxcl: box (2B+1)^2=1225 closed under M -> |region|=1837 (inflation 1.4996)
+box-closure B=17 |S_A|=1837 (formula=1837) A-stable injective
+order-6 filter: Atil=21906 c1=94683 n=|orbits|=306 degQ=305 density=1/6
+norm-form: n=306 padded to n'=306 (d=2 divides it: yes)
+norm-form: c=400 found in 25.05s, deg F=306 -> 2 factors of degree 153 (want 2 x 153)
+
+RESULT r=6 degEval=305 |S|=1837
+RESULT  kappa    time_s   mults  cap_used verify
+WARNING: KS-noise-ratio = 1578.24 > 1
+WARNING: KS-noise-ratio = 439.752 > 1
+WARNING: KS-noise-ratio = 524.007 > 1
+WARNING: KS-noise-ratio = 455.228 > 1
+WARNING: KS-noise-ratio = 495.276 > 1
+WARNING: KS-noise-ratio = 484.123 > 1
+WARNING: KS-noise-ratio = 496.2 > 1
+RESULT     10    50.349      44      1366 CORRECT
+WARNING: KS-noise-ratio = 1578.24 > 1
+WARNING: KS-noise-ratio = 479.951 > 1
+WARNING: KS-noise-ratio = 596.817 > 1
+WARNING: KS-noise-ratio = 444.127 > 1
+WARNING: KS-noise-ratio = 82.6746 > 1
+ORBIT      10    30.720      30       870 CORRECT  autos=1
+WARNING: KS-noise-ratio = 1578.24 > 1
+WARNING: KS-noise-ratio = 5827.34 > 1
+WARNING: KS-noise-ratio = 4816.13 > 1
+WARNING: KS-noise-ratio = 6324.93 > 1
+WARNING: KS-noise-ratio = 503.36 > 1
+WARNING: KS-noise-ratio = 509.892 > 1
+WARNING: KS-noise-ratio = 493.334 > 1
+WARNING: KS-noise-ratio = 627.545 > 1
+RESULT     14    46.719      39      1084 CORRECT
+WARNING: KS-noise-ratio = 1578.24 > 1
+WARNING: KS-noise-ratio = 5827.34 > 1
+WARNING: KS-noise-ratio = 4816.13 > 1
+WARNING: KS-noise-ratio = 788.119 > 1
+WARNING: KS-noise-ratio = 482.224 > 1
+WARNING: KS-noise-ratio = 209.156 > 1
+ORBIT      14    32.936      29       724 CORRECT  autos=1
+WARNING: KS-noise-ratio = 1578.24 > 1
+WARNING: KS-noise-ratio = 5827.34 > 1
+WARNING: KS-noise-ratio = 4816.13 > 1
+WARNING: KS-noise-ratio = 4801.59 > 1
+WARNING: KS-noise-ratio = 5878.63 > 1
+WARNING: KS-noise-ratio = 76.4502 > 1
+WARNING: KS-noise-ratio = 5437.95 > 1
+WARNING: KS-noise-ratio = 458.47 > 1
+WARNING: KS-noise-ratio = 508.836 > 1
+RESULT     20    40.728      39       878 CORRECT
+WARNING: KS-noise-ratio = 1578.24 > 1
+WARNING: KS-noise-ratio = 5827.34 > 1
+WARNING: KS-noise-ratio = 4816.13 > 1
+WARNING: KS-noise-ratio = 4801.59 > 1
+WARNING: KS-noise-ratio = 5878.63 > 1
+WARNING: KS-noise-ratio = 82.2574 > 1
+WARNING: KS-noise-ratio = 6127.63 > 1
+WARNING: KS-noise-ratio = 88.2176 > 1
+ORBIT      20    29.376      32       630 CORRECT  autos=1
+=== m14 done ===
+exit=0 (m=65536 p=131071 r=6)
+
+########## m=65536 p=131071 A=21906 sup=hex ordr=2 bits=2000
+INFO: total bits = 2731.52, security level = 25.6137context m=65536 p=131071 d=2 nslots=16384  filter r=2  A=21906  B=17  setup=79.6s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+order-2 filter: Atil=131070 c1=0 n=|orbits|=459 degQ=458 density=1/2
+exit=124 (m=65536 p=131071 r=2)
+
+########## m=65536 p=8191 A=91 sup=hex ordr=6 bits=2000
+INFO: total bits = 2743.18, security level = 25.4197context m=65536 p=8191 d=8 nslots=4096  filter r=6  A=91  B=17  setup=20.4s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+order-6 filter: Atil=91 c1=2761 n=|orbits|=153 degQ=152 density=1/6
+norm-form: n=153 padded to n'=160 (d=8 divides it: yes)
+norm-form: c=47 found in 1.97s, deg F=160 -> 8 factors of degree 20 (want 8 x 20)
+
+RESULT r=6 degEval=152 |S|=919
+RESULT  kappa    time_s   mults  cap_used verify
+RESULT     10    21.319      29       713 CORRECT
+ORBIT      10    10.635      19       394 CORRECT  autos=3
+RESULT     14    21.032      28       579 CORRECT
+ORBIT      14    12.061      22       380 CORRECT  autos=3
+RESULT     20    22.246      31       496 CORRECT
+ORBIT      20    15.072      28       403 CORRECT  autos=3
+=== m14 done ===
+exit=0 (m=65536 p=8191 r=6)
+
+########## m=65536 p=8191 A=91 sup=hex ordr=2 bits=2000
+INFO: total bits = 2743.18, security level = 25.4197context m=65536 p=8191 d=8 nslots=4096  filter r=2  A=91  B=17  setup=20.1s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+order-2 filter: Atil=8190 c1=0 n=|orbits|=459 degQ=458 density=1/2
+norm-form: n=459 padded to n'=464 (d=8 divides it: yes)
+norm-form: no irreducible F_c found
+
+RESULT r=2 degEval=458 |S|=919
+RESULT  kappa    time_s   mults  cap_used verify
+RESULT     14    41.104      47      1176 CORRECT
+RESULT     20    38.137      43       905 CORRECT
+RESULT     26    37.029      44       736 CORRECT
+=== m14 done ===
+exit=0 (m=65536 p=8191 r=2)
+
+########## m=209833 p=4003 A=823 sup=hex ordr=6 bits=3000
+exit=143 (m=209833 p=4003 r=6)
+
+########## m=209833 p=4003 A=823 sup=hex ordr=2 bits=3000
+INFO: total bits = 4072.76, security level = 161.177context m=209833 p=4003 d=6 nslots=32280  filter r=2  A=823  B=17  setup=1372.2s
+hexagon B=17 |S_A|=919 (formula=919) A-stable injective
+order-2 filter: Atil=4002 c1=0 n=|orbits|=459 degQ=458 density=1/2
+exit=143 (m=209833 p=4003 r=2)
+ALL DONE

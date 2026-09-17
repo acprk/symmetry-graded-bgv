@@ -2,7 +2,15 @@
 """Final §6 artefacts: tables.tex (h=12 and h=26 end-to-end tables) and two figures. Pass rule: for each ring use the
 pass whose baseline linear-transform time is smallest (lowest machine load); all arms of a ring come from that pass."""
 import csv,json,glob,os,math,sys
-import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
+try:
+    import matplotlib
+except ImportError:
+    sys.exit("matplotlib is required for the figures in this script. On this machine it lives in\n"
+             "/usr/bin/python3, not in every interpreter on PATH; run\n"
+             "    /usr/bin/python3 %s\n"
+             "or install it (pip install matplotlib)." % os.path.basename(__file__))
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 here=os.path.dirname(os.path.abspath(__file__)); out=sys.argv[1] if len(sys.argv)>1 else here
 R=[r for r in csv.DictReader(open(os.path.join(here,'results.csv'))) if r['valid']=='True']
 S={}

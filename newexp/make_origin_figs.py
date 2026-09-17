@@ -1,7 +1,15 @@
 #!/usr/bin/python3
 """Origin-style figures for §6: (a) grouped bars on six representative rings; (b) speedup vs slot degree for all rings."""
 import json,os,sys
-import matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
+try:
+    import matplotlib
+except ImportError:
+    sys.exit("matplotlib is required for the figures in this script. On this machine it lives in\n"
+             "/usr/bin/python3, not in every interpreter on PATH; run\n"
+             "    /usr/bin/python3 %s\n"
+             "or install it (pip install matplotlib)." % os.path.basename(__file__))
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 here=os.path.dirname(os.path.abspath(__file__)); out=sys.argv[1] if len(sys.argv)>1 else here
 d=json.load(open(os.path.join(here,'final/final_rows.json'))); rows=d['h12']; rows26=d['h26']
